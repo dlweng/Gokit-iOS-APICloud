@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" href="../../css/api.css">
+    <style>
+    	html{ background: #eee; }
+    	body{ height: auto; }
+		div.row{ background: #fff; color:#444; line-height: 46px; margin: 30px 0; padding: 0 15px; position: relative; }	
+		div.row .timer{ height: 120px; margin-top: 60px; }
+	</style>
+</head>
+<body>
+	<div class="row" >
+		延时时间设置
+		<div class="timer"></div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript">
+	var UICustomPicker = null,
+		CountDown_Off_min = 0;
+	apiready = function(){
+		UICustomPicker = api.require('UICustomPicker');
+		api.pageParam = api.pageParam.pageParam;
+		CountDown_Off_min = api.pageParam.data.data.CountDown_Off_min || $api.getStorage( 'CountDown_Off_min' + api.pageParam.did ) || '0';
+		var eTimer = $api.dom( '.timer' ),
+			vScope = [];
+		for( var i = 0; i <= 60; i++){
+			vScope.push( i );
+		}
+		UICustomPicker.open({
+		    rect: {
+		        x: eTimer.offsetLeft,
+		        y: eTimer.getBoundingClientRect().top,
+		        w: eTimer.offsetWidth,
+		        h: eTimer.offsetHeight
+		    },
+		    styles: {
+		        bg: 'rgba(0,0,0,0)',
+		        normalColor: '#959595',
+		        selectedColor: '#3685dd',
+		        selectedSize: 36,
+		        tagColor: '#3685dd',
+		        tagSize: 10
+		    },
+		    data: [{
+		        tag: '分',
+		        scope: vScope
+		    }],
+		    rows: 4,
+		    fixedOn: api.frameName,
+		    fixed: true
+		}, function(ret, err){
+			if( ret.eventType === 'selected' ){
+				CountDown_Off_min = ret.data[0];
+			}else if( ret.eventType === 'show' ){
+				UICustomPicker.setValue({
+				    id: 0,
+				    data: [CountDown_Off_min]
+				});
+			}
+		});
+	}
+	
+	function fnWrite( ){
+		api.showProgress({
+		    animationType: 'zoom',
+		    title: '正在更新',
+    		modal: true
+		});
+		$api.setStorage( 'CountDown_Off_min' + api.pageParam.did,  CountDown_Off_min );
+		api.execScript({
+		    name: 'root',
+		    script: 'fnWrite('+JSON.stringify({
+				winName: api.winName,
+				frameName: api.frameName,
+				device: {
+					mac: api.pageParam.mac,
+					did: api.pageParam.did
+				},
+				data: {
+					CountDown_Off_min: CountDown_Off_min
+				}
+			})+')'
+		});
+	}
+	
+	function receive_fnWrite( ret, err){
+		if( ret ){
+			api.execScript({
+			    name: 'win_deviceList',
+			    frameName: 'frm_deviceList',
+			    script: 'fnInit()'
+			});
+			fnPopup({
+				msg: '设置成功'
+			},function(){
+				api.closeToWin({
+				    name: 'win_deviceList'
+				});	 	
+			});
+		}else{
+			fnNotes( err );
+		}
+		api.hideProgress();
+	}
+	
+</script>
+</html>
