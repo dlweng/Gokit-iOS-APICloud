@@ -30,8 +30,8 @@
         }
 
         ul li {
-        	padding-top:20px;
-        	padding-bottom: 20px;
+        	padding-top:12px;
+        	padding-bottom: 12px;
         }
 
         ul li :last-child {
@@ -78,100 +78,111 @@
 		
 		ul li .gos_slideCellBottom #gos_redSub, #gos_greenSub, #gos_blueSub, #gos_motorSpeedSub{
 			display: inline-block;
-			width: 0.8%;
-			margin-right: 2%;
+			width: 8%;
+            height: 30px;
+            text-align: center;
+            /*background-color: blue;*/
 		}
 
 		ul li .gos_slideCellBottom .gos_redSlide, .gos_greenSlide, .gos_blueSlide, .gos_motorSpeedSlide{
 			display: inline-block;
-			width: 84%;
+			width: 75%;
 			background-color: #fff;
 		}
 
 		ul li .gos_slideCellBottom #gos_redAdd, #gos_greenAdd, #gos_blueAdd, #gos_motorSpeedAdd{
 			display: inline-block;
-			width: 0.8%;
-			margin-left: 2%;
+			width: 8%;
+            height: 30px;
+            text-align: center;
+            /*background-color: blue;*/
+            margin-right: 5%;
 		}
+
+      /*  ul li #gos_redSub, #gos_greenSub, #gos_blueSub, #gos_redAdd, #gos_greenAdd, #gos_blueAdd{
+
+        }*/
 
 		
         input[type=range] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    width: 100%;
-    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
-    background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;
-background-size: 0% 100%;
-}
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
-    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
-    background: #ffffff; 
-    border-radius: 50%; /*外观设置为圆形*/
-    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
-    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
-}  
-input[type=range]::-webkit-slider-runnable-track {
-    height: 5px;
-    border-radius: 10px; /*将轨道设为圆角的*/
-    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
-}
-input[type=range]:focus {
-    outline: none;
-}
-input[type=range]::-moz-range-progress {
-    background: linear-gradient(to right, #059CFA, white 100%, white);
-    height: 13px;    
-    border-radius: 10px;
-}
-input[type=range]::-webkit-range-progress {
-    background: #333;
-    height: 13px;    
-    border-radius: 10px;
-}
+            -webkit-appearance: none;
+             -moz-appearance: none;
+             -o-appearance: none;
+             width: 100%;
+             border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+            background-image: background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;
+            background-image: background: -o-linear-gradient(#059CFA, #059CFA) no-repeat;
+            background-image: background: linear-gradient(#059CFA, #059CFA) no-repeat;
+            background-size: 0% 100%;
+        }
+        input[type=range]::-webkit-slider-thumb {
+             -webkit-appearance: none;
+             height: 25px;
+            width: 25px;
+            margin-top: -10px; /*使滑块超出轨道部分的偏移量相等*/
+            background: #ffffff; 
+            border-radius: 50%; /*外观设置为圆形*/
+            border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+            box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+        }  
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 5px;
+            border-radius: 10px; /*将轨道设为圆角的*/
+            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-moz-range-progress {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+            height: 13px;    
+            border-radius: 10px;
+        }
+        input[type=range]::-webkit-range-progress {
+            background: #333;
+            height: 13px;    
+            border-radius: 10px;
+        }
 
-input[type=range]::-ms-track {
-    height: 25px;
-    border-radius: 10px;
-    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
-    border-color: transparent; /*去除原有边框*/
-    color: transparent; /*去除轨道内的竖线*/
-}
+        input[type=range]::-ms-track {
+            height: 25px;
+            border-radius: 10px;
+            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+            border-color: transparent; /*去除原有边框*/
+            color: transparent; /*去除轨道内的竖线*/
+        }
 
-input[type=range]::-ms-thumb {
-    border: solid 0.125em rgba(205, 224, 230, 0.5);
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    background: #ffffff;
-    margin-top: -5px;
-    box-shadow: 0 .125em .125em #3b4547;
-}
+        input[type=range]::-ms-thumb {
+            border: solid 0.125em rgba(205, 224, 230, 0.5);
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            background: #ffffff;
+            margin-top: -5px;
+            box-shadow: 0 .125em .125em #3b4547;
+        }
 
-input[type=range]::-ms-fill-lower {
-    /*进度条已填充的部分*/
-    height: 22px;
-    border-radius: 10px;
-    background: linear-gradient(to right, #059CFA, white 100%, white);
-}
+        input[type=range]::-ms-fill-lower {
+            /*进度条已填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+        }
 
-input[type=range]::-ms-fill-upper {
-    /*进度条未填充的部分*/
-    height: 22px;
-    border-radius: 10px;
-    background: #ffffff;
-}
+        input[type=range]::-ms-fill-upper {
+            /*进度条未填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: #ffffff;
+        }
 
-input[type=range]:focus::-ms-fill-lower {
-    background: linear-gradient(to right, #059CFA, white 100%, white);
-}
+        input[type=range]:focus::-ms-fill-lower {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+        }
 
-input[type=range]:focus::-ms-fill-upper {
-    background: #ffffff;
-}
+        input[type=range]:focus::-ms-fill-upper {
+            background: #ffffff;
+        }
 
     </style>
 </head>
@@ -291,7 +302,7 @@ input[type=range]:focus::-ms-fill-upper {
     var static_LED_R = "LED_R";
     var static_LED_G = "LED_G";
     var static_LED_B = "LED_B";
-    var static_LED_MotorSpeed = "Motor_Speed";
+    var static_MotorSpeed = "Motor_Speed";
     var static_LED_Infrared = "Infrared";
     var static_Temperature = "Temperature";
     var static_Humidity = "Humidity";
@@ -307,73 +318,9 @@ input[type=range]:focus::-ms-fill-upper {
     var temperature = 0;
     var humidity = 0;
 
-    // // 定时器
-    // var timer;
-    // var test = 0;
-
-    // 设备
-    // var device = api.require('gizWifiDevice');
-
-    //加载后调用该方法
-  //   $(function()
-  //   {
-  //   	// 调用枚举的方法  dataPoint.GosDeviceFaultIR
-
-  //       fnPopup({
-  //           msg: '正在更新数据，请稍候...'
-  //       }, function() {
-
-  //       });
-
-  //   	console.log("注册监听方法");
-  //   	device.registerNotifications({
-  //   		"device":{
-  //   			"did": api.pageParam.did,
-  //   			"mac": api.pageParam.mac
-  //   		}, function（ret, err）{
-
-  //   			var prinf = "ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err);
-  //   			fnPopup({msg: '设备状态变化'});
-  //   		}
-  //   	});
-
-  //   	// 获取设备状态
-  //   	device.getDeviceStatus({
-  //   		"device": {
-  //       	"did": api.pageParam.did,
-  //    	    "mac": api.pageParam.mac
-  //  			 }
-		// }, function(ret, err) {
-  //       	alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err))
-  //   	});
-  //   })
-
-  //   window.onbeforeunload = function()
-  //   {
-  //   	fnPopup(msg: "解除订阅");
-  //   	device.setSubscribe({
-  //   		"subscribed": true,
-  //   		"device": {
-  //      	    "mac": api.pageParam.mac,
-  //           "did": api.pageParam.did
-  //     }
-  //     }, function(ret, err) {
-  //           alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err))
-  //   	});
-  //   }
-
-    // 创建定时器
-		// console.log("调用定时器");
-  //   	timer = window.setInterval("run()", 1000);
-    // // 定时器定时执行
-    // function run()
-    // {
-    // 	test++;
-    // 	if (test == 5) {
-    // 		window.clearInterval(timer);
-    // 	}
-    // 	console.log("运行" + test);
-    // }
+    // 定时器
+    var timer;
+    var isController;
 
     // 按钮被点击
 	function ios7CBoxDidClick( el ){
@@ -399,8 +346,6 @@ input[type=range]:focus::-ms-fill-upper {
 		 	{
 		 		console.log("gos_ledOnOff未被选中")
 		 	}
-
-
 		 }
 		 else if (blockId == "gos_infraredBlock"){
 		 	var checked = $("#gos_infrared").attr("checked");
@@ -461,38 +406,64 @@ input[type=range]:focus::-ms-fill-upper {
 		return colorValue;
 	}
 
+    apiready = function(){
+        
+        api.showProgress({
+            animationType: 'zoom',
+            title: '正在更新',
+            modal: true
+        });
+     
+        $('#gos_rSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
+        $('#gos_gSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
+        $('#gos_bSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
+        $('#gos_mSSlide').RangeSlider({ min: -5,   max: 5,  step: 1,  callback: change});
 
-    // 设置滑动条的属性和监听事件
-	$.fn.RangeSlider = function(cfg){
-    this.sliderCfg = {
-        min: cfg && !isNaN(parseFloat(cfg.min)) ? Number(cfg.min) : null, 
-        max: cfg && !isNaN(parseFloat(cfg.max)) ? Number(cfg.max) : null,
-        step: cfg && Number(cfg.step) ? cfg.step : 1,
-        callback: cfg && cfg.callback ? cfg.callback : null
-    };
+        api.execScript({
+              name: 'root',
+              script: 'fnRegisterDeviceStatusNotification(' +JSON.stringify({
+                    winName: api.winName,
+                    frameName: api.frameName,
+                    data: {
+                        did: api.pageParam.pageParam.did,
+                        mac: api.pageParam.pageParam.mac
+                    }
+             }) + ')'
+        });
 
-    var $input = $(this);
-    var min = this.sliderCfg.min;
-    var max = this.sliderCfg.max;
-    var step = this.sliderCfg.step;
-    var callback = this.sliderCfg.callback;
+        checkDeviceNetStatus();    
+    }
 
-    $input.attr('min', min)
-        .attr('max', max)
-        .attr('step', step);
+         // 设置滑动条的属性和监听事件
+    $.fn.RangeSlider = function(cfg){
+        this.sliderCfg = {
+             min: cfg && !isNaN(parseFloat(cfg.min)) ? Number(cfg.min) : null, 
+             max: cfg && !isNaN(parseFloat(cfg.max)) ? Number(cfg.max) : null,
+             step: cfg && Number(cfg.step) ? cfg.step : 1,
+             callback: cfg && cfg.callback ? cfg.callback : null
+        };
 
-    $input.bind("input", function(e){
+        var $input = $(this);
+        var min = this.sliderCfg.min;
+        var max = this.sliderCfg.max;
+        var step = this.sliderCfg.step;
+        var callback = this.sliderCfg.callback;
+
+        $input.attr('min', min)
+            .attr('max', max)
+            .attr('step', step);
+
+        $input.bind("input", function(e){
         $input.attr('value', this.value);
-        // $input.css( 'background', 'linear-gradient(to right, #059CFA, white ' + this.value + '%, white)' );
 
         var newValue;
         var id = this.id;
         if (id === "gos_rSlide" || id === "gos_gSlide" || id === "gos_bSlide") {
-        	newValue = (this.value / 254 ) * 100;
+            newValue = (this.value / 254 ) * 100;
         }
         else
         {
-        	newValue = (5 + parseFloat(this.value)) * 10; 
+            newValue = (5 + parseFloat(this.value)) * 10; 
         }
         $input.css( 'background-size', newValue + '% 100%' ); 
 
@@ -500,32 +471,159 @@ input[type=range]:focus::-ms-fill-upper {
             callback(this);
         }
     });
-};
+    };
 
-// 改变的时候会调用
-			var change = function($input) {
-                /*内容可自行定义*/
+    function getDeviceStatus()
+    {
+        api.execScript({
+            name: 'root',
+            script: 'fnGetDeviceStatus(' + JSON.stringify({
+                winName: api.winName,
+                frameName: api.frameName,
+                data: {
+                    isLAN: api.pageParam.pageParam.isLAN,
+                    mac: api.pageParam.pageParam.mac,
+                    did: api.pageParam.pageParam.did
+                }
+            }) +')'
+        });
+    }
 
-                console.log("change" + $input.value);
-                var id = $input.id;
-                if (id == "gos_rSlide"){
-                	$(".gos_redValue").html($input.value);
-                }
-                else if(id == "gos_gSlide"){
-                	$(".gos_greenValue").html($input.value);
-                }
-                else if (id == "gos_bSlide") {
-                	$(".gos_blueValue").html($input.value);
-                }
-                else if(id == "gos_mSSlide"){
-                	$(".gos_motorSpeedValue").html($input.value);
+    function checkDeviceNetStatus()
+    {
+        var netStatus = api.pageParam.pageParam.netStatus;;
+        isController = false;
+        if (netStatus == 2) {
+            // alert('设备可控 + netStatus', netStatus);
+            getDeviceStatus();
+            isController = true;
+        }
+        else
+        {
+            var isLAN = JSON.stringify(api.pageParam.pageParam.isLAN);
+            var delay = isLAN == 1 ? 10000 : 30000;
+            timer = window.setInterval("run()", delay);
+        
+        }
+    }
+
+    function run()
+    {
+        var netStatus = api.pageParam.pageParam.netStatus;;
+       // 关闭定时器
+       window.clearTimeout(timer);
+       if (netStatus != 2) {
+        alert("run + close + netStatus = " + netStatus);
+            api.closeWin();
+       }
+       else {
+            getDeviceStatus();
+            isController = true;
+       }
+    }
+
+
+    function receive_fnRegisterDeviceStatusNotification(ret, err){
+        console.log("注册通知接口, 设备主动上报状态");
+        // console.log("ret = " + JSON.stringify(ret) + ", err" = JSON.stringify(err));
+        if (ret != null && ret != undefined) {
+            var netStatus = JSON.stringify(ret.netStatus);
+            var error = JSON.stringify(err);
+            // alert('设备状态发生变化:netStatus' + netStatus);
+
+            if (netStatus == 2) {
+                if (isController == false) {
+                    window.clearTimeout(timer);
+                    getDeviceStatus();
+                    isController = true;
                 }
             }
+            else
+            {
+                if (isController == true) {
+                    api.closeWin();
+                    alert("receive_fnRegisterDeviceStatusNotification + close");
+                }
+            }
+        }
+    }
 
-            console.log("开始渲染");
-            $('#gos_rSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
-            $('#gos_gSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
-            $('#gos_bSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
-            $('#gos_mSSlide').RangeSlider({ min: -5,   max: 5,  step: 1,  callback: change});
+    function receive_fnGetDeviceStatus(ret, err)
+    {
+
+        console.log("***********************************");
+        console.log("didReceiveData被回调");
+
+        api.hideProgress();
+        if (ret != null && ret != undefined) {
+            if (isController == false) {
+                isController = true;
+                window.clearTimeout(timer);
+            }
+
+            var data = ret.data;
+            if (data != null && data != undefined) {
+                // 读数据
+                readDataPoint(dataPoint.GosDeviceWriteLED_onOff, data);
+                readDataPoint(dataPoint.GosDeviceWriteLED_Color, data);
+                readDataPoint(dataPoint.GosDeviceWriteLED_R, data);
+                readDataPoint(dataPoint.GosDeviceWriteLED_G, data);
+                readDataPoint(dataPoint.GosDeviceWriteLED_B, data);
+                readDataPoint(dataPoint.GosDeviceWriteMotorSpeed);
+                var alerts = JSON.stringify(ret.alerts);
+                var faults = JSON.stringify(ret.faults);
+            }
+        }
+    }
+
+    // 读数据点
+    function readDataPoint(dp, data)
+    {
+        switch(dp)
+        {
+            case dataPoint.GosDeviceWriteLED_onOff:
+            var led_OnOff = data[static_LED_OnOff];
+            console.log("**************led_OnOff = " + led_OnOff + "**************");
+        
+            case dataPoint.GosDeviceWriteLED_Color:
+            var led_Color = data[static_LED_Color];
+            console.log("**************led_Color = " + led_Color + "**************");
+
+            case dataPoint.GosDeviceWriteLED_R:
+            var led_R = data[static_LED_R];
+            console.log("**************led_R = " + led_R + "**************");
+
+            case dataPoint.GosDeviceWriteLED_G:
+            var led_G = data[static_LED_G];
+            console.log("**************led_G = " + led_G + "**************");
+
+            case dataPoint.GosDeviceWriteLED_B:
+            var led_B = data[static_LED_B];
+            console.log("**************led_B = " + led_B + "**************");
+
+            case dataPoint.GosDeviceWriteMotorSpeed:
+            var motorSpeed = data[static_MotorSpeed];
+            console.log("**************motorSpeed = " + motorSpeed + "**************");
+        }
+    }
+
+    var change = function($input) {
+                /*内容可自行定义*/
+          console.log("change" + $input.value);
+          var id = $input.id;
+          if (id == "gos_rSlide"){
+                 $(".gos_redValue").html($input.value);
+          }
+          else if(id == "gos_gSlide"){
+                 $(".gos_greenValue").html($input.value);
+          }
+          else if (id == "gos_bSlide") {
+                 $(".gos_blueValue").html($input.value);
+          }
+          else if(id == "gos_mSSlide"){
+                 $(".gos_motorSpeedValue").html($input.value);
+          }
+    }
+    
 </script>
 </html>
