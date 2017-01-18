@@ -207,7 +207,7 @@
 			<div class="gos_slideCellBottom">
 				<span id="gos_redSub" onclick="caculatorColor(this)">-</span>
 				<span class="gos_redSlide">
-				   <input type="range" value="0" id="gos_rSlide">
+				   <input type="range" value="0" id="gos_rSlide" onchange="didStopMove(this)">
 				</span>
 				<span id="gos_redAdd" onclick="caculatorColor(this)">+</span>
 			</div>
@@ -220,7 +220,7 @@
 			<div class="gos_slideCellBottom">
 				<span id="gos_greenSub" onclick="caculatorColor(this)">-</span>
 				<span class="gos_greenSlide">
-				   <input type="range" value="0" id="gos_gSlide">
+				   <input type="range" value="0" id="gos_gSlide" onchange="didStopMove(this)">
 				</span>
 				<span id="gos_greenAdd" onclick="caculatorColor(this)">+</span>
 			</div>
@@ -233,7 +233,7 @@
 			<div class="gos_slideCellBottom">
 				<span id="gos_blueSub" onclick="caculatorColor(this)" >-</span>
 				<span class="gos_blueSlide">
-				   <input type="range" value="0" id="gos_bSlide">
+				   <input type="range" value="0" id="gos_bSlide" onchange="didStopMove(this)">
 				</span>
 				<span id="gos_blueAdd" onclick="caculatorColor(this)">+</span>
 			</div>
@@ -246,7 +246,7 @@
 			<div class="gos_slideCellBottom">
 				<span id="gos_motorSpeedSub" onclick="caculatorColor(this)" >-</span>
 				<span class="gos_motorSpeedSlide">
-				   <input type="range" value="-5" id="gos_mSSlide">
+				   <input type="range" value="-5" id="gos_mSSlide" onchange="didStopMove(this)">
 				</span>
 				<span id="gos_motorSpeedAdd" onclick="caculatorColor(this)">+</span>
 			</div>
@@ -258,11 +258,11 @@
 		</li>
 		<li>
 			<span>温度</span>
-			<span class="gos_rightBlock">-</span>
+			<span class="gos_rightBlock" id="gos_temperature">-</span>
 		</li>
 		<li>
 			<span>湿度</span>
-			<span class="gos_rightBlock">0</span>
+			<span class="gos_rightBlock" id="gos_humidity">0</span>
 		</li>
 	</ul>
 </body>
@@ -284,16 +284,6 @@
 		GosDeviceReadIR: 6, //红外
 		GosDeviceReadTemperature: 7, //温度
 		GosDeviceReadHumidity: 8, //湿度
-
-		// 警告
-		GosDeviceAlarm1: 9, //报警1
-		GosDeviceAlarm2: 10, //报警2
-
-		// 错误
-		GosDeviceFaultLED: 11,              //LED故障
-    	GosDeviceFaultMotor: 12,            //电机故障
-   	 	GosDeviceFaultSensor: 13,           //温湿度传感器故障
-    	GosDeviceFaultIR: 14              //红外故障
 	}
     
     // 数据点名称
@@ -324,14 +314,17 @@
 
     // 按钮被点击
 	function ios7CBoxDidClick( el ){
-
+        var id = el.id;
+        id = "#" + id.replace("Block", "");
+        
 		// 渲染颜色
-		if( $api.hasCls(el.querySelector( '.ios7CBox' ), 'checked') ){
-			$api.removeCls(el.querySelector( '.ios7CBox' ), 'checked');
-		}else{
-			$api.addCls(el.querySelector( '.ios7CBox' ), 'checked');
-		 }
+		if( $api.hasCls(el.querySelector( id ), 'checked') ){
+            $api.removeCls(el.querySelector( id ), 'checked');
+        }else{
+            $api.addCls(el.querySelector( id ), 'checked');
+        }
 
+         console.log("el = " + el + ", JSON.stringify(el) = " + JSON.stringify(el));
 		 var blockId = el.id;
 		 console.log(el.class, el.id);
 		 
@@ -363,36 +356,47 @@
 	function caculatorColor(el)
 	{
 		var id = el.id;
+        var colorValue;
 		if (id == "gos_redSub") {
-			var colorValue = caculatorValue(".gos_redValue", false, 254, 0);
-			//改变滑块的位置
-			var slide = $("#gos_redSlide");
-			slide.value = colorValue;
-			change;
-			console.log(slide, colorValue);
+		    colorValue = caculatorValue(".gos_redValue", false, 254, 0);
+			updateSlideColor($("#gos_rSlide"), colorValue);
 		}
 		else if(id == "gos_greenSub"){
-			caculatorValue(".gos_greenValue", false, 254, 0);
+			colorValue = caculatorValue(".gos_greenValue", false, 254, 0);
+            updateSlideColor($("#gos_gSlide"), colorValue);
 		}
 		else if(id == "gos_blueSub"){
-			caculatorValue(".gos_blueValue", false, 254, 0);
+			colorValue = caculatorValue(".gos_blueValue", false, 254, 0);
+            updateSlideColor($("#gos_bSlide"), colorValue);
 		}
 		else if(id == "gos_motorSpeedSub"){
-			caculatorValue(".gos_motorSpeedValue", false, 5, -5);
+			colorValue = caculatorValue(".gos_motorSpeedValue", false, 5, -5);
+            updateSlideColor($("#gos_mSSlide"), colorValue);
 		}
 		else if (id == "gos_redAdd") {
-			caculatorValue(".gos_redValue", true, 254, 0);
+			colorValue = caculatorValue(".gos_redValue", true, 254, 0);
+            updateSlideColor($("#gos_rSlide"), colorValue);
 		}
 		else if(id == "gos_greenAdd"){
-			caculatorValue(".gos_greenValue", true, 254, 0);
+			colorValue = caculatorValue(".gos_greenValue", true, 254, 0);
+            updateSlideColor($("#gos_gSlide"), colorValue);
 		}
 		else if(id == "gos_blueAdd"){
-			caculatorValue(".gos_blueValue", true, 254, 0);
+			colorValue = caculatorValue(".gos_blueValue", true, 254, 0);
+            updateSlideColor($("#gos_bSlide"), colorValue);
 		}
 		else if(id == "gos_motorSpeedAdd"){
-			caculatorValue(".gos_motorSpeedValue", true, 5, -5);
+			colorValue = caculatorValue(".gos_motorSpeedValue", true, 5, -5);
+            updateSlideColor($("#gos_mSSlide"), colorValue);
 		}
 	}
+
+    function updateSlideColor(slide, colorValue)
+    {
+        slide.attr("value", colorValue);
+        var widthValue = ((colorValue / 254)*100);
+        $(slide).css( 'background-size', widthValue + '% 100%' );
+    }
 
 	function caculatorValue(valueString, isAdd, max, min)
 	{
@@ -454,6 +458,7 @@
             .attr('step', step);
 
         $input.bind("input", function(e){
+
         $input.attr('value', this.value);
 
         var newValue;
@@ -466,8 +471,9 @@
             newValue = (5 + parseFloat(this.value)) * 10; 
         }
         $input.css( 'background-size', newValue + '% 100%' ); 
-
+        console.log("渲染颜色");
         if ($.isFunction(callback)) {
+            console.log("调用callback");
             callback(this);
         }
     });
@@ -512,12 +518,13 @@
         var netStatus = api.pageParam.pageParam.netStatus;;
        // 关闭定时器
        window.clearTimeout(timer);
+       api.hideProgress();
+       getDeviceStatus();
        if (netStatus != 2) {
-        alert("run + close + netStatus = " + netStatus);
-            api.closeWin();
+        // alert("run + close + netStatus = " + netStatus);
+            // api.closeWin();
        }
        else {
-            getDeviceStatus();
             isController = true;
        }
     }
@@ -525,25 +532,26 @@
 
     function receive_fnRegisterDeviceStatusNotification(ret, err){
         console.log("注册通知接口, 设备主动上报状态");
-        // console.log("ret = " + JSON.stringify(ret) + ", err" = JSON.stringify(err));
+        console.log("ret = " + JSON.stringify(ret) + ", err = " + JSON.stringify(err));
         if (ret != null && ret != undefined) {
             var netStatus = JSON.stringify(ret.netStatus);
             var error = JSON.stringify(err);
             // alert('设备状态发生变化:netStatus' + netStatus);
 
-            if (netStatus == 2) {
+            if (netStatus == 2 || netStatus == -1)
+             {
                 if (isController == false) {
+                    api.hideProgress();
                     window.clearTimeout(timer);
-                    getDeviceStatus();
                     isController = true;
                 }
+    
+                readData(ret);
             }
             else
             {
-                if (isController == true) {
-                    api.closeWin();
-                    alert("receive_fnRegisterDeviceStatusNotification + close");
-                }
+                api.closeWin();
+                alert("receive_fnRegisterDeviceStatusNotification + close");
             }
         }
     }
@@ -557,21 +565,167 @@
         api.hideProgress();
         if (ret != null && ret != undefined) {
             if (isController == false) {
+                api.hideProgress();
                 isController = true;
                 window.clearTimeout(timer);
             }
+            readData(ret);
+        }
+    }
 
-            var data = ret.data;
-            if (data != null && data != undefined) {
-                // 读数据
-                readDataPoint(dataPoint.GosDeviceWriteLED_onOff, data);
-                readDataPoint(dataPoint.GosDeviceWriteLED_Color, data);
-                readDataPoint(dataPoint.GosDeviceWriteLED_R, data);
-                readDataPoint(dataPoint.GosDeviceWriteLED_G, data);
-                readDataPoint(dataPoint.GosDeviceWriteLED_B, data);
-                readDataPoint(dataPoint.GosDeviceWriteMotorSpeed);
-                var alerts = JSON.stringify(ret.alerts);
-                var faults = JSON.stringify(ret.faults);
+    function readData(ret)
+    {
+        console.log("********************readData被调用**********************");
+        var data = ret.data;
+        if (data != null && data != undefined) {
+                    // 读数据
+            readDataPoint(dataPoint.GosDeviceWriteLED_onOff, data);
+            readDataPoint(dataPoint.GosDeviceWriteLED_Color, data);
+            readDataPoint(dataPoint.GosDeviceWriteLED_R, data);
+            readDataPoint(dataPoint.GosDeviceWriteLED_G, data);
+            readDataPoint(dataPoint.GosDeviceWriteLED_B, data);
+            readDataPoint(dataPoint.GosDeviceWriteMotorSpeed, data);
+            readDataPoint(dataPoint.GosDeviceReadIR, data);
+            readDataPoint(dataPoint.GosDeviceReadTemperature, data);
+            readDataPoint(dataPoint.GosDeviceReadHumidity, data);
+            updateUI();
+        }
+
+        var alerts = ret.alerts;
+        var alertsStr = "";
+        if (alerts != null && alerts != undefined) {
+            
+            var alertNum = 0;
+            if (alerts.Alert_1) {
+                if (alertNum == 0) {
+                    alertsStr += "设备报警:";
+                }
+                alertNum++;
+                alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                alertsStr += "Alert_1错误码: 1";
+                console.log("alertsStr = " + alertsStr);
+            }
+            if (alerts.Alert_2) {
+                if (alertNum == 0) {
+                    alertsStr += "设备报警:";
+                }
+                alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                alertsStr += "Alert_2错误码: 1";
+                console.log("alertsStr = " + alertsStr);
+            }
+        }
+        var faults = ret.faults;
+        if (faults != null && faults != undefined) {
+             var faultNum = 0;
+             if (faults.Fault_IR) {
+                if (faultNum == 0) {
+                    alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                    alertsStr += "设备错误:";
+                }
+                faultNum++;
+                alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                alertsStr += "Fault_IR错误码: 1";
+                console.log("alertsStr = " + alertsStr);
+             }
+             if (faults.Fault_LED) {
+                if (faultNum == 0) {
+                    alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                    alertsStr += "设备错误:";
+                }
+                faultNum++;
+                alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                alertsStr += "Fault_LED错误码: 1";
+                console.log("alertsStr = " + alertsStr);
+             }
+             if (faults.Fault_Motor) {
+                if (faultNum == 0) {
+                    alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                    alertsStr += "设备错误:";
+                }
+                faultNum++;
+                alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                alertsStr += "Fault_Motor错误码: 1";
+                console.log("alertsStr = " + alertsStr);
+             }
+             if (faults.Fault_TemHum) {
+                if (faultNum == 0) {
+                    alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                    alertsStr += "设备错误:";
+                }
+                alertsStr = (alertsStr == "" ? alertsStr : alertsStr + "\n");
+                alertsStr += "Fault_TemHum错误码: 1";
+                console.log("alertsStr = " + alertsStr);
+             }
+        }
+
+        if (alertsStr != "") {
+            api.toast({
+                msg: alertsStr,
+                duration: 2000,
+                location: 'pan'
+            });
+        }
+        
+        console.log("alerts = " + alerts);
+        console.log("faults = " + faults);
+
+    }
+
+    function updateUI()
+    {
+        console.log("led_OnOff = " + led_OnOff);
+        console.log("infrared = " + infrared);
+        //开关灯
+        var led_OnOffB = document.getElementById("gos_ledOnOffBlock");
+        console.log("led_OnOffB = " + led_OnOffB);
+        updateSwitchShow(led_OnOffB, "#gos_ledOnOff", led_OnOff);
+
+        $(".gos_redValue").html(led_R);
+        updateSlideColor($("#gos_rSlide"), led_R);
+
+        $(".gos_greenValue").html(led_G);
+        updateSlideColor($("#gos_gSlide"), led_G);
+
+        $(".gos_blueValue").html(led_B);
+        updateSlideColor($("#gos_bSlide"), led_B);
+
+        $(".gos_motorSpeedValue").html(motorSpeed);
+        updateSlideColor($("#gos_mSSlide"), motorSpeed);
+
+        // 红外探测
+        var infraredB = document.getElementById("gos_infraredBlock");
+        console.log("infraredB = " + infraredB);
+        updateSwitchShow(infraredB, "#gos_infrared", infrared);
+
+        // 温度
+        if (temperature < 0) {
+            $("#gos_temperature").html("-");
+        }
+        else
+        {
+            $("#gos_temperature").html(temperature);
+        }
+
+        if (humidity < 0) {
+            $("#gos_humidity").html("-");
+        }
+        else
+        {
+            $("#gos_humidity").html(humidity);
+        }
+    }
+
+    function updateSwitchShow(el, id, value)
+    {
+        if (value) {
+            if ($api.hasCls(el.querySelector( id ), 'checked') == false) {
+                $api.addCls(el.querySelector( id ), 'checked');
+            }
+        }
+        else
+        {
+            if ($api.hasCls(el.querySelector( id ), 'checked')) {
+                $api.removeCls(el.querySelector( id ), 'checked');
             }
         }
     }
@@ -582,28 +736,42 @@
         switch(dp)
         {
             case dataPoint.GosDeviceWriteLED_onOff:
-            var led_OnOff = data[static_LED_OnOff];
+            led_OnOff = data[static_LED_OnOff];
             console.log("**************led_OnOff = " + led_OnOff + "**************");
-        
+            break;
+  
             case dataPoint.GosDeviceWriteLED_Color:
-            var led_Color = data[static_LED_Color];
-            console.log("**************led_Color = " + led_Color + "**************");
+            led_Color = data[static_LED_Color];
+            break;
 
             case dataPoint.GosDeviceWriteLED_R:
-            var led_R = data[static_LED_R];
-            console.log("**************led_R = " + led_R + "**************");
+            led_R = data[static_LED_R];
+            break;
 
             case dataPoint.GosDeviceWriteLED_G:
-            var led_G = data[static_LED_G];
-            console.log("**************led_G = " + led_G + "**************");
+            led_G = data[static_LED_G];
+            break;
 
             case dataPoint.GosDeviceWriteLED_B:
-            var led_B = data[static_LED_B];
-            console.log("**************led_B = " + led_B + "**************");
+            led_B = data[static_LED_B];
+            break;
 
             case dataPoint.GosDeviceWriteMotorSpeed:
-            var motorSpeed = data[static_MotorSpeed];
-            console.log("**************motorSpeed = " + motorSpeed + "**************");
+            motorSpeed = data[static_MotorSpeed];
+
+            case dataPoint.GosDeviceReadIR:
+            infrared = data[static_LED_Infrared];
+            break;
+
+            case dataPoint.GosDeviceReadTemperature:
+            temperature = data[static_Temperature];
+            break;
+
+            case dataPoint.GosDeviceReadHumidity:
+            humidity = data[static_Humidity];
+            break;
+
+
         }
     }
 
@@ -624,6 +792,28 @@
                  $(".gos_motorSpeedValue").html($input.value);
           }
     }
-    
+
+    function didStopMove(slide)
+    {
+        var id = slide.id;
+        if (id == "gos_rSlide"){
+                 // $(".gos_redValue").html($input.value);
+                 // console.log("红色值 = ", $(".gos_redValue").html());
+          }
+          else if(id == "gos_gSlide"){
+                 // $(".gos_greenValue").html($input.value);
+                 // console.log("绿色值 = ", $(".gos_greenValue").html());
+          }
+          else if (id == "gos_bSlide") {
+                 // $(".gos_blueValue").html($input.value);
+                 // console.log("蓝色值 = ", $(".gos_blueValue").html());
+          }
+          else if(id == "gos_mSSlide"){
+                 // $(".gos_motorSpeedValue").html($input.value);
+                 // console.log("转速 = ", $(".gos_motorSpeedValue").html());
+          }
+    }
+
+   
 </script>
 </html>
