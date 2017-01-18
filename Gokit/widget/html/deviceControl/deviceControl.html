@@ -324,32 +324,36 @@
             $api.addCls(el.querySelector( id ), 'checked');
         }
 
-         console.log("el = " + el + ", JSON.stringify(el) = " + JSON.stringify(el));
-		 var blockId = el.id;
-		 console.log(el.class, el.id);
+    	var blockId = el.id;
 		 
-		 if (blockId == "gos_ledOnOffBlock") {
-		 	var checked = $("#gos_ledOnOff").attr("checked");
+		if (blockId == "gos_ledOnOffBlock") {
+		 var checked = $("#gos_ledOnOff").attr("checked");
 	
 		 	if (checked == "checked") 
 		 	{
-		 		console.log("gos_ledOnOff已经选中");
+                console.log("被选中");
+		 		led_OnOff = true;
 		 	}
 		 	else
 		 	{
-		 		console.log("gos_ledOnOff未被选中")
+                console.log("没被选中")
+		 		led_OnOff = false;
 		 	}
+            write(dataPoint.GosDeviceWriteLED_onOff, led_OnOff);
 		 }
 		 else if (blockId == "gos_infraredBlock"){
 		 	var checked = $("#gos_infrared").attr("checked");
 		 	if (checked == "checked") 
 		 	{
-		 		console.log("gos_infrared已经选中");
+                console.log("被选中");
+		 		infrared = true;
 		 	}
 		 	else
 		 	{
-		 		console.log("gos_infrared未被选中")
+		 		infrared = false;
+                console.log("没被选中")
 		 	}
+            write(dataPoint.GosDeviceReadIR, infrared);
 		 }
 	}	
 
@@ -529,7 +533,50 @@
        }
     }
 
+    function write(dp, value)
+    {
+        var dataValue;
+        switch(dp)
+        {
+            case dataPoint.GosDeviceWriteLED_onOff:
+                dataValue = {"LED_OnOff": value};
+                break;
+            case dataPoint.GosDeviceWriteLED_Color:
+                dataValue = {"LED_Color": value};
+                break;
+            case dataPoint.GosDeviceWriteLED_R:
+                dataValue = {"LED_R": value};
+                break;
+            case dataPoint.GosDeviceWriteLED_G:
+                dataValue = {"LED_G": value};
+                break;
+            case dataPoint.GosDeviceWriteLED_B:
+                dataValue = {"LED_B": value};
+                break;
+            case dataPoint.GosDeviceWriteMotorSpeed:
+                dataValue = {"Motor_Speed": value};
+                break;
+        }
 
+        console.log("下发控制指令： dataValue = " + JSON.stringify(dataValue));
+        api.execScript({
+            'name': 'root',
+            'script': 'fnWrite(' + JSON.stringify({
+                'name': api.winName,
+                'frameName': api.frameName,
+                'device': {
+                    'mac': api.pageParam.pageParam.mac,
+                    'did': api.pageParam.pageParam.did
+                },
+                data: dataValue,
+                sn: 4
+            }) + ')'
+        });
+    }
+
+    function receive_fnWrite(ret, err){
+        
+    }
     function receive_fnRegisterDeviceStatusNotification(ret, err){
         console.log("注册通知接口, 设备主动上报状态");
         console.log("ret = " + JSON.stringify(ret) + ", err = " + JSON.stringify(err));
@@ -577,7 +624,10 @@
     {
         console.log("********************readData被调用**********************");
         var data = ret.data;
-        if (data != null && data != undefined) {
+        
+        console.log("data.static_LED_OnOff = " + data.LED_OnOff);
+        if (data != null && data != undefined && data.LED_OnOff != undefined) {
+
                     // 读数据
             readDataPoint(dataPoint.GosDeviceWriteLED_onOff, data);
             readDataPoint(dataPoint.GosDeviceWriteLED_Color, data);
@@ -797,20 +847,16 @@
     {
         var id = slide.id;
         if (id == "gos_rSlide"){
-                 // $(".gos_redValue").html($input.value);
-                 // console.log("红色值 = ", $(".gos_redValue").html());
+                write(dataPoint.GosDeviceWriteLED_R, slide.value);
           }
           else if(id == "gos_gSlide"){
-                 // $(".gos_greenValue").html($input.value);
-                 // console.log("绿色值 = ", $(".gos_greenValue").html());
+                write(dataPoint.GosDeviceWriteLED_G, slide.value);
           }
           else if (id == "gos_bSlide") {
-                 // $(".gos_blueValue").html($input.value);
-                 // console.log("蓝色值 = ", $(".gos_blueValue").html());
+                write(dataPoint.GosDeviceWriteLED_B, slide.value);
           }
           else if(id == "gos_mSSlide"){
-                 // $(".gos_motorSpeedValue").html($input.value);
-                 // console.log("转速 = ", $(".gos_motorSpeedValue").html());
+                write(dataPoint.GosDeviceWriteMotorSpeed,  slide.value);
           }
     }
 
