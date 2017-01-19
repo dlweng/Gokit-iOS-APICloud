@@ -192,7 +192,7 @@
 			<span>开启/关闭红色灯</span>
 			<span class="gos_rightBlock" id="gos_ledOnOffBlock" onclick="ios7CBoxDidClick(this)"><input class="ios7CBox" id="gos_ledOnOff" type="checkbox"></span>
 		</li>
-		<li tapmode="opacity" onclick="fnJumpWin({name: 'selectedLEDColor',path: '/deviceControl', pageParam: api.pageParam});" >
+		<li tapmode="opacity" onclick="fnJumpWin({name: 'selectedLEDColor',path: '/deviceControl', pageParam: colorDic});" >
 			<span>设定LED组合颜色</span>
 			<span class="gos_rightBlock">
 				<span class="gos_custom">自定义</span>
@@ -307,10 +307,12 @@
     var infrared = false;
     var temperature = 0;
     var humidity = 0;
+    // var colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
 
     // 定时器
     var timer;
     var isController;
+    var colorDic;
 
     // 按钮被点击
 	function ios7CBoxDidClick( el ){
@@ -416,6 +418,8 @@
 
     apiready = function(){
         
+        colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
+        console.log("colorDic = " + colorDic);
         api.showProgress({
             animationType: 'zoom',
             title: '正在更新',
@@ -791,6 +795,7 @@
   
             case dataPoint.GosDeviceWriteLED_Color:
             led_Color = data[static_LED_Color];
+            colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
             break;
 
             case dataPoint.GosDeviceWriteLED_R:
