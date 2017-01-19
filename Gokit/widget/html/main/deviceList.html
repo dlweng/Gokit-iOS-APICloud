@@ -225,6 +225,14 @@
 	
 	function receive_fnSetSubscribe( ret, err, data ){
 		if( ret ){
+			//发送即将跳转界面通知
+			api.sendEvent({
+    			name: 'JumpToDeviceControl',
+   			    extra: {
+       		    device: data
+   			 }
+			});
+
 			$api.setStorage( 'device_message', data );
 			fnJumpWin({name: 'deviceControl', path: '/deviceControl', pageParam: data });
 			api.hideProgress();

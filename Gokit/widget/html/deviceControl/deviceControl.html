@@ -241,7 +241,7 @@
 		<li>
 			<div class="gos_slideCellTop">
 				<span>设定电机转速</span>
-				<span class="gos_motorSpeedValue">0</span>
+				<span class="gos_motorSpeedValue">-5</span>
 			</div>
 			<div class="gos_slideCellBottom">
 				<span id="gos_motorSpeedSub" onclick="caculatorColor(this)" >-</span>
@@ -413,12 +413,14 @@
 		colorValue = colorValue < min ? min : colorValue;
 		valueObj.html(colorValue.toString());
 
+        console.log("valueObj = " + JSON.stringify(valueObj));
+        console.log("valueObj.html(colorValue.toString()) = " + valueObj.html(colorValue.toString()));
+
 		return colorValue;
 	}
 
     apiready = function(){
         
-        showDeviceName();
         colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
         console.log("colorDic = " + colorDic);
         api.showProgress({
@@ -444,7 +446,16 @@
              }) + ')'
         });
 
-        checkDeviceNetStatus();    
+        checkDeviceNetStatus(); 
+
+        api.addEventListener({
+            name: 'sendLED_ColorControl'
+            }, function(ret, err) {
+                led_Color = ret.value.LED_Color;
+                colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
+                console.log("获取到的LED_Color = " + led_Color);
+                updateUI();
+        });   
     }
 
          // 设置滑动条的属性和监听事件
@@ -767,6 +778,22 @@
         {
             $("#gos_humidity").html(humidity);
         }
+
+        // 界面
+        switch(led_Color)
+        {
+            case 0:
+               $(".gos_custom").html("自定义");
+               break;
+            case 1:
+               $(".gos_custom").html("黄色");
+               break;
+            case 2:
+               $(".gos_custom").html("紫色");
+               break;
+            case 3:
+               $(".gos_custom").html("粉色");
+        }
     }
 
     function updateSwitchShow(el, id, value)
@@ -977,6 +1004,13 @@
               var text = ret.text;
               if (index == 2) {
                    setDeviceAlais(text);
+
+                   //显示加载圈
+                    api.showProgress({
+                         animationType: 'zoom',
+                         title: '正在更新',
+                         modal: true
+        }); 
               }
         });
     }
@@ -1000,12 +1034,27 @@
     function receive_fnSetCustomInfo(ret, err)
     {
         console.log("设置设备别名回调: ret = " + ret + "err = " + err);
+        api.hideProgress();
+        if (err == undefined) {
+            api.alert({
+                title: '提示',
+                msg: '设置成功',
+                }, function(ret, err) {
+
+            });
+        }
+        else
+        {
+            api.alert({
+            title: '提示',
+             msg: '设置失败',
+            }, function(ret, err) {
+
+            });
+        }
+
     }
 
-    function showDeviceName()
-    {
-        console.log("显示设备名称");
-    }
    
 </script>
 </html>

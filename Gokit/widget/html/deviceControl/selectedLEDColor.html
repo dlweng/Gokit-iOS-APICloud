@@ -1,55 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-    <meta name="viewport"
-          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
-    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <link rel="stylesheet" href="../../css/api.css">
-    <style type="text/css">
-
-    	body{
-    		background-color: #f1f1f1;
-    	}
-
-    	ul {
-        	list-style: none; 
-        	background-color: white; 
-        	margin-top: 30px;
-        	border-top: 1px solid #ddd; 
-        	border-bottom: 1px solid #ddd;
-        }
-
-        ul li {
-        	margin-left: 5%;
-        	border-bottom: 1px solid #ddd;
-        	line-height: 44px;
-        }
-
-        ul li :last-child {
-        	border-bottom: 0px;
-        }
-
-    </style>
-</head>
-<body>
-	<ul>
-		<li>
-			<span>自定义</span>
-		</li>
-		<li>
-			<span>黄色</span>
-		</li>
-		<li>
-			<span>紫色</span>
-		</li>
-		<li>
-			<span>粉色</span>
-		</li>
-	</ul>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +8,7 @@
     <link rel="stylesheet" href="../../css/api.css">
     <style>
         body{ height: auto; }
-        ul { font-size: 12px; border: 1px solid #ddd; line-height: 44px; border-width: 1px 0; padding: 0 15px; margin-top: 30px; background-color: white; }
+        ul { font-size: 16px; border: 1px solid #ddd; line-height: 44px; border-width: 1px 0; padding: 0 15px; margin-top: 30px; background-color: white; }
         ul li.ic-select{ background-position: right center; background-size: 18px auto; }
         ul li+ li{ border-top: 1px solid #ddd;}
     </style>
@@ -133,6 +81,13 @@
                 sn: 4
             }) + ')'
         });
+
+            api.sendEvent({
+                 name: 'sendLED_ColorControl',
+                 extra: {
+                 LED_Color: newValue,
+            }
+            });
     }
     
 

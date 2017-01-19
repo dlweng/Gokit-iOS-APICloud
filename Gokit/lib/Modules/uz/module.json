@@ -37,37 +37,36 @@
 	 "class":"UZFNScanner",
 	 "methods":["openScanner","openView","closeView","decodeImg","encodeImg","switchLight","setFrame"]
  }
-,  {
-  "name":"gizWifiSDK",
-  "class":"GizWifiSDKModule",
-  "methods":["startWithAppID", "setLogLevel", "getVersion", "getPhoneSSID", "updateDeviceFromServer", "getBoundDevices", "userLoginAnonymous", "bindRemoteDevice", "bindDevice", "unbindDevice", "getSSIDList", "setDeviceWifi", "setDeviceOnboarding", "requestSendVerifyCode", "getCaptchaCode", "requestSendPhoneSMSCode", "verifyPhoneSMSCode", "registerUser", "registerUserByPhoneAndCode", "registerUserByEmail", "userLogin", "userLoginWithThirdAccountType", "transAnonymousUser", "transAnonymousUserToNormalUser", "transAnonymousUserToPhoneUser", "resetPassword", "changeUserPasswordByCode", "changeUserPasswordByEmail", "changeUserPassword", "changeUserInfo", "getUserInfo", "getGroups", "addGroup", "removeGroup", "editGroup", "setCloudService", "registerNotifications", "getListInfo", "disableLAN", "bindDeviceByQRCode", "errorCodeConversion", "channelIDBind", "channelIDUnBind", "createScheduler", "getSchedulers", "deleteScheduler", "getSchedulerStatus"]
-  },
-  {
-  "name":"gizWifiDevice",
-  "class":"GizWifiDeviceModule",
-  "methods":["setSubscribe", "login", "disconnect", "getHardwareInfo", "exitProductionTesting", "setCustomInfo", "getDeviceStatus",  "write", "registerNotifications", "getIsBind", "getDeviceInfo", "getMac", "getDid", "getIsConnected", "getIsOnline", "getIsLAN", "getIsDisabled", "getPasscode", "getIpAddress", "getProductKey", "getProductName", "getRemark", "getType"]
-  },
-  {
-  "name":"gizWifiCentralControlDevice",
-  "class":"GizWifiCentralControlDeviceModule",
-  "methods":["getSubDevices", "addSubDevice", "deleteSubDevice", "setSubscribe", "login", "disconnect", "getHardwareInfo", "exitProductionTesting", "setCustomInfo", "getDeviceStatus",  "write", "registerNotifications", "getIsBind", "getDeviceInfo", "getMac", "getDid", "getIsConnected", "getIsOnline", "getIsLAN", "getIsDisabled", "getPasscode", "getIpAddress", "getProductKey", "getProductName", "getRemark", "getType"]
-  },
-  {
-  "name":"gizWifiSubDevice",
-  "class":"GizWifiSubDeviceModule",
-  "methods":["getDeviceStatus", "write", "getHardwareInfo", "registerNotifications", "getIsBind", "getDeviceInfo", "getMac", "getDid", "getIsConnected", "getIsOnline", "getIsLAN", "getIsDisabled", "getPasscode", "getIpAddress", "getProductKey", "getProductName", "getRemark", "getType", "getSubDid", "getSubProductKey", "getSubProductName"]
-  },
-  {
-  "name":"gizWifiGroup",
-  "class":"GizWifiGroupModule",
-  "methods":["getDevices", "addDevice", "removeDevice", "getGroupInfo", "getGid", "getProductKey", "getGroupName"]
-  },
-  {
-  "name":"gizWifiBinary",
-  "class":"GizWifiBinaryModule",
-  "methods":["encode", "decode"]
-  }
-, {
+ , {
+ "name":"gizWifiSDK",
+ "class":"GizWifiSDKModule",
+ "methods":["startWithAppID", "setLogLevel", "getVersion", "getPhoneSSID", "updateDeviceFromServer", "getBoundDevices", "userLoginAnonymous", "bindRemoteDevice", "bindDevice", "unbindDevice", "getSSIDList", "setDeviceWifi", "setDeviceOnboarding", "requestSendVerifyCode", "getCaptchaCode", "requestSendPhoneSMSCode", "verifyPhoneSMSCode", "registerUser", "registerUserByPhoneAndCode", "registerUserByEmail", "userLogin", "userLoginWithThirdAccountType", "transAnonymousUser", "transAnonymousUserToNormalUser", "transAnonymousUserToPhoneUser", "resetPassword", "changeUserPasswordByCode", "changeUserPasswordByEmail", "changeUserPassword", "changeUserInfo", "getUserInfo", "getGroups", "addGroup", "removeGroup", "editGroup", "setCloudService", "registerNotifications", "getListInfo", "disableLAN", "bindDeviceByQRCode", "errorCodeConversion", "channelIDBind", "channelIDUnBind", "createScheduler", "getSchedulers", "deleteScheduler", "getSchedulerStatus"]
+ },
+ {
+ "name":"gizWifiDevice",
+ "class":"GizWifiDeviceModule",
+ "methods":["setSubscribe", "login", "disconnect", "getHardwareInfo", "exitProductionTesting", "setCustomInfo", "getDeviceStatus",  "write", "registerNotifications", "getIsBind", "getDeviceInfo", "getMac", "getDid", "getIsConnected", "getIsOnline", "getIsLAN", "getIsDisabled", "getPasscode", "getIpAddress", "getProductKey", "getProductName", "getRemark", "getType"]
+ },
+ {
+ "name":"gizWifiCentralControlDevice",
+ "class":"GizWifiCentralControlDeviceModule",
+ "methods":["getSubDevices", "addSubDevice", "deleteSubDevice", "setSubscribe", "login", "disconnect", "getHardwareInfo", "exitProductionTesting", "setCustomInfo", "getDeviceStatus",  "write", "registerNotifications", "getIsBind", "getDeviceInfo", "getMac", "getDid", "getIsConnected", "getIsOnline", "getIsLAN", "getIsDisabled", "getPasscode", "getIpAddress", "getProductKey", "getProductName", "getRemark", "getType"]
+ },
+ {
+ "name":"gizWifiSubDevice",
+ "class":"GizWifiSubDeviceModule",
+ "methods":["getDeviceStatus", "write", "getHardwareInfo", "registerNotifications", "getIsBind", "getDeviceInfo", "getMac", "getDid", "getIsConnected", "getIsOnline", "getIsLAN", "getIsDisabled", "getPasscode", "getIpAddress", "getProductKey", "getProductName", "getRemark", "getType", "getSubDid", "getSubProductKey", "getSubProductName"]
+ },
+ {
+ "name":"gizWifiGroup",
+ "class":"GizWifiGroupModule",
+ "methods":["getDevices", "addDevice", "removeDevice", "getGroupInfo", "getGid", "getProductKey", "getGroupName"]
+ },
+ {
+ "name":"gizWifiBinary",
+ "class":"GizWifiBinaryModule",
+ "methods":["encode", "decode"]
+ }, {
   "name":"UICustomPicker",
   "class":"UICustomPicker",
   "methods":["open","hide","show","setValue","close"]

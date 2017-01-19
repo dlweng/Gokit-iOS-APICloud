@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		331C8EC31E31253C0078EF0D /* GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EBB1E31253C0078EF0D /* GizWifiSDK.a */; };
+		331C8EC41E31253C0078EF0D /* libAPICloud-GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EBC1E31253C0078EF0D /* libAPICloud-GizWifiSDK.a */; };
+		331C8EC51E31253D0078EF0D /* libBLEasyConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EBD1E31253C0078EF0D /* libBLEasyConfig.a */; };
+		331C8EC61E31253D0078EF0D /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EBE1E31253C0078EF0D /* libcrypto.a */; };
+		331C8EC71E31253D0078EF0D /* libEasyLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EBF1E31253C0078EF0D /* libEasyLink.a */; };
+		331C8EC81E31253D0078EF0D /* libemTMF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EC01E31253C0078EF0D /* libemTMF.a */; };
+		331C8EC91E31253D0078EF0D /* libEsptouch_v0.3.5.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EC11E31253C0078EF0D /* libEsptouch_v0.3.5.2.a */; };
+		331C8ECA1E31253D0078EF0D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331C8EC21E31253C0078EF0D /* libssl.a */; };
 		33C98B031E2B5EC700F76E34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C98B021E2B5EC700F76E34 /* main.m */; };
 		33C98B061E2B5EC700F76E34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C98B051E2B5EC700F76E34 /* AppDelegate.m */; };
 		33C98B0E1E2B5EC700F76E34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33C98B0D1E2B5EC700F76E34 /* Assets.xcassets */; };
@@ -23,18 +31,10 @@
 		33C98BC41E2B5FC100F76E34 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BA71E2B5FC000F76E34 /* AMapSearchKit.framework */; };
 		33C98BC51E2B5FC100F76E34 /* arcProgress.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BA81E2B5FC100F76E34 /* arcProgress.a */; };
 		33C98BC61E2B5FC100F76E34 /* FNScanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BA91E2B5FC100F76E34 /* FNScanner.a */; };
-		33C98BC71E2B5FC100F76E34 /* GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BAA1E2B5FC100F76E34 /* GizWifiSDK.a */; };
-		33C98BC81E2B5FC100F76E34 /* libAPICloud-GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BAB1E2B5FC100F76E34 /* libAPICloud-GizWifiSDK.a */; };
 		33C98BC91E2B5FC100F76E34 /* libBarCode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BAC1E2B5FC100F76E34 /* libBarCode.a */; };
-		33C98BCA1E2B5FC100F76E34 /* libBLEasyConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BAD1E2B5FC100F76E34 /* libBLEasyConfig.a */; };
-		33C98BCB1E2B5FC100F76E34 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BAE1E2B5FC100F76E34 /* libcrypto.a */; };
-		33C98BCC1E2B5FC100F76E34 /* libEasyLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BAF1E2B5FC100F76E34 /* libEasyLink.a */; };
-		33C98BCD1E2B5FC100F76E34 /* libemTMF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB01E2B5FC100F76E34 /* libemTMF.a */; };
-		33C98BCE1E2B5FC100F76E34 /* libEsptouch_v0.3.5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB11E2B5FC100F76E34 /* libEsptouch_v0.3.5.1.a */; };
 		33C98BCF1E2B5FC100F76E34 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB21E2B5FC100F76E34 /* libminizip.a */; };
 		33C98BD01E2B5FC100F76E34 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB31E2B5FC100F76E34 /* libopencore-amrnb.a */; };
 		33C98BD11E2B5FC100F76E34 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB41E2B5FC100F76E34 /* libopencore-amrwb.a */; };
-		33C98BD21E2B5FC100F76E34 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB51E2B5FC100F76E34 /* libssl.a */; };
 		33C98BD31E2B5FC100F76E34 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB61E2B5FC100F76E34 /* libzbar.a */; };
 		33C98BD41E2B5FC100F76E34 /* mam.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB71E2B5FC100F76E34 /* mam.a */; };
 		33C98BD51E2B5FC100F76E34 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BB81E2B5FC100F76E34 /* MAMapKit.framework */; };
@@ -56,6 +56,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		331C8EBB1E31253C0078EF0D /* GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GizWifiSDK.a; sourceTree = "<group>"; };
+		331C8EBC1E31253C0078EF0D /* libAPICloud-GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libAPICloud-GizWifiSDK.a"; sourceTree = "<group>"; };
+		331C8EBD1E31253C0078EF0D /* libBLEasyConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBLEasyConfig.a; sourceTree = "<group>"; };
+		331C8EBE1E31253C0078EF0D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		331C8EBF1E31253C0078EF0D /* libEasyLink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEasyLink.a; sourceTree = "<group>"; };
+		331C8EC01E31253C0078EF0D /* libemTMF.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libemTMF.a; sourceTree = "<group>"; };
+		331C8EC11E31253C0078EF0D /* libEsptouch_v0.3.5.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEsptouch_v0.3.5.2.a; sourceTree = "<group>"; };
+		331C8EC21E31253C0078EF0D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		33C98AFE1E2B5EC700F76E34 /* Gokit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gokit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33C98B021E2B5EC700F76E34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		33C98B041E2B5EC700F76E34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,18 +97,10 @@
 		33C98BA71E2B5FC000F76E34 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		33C98BA81E2B5FC100F76E34 /* arcProgress.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = arcProgress.a; sourceTree = "<group>"; };
 		33C98BA91E2B5FC100F76E34 /* FNScanner.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = FNScanner.a; sourceTree = "<group>"; };
-		33C98BAA1E2B5FC100F76E34 /* GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GizWifiSDK.a; sourceTree = "<group>"; };
-		33C98BAB1E2B5FC100F76E34 /* libAPICloud-GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libAPICloud-GizWifiSDK.a"; sourceTree = "<group>"; };
 		33C98BAC1E2B5FC100F76E34 /* libBarCode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBarCode.a; sourceTree = "<group>"; };
-		33C98BAD1E2B5FC100F76E34 /* libBLEasyConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBLEasyConfig.a; sourceTree = "<group>"; };
-		33C98BAE1E2B5FC100F76E34 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
-		33C98BAF1E2B5FC100F76E34 /* libEasyLink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEasyLink.a; sourceTree = "<group>"; };
-		33C98BB01E2B5FC100F76E34 /* libemTMF.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libemTMF.a; sourceTree = "<group>"; };
-		33C98BB11E2B5FC100F76E34 /* libEsptouch_v0.3.5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEsptouch_v0.3.5.1.a; sourceTree = "<group>"; };
 		33C98BB21E2B5FC100F76E34 /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libminizip.a; sourceTree = "<group>"; };
 		33C98BB31E2B5FC100F76E34 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
 		33C98BB41E2B5FC100F76E34 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
-		33C98BB51E2B5FC100F76E34 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		33C98BB61E2B5FC100F76E34 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
 		33C98BB71E2B5FC100F76E34 /* mam.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = mam.a; sourceTree = "<group>"; };
 		33C98BB81E2B5FC100F76E34 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
@@ -128,36 +128,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				331C8ECA1E31253D0078EF0D /* libssl.a in Frameworks */,
 				33C98BE81E2B603300F76E34 /* libiconv.tbd in Frameworks */,
 				33C98BDB1E2B5FC100F76E34 /* UICityList.a in Frameworks */,
-				33C98BCA1E2B5FC100F76E34 /* libBLEasyConfig.a in Frameworks */,
 				33C98BDA1E2B5FC100F76E34 /* TencentOpenAPI.framework in Frameworks */,
-				33C98BCE1E2B5FC100F76E34 /* libEsptouch_v0.3.5.1.a in Frameworks */,
-				33C98BCB1E2B5FC100F76E34 /* libcrypto.a in Frameworks */,
 				33C98BD01E2B5FC100F76E34 /* libopencore-amrnb.a in Frameworks */,
 				33C98BDC1E2B5FC100F76E34 /* UICustomPicker.a in Frameworks */,
 				33C98BC11E2B5FC100F76E34 /* aMap.a in Frameworks */,
+				331C8EC81E31253D0078EF0D /* libemTMF.a in Frameworks */,
 				33C98BD11E2B5FC100F76E34 /* libopencore-amrwb.a in Frameworks */,
 				33C98BC91E2B5FC100F76E34 /* libBarCode.a in Frameworks */,
+				331C8EC61E31253D0078EF0D /* libcrypto.a in Frameworks */,
+				331C8EC41E31253C0078EF0D /* libAPICloud-GizWifiSDK.a in Frameworks */,
 				33C98BCF1E2B5FC100F76E34 /* libminizip.a in Frameworks */,
 				33C98BC61E2B5FC100F76E34 /* FNScanner.a in Frameworks */,
 				33C98BA11E2B5F7500F76E34 /* libstdc++.tbd in Frameworks */,
-				33C98BCC1E2B5FC100F76E34 /* libEasyLink.a in Frameworks */,
 				33C98B9F1E2B5F6B00F76E34 /* libicucore.tbd in Frameworks */,
 				33C98B9D1E2B5F6000F76E34 /* libz.tbd in Frameworks */,
 				33C98BD31E2B5FC100F76E34 /* libzbar.a in Frameworks */,
+				331C8EC51E31253D0078EF0D /* libBLEasyConfig.a in Frameworks */,
 				33C98BD61E2B5FC100F76E34 /* push.a in Frameworks */,
 				33C98BC51E2B5FC100F76E34 /* arcProgress.a in Frameworks */,
-				33C98BD21E2B5FC100F76E34 /* libssl.a in Frameworks */,
-				33C98BCD1E2B5FC100F76E34 /* libemTMF.a in Frameworks */,
-				33C98BC81E2B5FC100F76E34 /* libAPICloud-GizWifiSDK.a in Frameworks */,
 				33C98BC41E2B5FC100F76E34 /* AMapSearchKit.framework in Frameworks */,
 				33C98BD81E2B5FC100F76E34 /* qq.a in Frameworks */,
 				33C98BD41E2B5FC100F76E34 /* mam.a in Frameworks */,
 				33C98BC31E2B5FC100F76E34 /* AMapFoundationKit.framework in Frameworks */,
+				331C8EC71E31253D0078EF0D /* libEasyLink.a in Frameworks */,
 				33C98B9B1E2B5F5100F76E34 /* WebKit.framework in Frameworks */,
-				33C98BC71E2B5FC100F76E34 /* GizWifiSDK.a in Frameworks */,
+				331C8EC91E31253D0078EF0D /* libEsptouch_v0.3.5.2.a in Frameworks */,
 				33C98BD51E2B5FC100F76E34 /* MAMapKit.framework in Frameworks */,
+				331C8EC31E31253C0078EF0D /* GizWifiSDK.a in Frameworks */,
 				33C98B641E2B5EE800F76E34 /* APICloud.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,19 +273,19 @@
 				33C98BA61E2B5FC000F76E34 /* AMapFoundationKit.framework */,
 				33C98BA71E2B5FC000F76E34 /* AMapSearchKit.framework */,
 				33C98BA81E2B5FC100F76E34 /* arcProgress.a */,
+				331C8EBB1E31253C0078EF0D /* GizWifiSDK.a */,
+				331C8EBC1E31253C0078EF0D /* libAPICloud-GizWifiSDK.a */,
+				331C8EBD1E31253C0078EF0D /* libBLEasyConfig.a */,
+				331C8EBE1E31253C0078EF0D /* libcrypto.a */,
+				331C8EBF1E31253C0078EF0D /* libEasyLink.a */,
+				331C8EC01E31253C0078EF0D /* libemTMF.a */,
+				331C8EC11E31253C0078EF0D /* libEsptouch_v0.3.5.2.a */,
+				331C8EC21E31253C0078EF0D /* libssl.a */,
 				33C98BA91E2B5FC100F76E34 /* FNScanner.a */,
-				33C98BAA1E2B5FC100F76E34 /* GizWifiSDK.a */,
-				33C98BAB1E2B5FC100F76E34 /* libAPICloud-GizWifiSDK.a */,
 				33C98BAC1E2B5FC100F76E34 /* libBarCode.a */,
-				33C98BAD1E2B5FC100F76E34 /* libBLEasyConfig.a */,
-				33C98BAE1E2B5FC100F76E34 /* libcrypto.a */,
-				33C98BAF1E2B5FC100F76E34 /* libEasyLink.a */,
-				33C98BB01E2B5FC100F76E34 /* libemTMF.a */,
-				33C98BB11E2B5FC100F76E34 /* libEsptouch_v0.3.5.1.a */,
 				33C98BB21E2B5FC100F76E34 /* libminizip.a */,
 				33C98BB31E2B5FC100F76E34 /* libopencore-amrnb.a */,
 				33C98BB41E2B5FC100F76E34 /* libopencore-amrwb.a */,
-				33C98BB51E2B5FC100F76E34 /* libssl.a */,
 				33C98BB61E2B5FC100F76E34 /* libzbar.a */,
 				33C98BB71E2B5FC100F76E34 /* mam.a */,
 				33C98BB81E2B5FC100F76E34 /* MAMapKit.framework */,

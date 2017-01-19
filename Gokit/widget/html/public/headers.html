@@ -87,10 +87,12 @@
 		<div tapmode="opacity" onclick="fnCancelDevice();" class="ic-back-auto"></div>
 		二期主页
 	</header>
-	<header class="deviceControl" >
+	<header class="deviceControl">
 		<div tapmode="opacity" onclick="fnCancelDevice();" class="ic-back"></div>
 		<div tapmode="opacity" onclick="fnDeviceControlMore();" class="ic-more right"></div>
+		<span id="deviceName">
 		微信宠物屋
+		</span>
 	</header>
 	<header class="selectedLEDColor" >
 		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back"></div>
@@ -100,6 +102,7 @@
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript" src="../../script/base.js"></script>
+<script src="../../script/jquery.js"></script>
 <script type="text/javascript">
 	
 	var eHeader = null,
@@ -169,6 +172,16 @@
 		    	};
 		    }
 		});
+
+
+		// 添加监听事件
+		api.addEventListener({
+    		name: 'JumpToDeviceControl'
+			}, function(ret, err) {
+   			 
+   			 console.log("ret = " + ret);
+   			 fnShowDeviceName(ret);
+			});
 	}
 	
 	function fnSwitchPurifier( el, hasHidden ){
@@ -727,12 +740,21 @@
 	                	}); 
 	}
 
-	function fnShowDeviceName(){
-		api.execScript({
-							name : 'win_deviceControl',
-							frameName : 'frm_deviceControl',
-	                	    script: 'showDeviceName();'
-	                	}); 
+	function fnShowDeviceName(ret){
+
+		console.log("界面即将跳转ret = " + JSON.stringify(ret));
+		var productName = ret.value.device.productName
+		var alias = ret.value.device.alias;
+		$("#deviceName").html(alias);
+		console.log("$('#deviceName').html() = " + $("#deviceName").html());
+		window.setInterval("run()", 10000)
+	
+	}
+
+	function run()
+	{
+		$(".deviceNamess").html("dada");
+		console.log("设置设备名称");
 	}
 </script>
 </html>
