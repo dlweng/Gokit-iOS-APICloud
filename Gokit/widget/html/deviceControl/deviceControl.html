@@ -253,7 +253,7 @@
 		</li>
 		<li>
 			<span>红外探测</span>
-			<span class="gos_rightBlock" id="gos_infraredBlock" onclick="ios7CBoxDidClick(this)"><input class="ios7CBox" 
+			<span class="gos_rightBlock" id="gos_infraredBlock"><input class="ios7CBox" 
 			id="gos_infrared" type="checkbox"></span>
 		</li>
 		<li>
@@ -341,20 +341,20 @@
 		 	}
             write(dataPoint.GosDeviceWriteLED_onOff, led_OnOff);
 		 }
-		 else if (blockId == "gos_infraredBlock"){
-		 	var checked = $("#gos_infrared").attr("checked");
-		 	if (checked == "checked") 
-		 	{
-                console.log("被选中");
-		 		infrared = true;
-		 	}
-		 	else
-		 	{
-		 		infrared = false;
-                console.log("没被选中")
-		 	}
-            write(dataPoint.GosDeviceReadIR, infrared);
-		 }
+		 // else if (blockId == "gos_infraredBlock"){
+		 // 	var checked = $("#gos_infrared").attr("checked");
+		 // 	if (checked == "checked") 
+		 // 	{
+   //              console.log("被选中");
+		 // 		infrared = true;
+		 // 	}
+		 // 	else
+		 // 	{
+		 // 		infrared = false;
+   //              console.log("没被选中")
+		 // 	}
+   //          write(dataPoint.gosdevicewri, infrared);
+		 // }
 	}	
 
 	function caculatorColor(el)
@@ -625,7 +625,6 @@
         console.log("********************readData被调用**********************");
         var data = ret.data;
         
-        console.log("data.static_LED_OnOff = " + data.LED_OnOff);
         if (data != null && data != undefined && data.LED_OnOff != undefined) {
 
                     // 读数据
