@@ -260,7 +260,7 @@
 				gizWifiSDK.getBoundDevices({
 					uid: JSON.parse( ret.value ).uid,
 					token: JSON.parse( ret.value ).token,
-					specialProductKeys: "6f3074fe43894547a4f1314bd7e3ae0b"
+					specialProductKeys: ["6f3074fe43894547a4f1314bd7e3ae0b"]
 				},function(ret, err) {
 					//fnSetDeviceOnboardingalert(JSON.stringify(ret));
 					//alert(JSON.stringify(err));
@@ -465,6 +465,21 @@
 				name: obj.winName,
 				frameName: obj.frameName,
 				script: 'receive_fnRegisterDeviceStatusNotification(' + JSON.stringify(ret) + ',' + JSON.stringify(err) + ')'
+			});
+		});
+	}
+
+	function fuGetHardwareInfo(obj){
+		gizWifiDevice.getHardwareInfo({
+			device: {
+				did: obj.data.did,
+				mac: obj.data.mac
+			}
+		}, function(ret, err){
+			api.execScript({
+			    name: obj.winName,
+			    frameName: obj.frameName,
+			    script: 'receive_fnGetHardwareInfo('+JSON.stringify( ret )+','+JSON.stringify( err )+')'
 			});
 		});
 	}

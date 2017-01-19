@@ -418,6 +418,7 @@
 
     apiready = function(){
         
+        showDeviceName();
         colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
         console.log("colorDic = " + colorDic);
         api.showProgress({
@@ -864,6 +865,147 @@
           }
     }
 
+    function moreBtnDidClick()
+    {
+        console.log("点击了控制界面上方的更多按钮");
+        var lan = JSON.stringify(api.pageParam.pageParam.isLAN);
+
+        if (lan.toString() == "true") {
+            //局域网
+            console.log("走局域网通道, lan = " + lan);
+            api.actionSheet({
+                buttons: ['获取设备状态', '获取硬件信息', '设置设备信息']
+                }, function(ret, err) {
+                var index = ret.buttonIndex;
+                switch(index)
+                {
+                    case 1:
+                        console.log("获取设备状态");
+                        getDeviceStatus();
+                        break;
+                    case 2:
+                        console.log("获取硬件信息");
+                        getDeviceInfo();
+                        break;
+                    case 3:
+                        console.log("设置设备信息");
+                        setDevicAlaisPrompt();
+                        break;
+                }
+             });
+        }
+        else
+        {
+            console.log("走远程通道, lan = " + lan);
+            console.log("lan == false = " + lan == false);
+            api.actionSheet({
+                buttons: ['获取设备状态', '设置设备信息']
+                }, function(ret, err) {
+                var index = ret.buttonIndex;
+                
+                switch(index)
+                {
+                    case 1:
+                        console.log("获取设备状态");
+                        getDeviceStatus();
+                        break;
+                    case 2:
+                        console.log("设置设备信息");
+                        setDevicAlaisPrompt();
+                        break;
+                }
+             });
+        }
+    }
+
+    function getDeviceInfo()
+    {
+        api.execScript({
+              name: 'root',
+              script: 'fuGetHardwareInfo(' +JSON.stringify({
+                    winName: api.winName,
+                    frameName: api.frameName,
+                    data: {
+                        did: api.pageParam.pageParam.did,
+                        mac: api.pageParam.pageParam.mac
+                    }
+             }) + ')'
+        });
+    }
+
+    function receive_fnGetHardwareInfo(ret, err)
+    {
+        var hardwareStr = "设置硬件信息\n";        
+        var wifiHardVer = ret.hardwareInfo.wifiHardVer;
+        var wifiSoftVer = ret.hardwareInfo.wifiSoftVer;
+        var mcuHardVer = ret.hardwareInfo.mcuHardVer;
+        var mcuSoftVer = ret.hardwareInfo.mcuSoftVer;
+        var firmwareId = ret.hardwareInfo.firmwareId;
+        var firmwareVer = ret.hardwareInfo.firmwareVer;
+        var productKey = ret.hardwareInfo.productKey;
+        var did = api.pageParam.pageParam.did;
+        var ip = api.pageParam.pageParam.ip;
+        var mac = api.pageParam.pageParam.mac;
+
+        hardwareStr += "WiFi Hardware Version: " + wifiHardVer + ",\n"
+                    +  "WiFi Software Version: " + wifiSoftVer + ",\n"
+                    +  "MCU Hardware Version: " + mcuHardVer + ",\n"
+                    +  "MCU Software Version: " + mcuSoftVer + ",\n"
+                    +  "Firmware Id: " + firmwareId + ",\n"
+                    +  "Firmware Version: " + firmwareVer + ",\n"
+                    +  "Product Key: " + productKey + ",\n"
+                    +  "Device ID: " + did + ",\n"
+                    +  "Device IP: " + ip + ",\n"
+                    +  "Device MAC: " + mac;
+
+        api.toast({
+                msg: hardwareStr,
+                duration: 2000,
+                location: 'pan'
+            });
+    }
+
+    function setDevicAlaisPrompt()
+    {
+        console.log("设置设备别名");
+        api.prompt({
+              title: '设置设备别名',
+              text: '请输入名称',
+              buttons: ['取消', '确定']
+              }, function(ret, err) {
+              var index = ret.buttonIndex;
+              var text = ret.text;
+              if (index == 2) {
+                   setDeviceAlais(text);
+              }
+        });
+    }
+
+    function setDeviceAlais(alias)
+    {
+        api.execScript({
+              name: 'root',
+              script: 'fnSetCustomInfo(' +JSON.stringify({
+                    winName: api.winName,
+                    frameName: api.frameName,
+                    device: {
+                        did: api.pageParam.pageParam.did,
+                        mac: api.pageParam.pageParam.mac
+                    },
+                    alias: alias
+             }) + ')'
+        });
+    }
+
+    function receive_fnSetCustomInfo(ret, err)
+    {
+        console.log("设置设备别名回调: ret = " + ret + "err = " + err);
+    }
+
+    function showDeviceName()
+    {
+        console.log("显示设备名称");
+    }
    
 </script>
 </html>

@@ -88,8 +88,9 @@
 		二期主页
 	</header>
 	<header class="deviceControl" >
-		<div tapmode="opacity" onclick="fnCancelDevice();" class="ic-back-auto"></div>
-		空气净化器
+		<div tapmode="opacity" onclick="fnCancelDevice();" class="ic-back"></div>
+		<div tapmode="opacity" onclick="fnDeviceControlMore();" class="ic-more right"></div>
+		微信宠物屋
 	</header>
 	<header class="selectedLEDColor" >
 		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back"></div>
@@ -716,6 +717,22 @@
 			vDate = new Date( vDate );
 			return (vDate.getMonth() < 10 ? '0'+(vDate.getMonth()+1) : ++vDate.getMonth())+ '.' + (vDate.getDate() < 10 ? '0' + vDate.getDate() : vDate.getDate());
 		}
+	}
+
+	function fnDeviceControlMore(){
+		api.execScript({
+							name : 'win_deviceControl',
+							frameName : 'frm_deviceControl',
+	                	    script: 'moreBtnDidClick();'
+	                	}); 
+	}
+
+	function fnShowDeviceName(){
+		api.execScript({
+							name : 'win_deviceControl',
+							frameName : 'frm_deviceControl',
+	                	    script: 'showDeviceName();'
+	                	}); 
 	}
 </script>
 </html>
