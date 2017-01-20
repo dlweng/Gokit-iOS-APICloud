@@ -164,18 +164,6 @@
 				frameName: api.frameName
 			})+')'
 		});
-
-		api.addEventListener({
-		    name: 'message'
-		}, function(ret, err){
-		    if( ret ){
-				fnPopup({
-					msg: '扫码添加成功'
-				}, function(){
-					
-				});
-		    }
-		});
 	}
 	
 	function receive_fnBindDevice( ret, err ){

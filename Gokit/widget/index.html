@@ -30,7 +30,7 @@
         
 
 //		初始化机制云模块
-		gizWifiSDK.startWithAppID({appID: $api.getStorage('appID') }, function(ret, err) {
+		gizWifiSDK.startWithAppID({appID: $api.getStorage('appID') ,specialProductKeys: ['6f3074fe43894547a4f1314bd7e3ae0b'] }, function(ret, err) {
 
 			if( ret.errorCode === 8316 ){
 				fnJumpWin({
@@ -204,6 +204,7 @@
 
 		})		
 	}
+	
 //	设备绑定
 	function fnBindDevice( obj ){
 		api.getPrefs({
@@ -260,7 +261,7 @@
 				gizWifiSDK.getBoundDevices({
 					uid: JSON.parse( ret.value ).uid,
 					token: JSON.parse( ret.value ).token,
-					specialProductKeys: ["6f3074fe43894547a4f1314bd7e3ae0b"]
+					specialProductKeys: ['6f3074fe43894547a4f1314bd7e3ae0b']
 				},function(ret, err) {
 					//fnSetDeviceOnboardingalert(JSON.stringify(ret));
 					//alert(JSON.stringify(err));

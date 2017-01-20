@@ -30,8 +30,8 @@
         }
 
         ul li {
-        	padding-top:12px;
-        	padding-bottom: 12px;
+        	padding-top:10px;
+        	padding-bottom: 10px;
         }
 
         ul li :last-child {
@@ -81,12 +81,12 @@
 			width: 8%;
             height: 30px;
             text-align: center;
-            /*background-color: blue;*/
 		}
 
 		ul li .gos_slideCellBottom .gos_redSlide, .gos_greenSlide, .gos_blueSlide, .gos_motorSpeedSlide{
 			display: inline-block;
 			width: 75%;
+            text-align: right;
 			background-color: #fff;
 		}
 
@@ -95,7 +95,6 @@
 			width: 8%;
             height: 30px;
             text-align: center;
-            /*background-color: blue;*/
             margin-right: 5%;
 		}
 
@@ -190,7 +189,7 @@
 	<ul>
 		<li>
 			<span>开启/关闭红色灯</span>
-			<span class="gos_rightBlock" id="gos_ledOnOffBlock" onclick="ios7CBoxDidClick(this)"><input class="ios7CBox" id="gos_ledOnOff" type="checkbox"></span>
+			<span class="gos_rightBlock" id="gos_ledOnOffBlock"><input class="ios7CBox" id="gos_ledOnOff" type="checkbox"></span>
 		</li>
 		<li tapmode="opacity" onclick="fnJumpWin({name: 'selectedLEDColor',path: '/deviceControl', pageParam: colorDic});" >
 			<span>设定LED组合颜色</span>
@@ -205,11 +204,11 @@
 				<span class="gos_redValue">0</span>
 			</div>
 			<div class="gos_slideCellBottom">
-				<span id="gos_redSub" onclick="caculatorColor(this)">-</span>
+				<span id="gos_redSub">-</span>
 				<span class="gos_redSlide">
 				   <input type="range" value="0" id="gos_rSlide" onchange="didStopMove(this)">
 				</span>
-				<span id="gos_redAdd" onclick="caculatorColor(this)">+</span>
+				<span id="gos_redAdd">+</span>
 			</div>
 		</li>
 		<li>
@@ -218,11 +217,11 @@
 				<span class="gos_greenValue">0</span>
 			</div>
 			<div class="gos_slideCellBottom">
-				<span id="gos_greenSub" onclick="caculatorColor(this)">-</span>
+				<span id="gos_greenSub">-</span>
 				<span class="gos_greenSlide">
 				   <input type="range" value="0" id="gos_gSlide" onchange="didStopMove(this)">
 				</span>
-				<span id="gos_greenAdd" onclick="caculatorColor(this)">+</span>
+				<span id="gos_greenAdd">+</span>
 			</div>
 		</li>
 		<li>
@@ -231,11 +230,11 @@
 				<span class="gos_blueValue">0</span>
 			</div>
 			<div class="gos_slideCellBottom">
-				<span id="gos_blueSub" onclick="caculatorColor(this)" >-</span>
+				<span id="gos_blueSub">-</span>
 				<span class="gos_blueSlide">
 				   <input type="range" value="0" id="gos_bSlide" onchange="didStopMove(this)">
 				</span>
-				<span id="gos_blueAdd" onclick="caculatorColor(this)">+</span>
+				<span id="gos_blueAdd">+</span>
 			</div>
 		</li>
 		<li>
@@ -244,11 +243,11 @@
 				<span class="gos_motorSpeedValue">-5</span>
 			</div>
 			<div class="gos_slideCellBottom">
-				<span id="gos_motorSpeedSub" onclick="caculatorColor(this)" >-</span>
+				<span id="gos_motorSpeedSub">-</span>
 				<span class="gos_motorSpeedSlide">
 				   <input type="range" value="-5" id="gos_mSSlide" onchange="didStopMove(this)">
 				</span>
-				<span id="gos_motorSpeedAdd" onclick="caculatorColor(this)">+</span>
+				<span id="gos_motorSpeedAdd">+</span>
 			</div>
 		</li>
 		<li>
@@ -269,6 +268,7 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript" src="../../script/base.js"></script>
 <script src="../../script/jquery.js"></script>
+<script src="../../script/fastclick.js"></script>
 <script type="text/javascript">
 
 	var dataPoint = {
@@ -331,32 +331,19 @@
 		if (blockId == "gos_ledOnOffBlock") {
 		 var checked = $("#gos_ledOnOff").attr("checked");
 	
-		 	if (checked == "checked") 
-		 	{
-                console.log("被选中");
-		 		led_OnOff = true;
-		 	}
-		 	else
-		 	{
-                console.log("没被选中")
-		 		led_OnOff = false;
-		 	}
+		 	// if (checked == "checked") 
+		 	// {
+    //             console.log("被选中");
+		 	// 	led_OnOff = true;
+		 	// }
+		 	// else
+		 	// {
+    //             console.log("没被选中")
+		 	// 	led_OnOff = false;
+		 	// }
+            led_OnOff = !led_OnOff;
             write(dataPoint.GosDeviceWriteLED_onOff, led_OnOff);
 		 }
-		 // else if (blockId == "gos_infraredBlock"){
-		 // 	var checked = $("#gos_infrared").attr("checked");
-		 // 	if (checked == "checked") 
-		 // 	{
-   //              console.log("被选中");
-		 // 		infrared = true;
-		 // 	}
-		 // 	else
-		 // 	{
-		 // 		infrared = false;
-   //              console.log("没被选中")
-		 // 	}
-   //          write(dataPoint.gosdevicewri, infrared);
-		 // }
 	}	
 
 	function caculatorColor(el)
@@ -366,34 +353,42 @@
 		if (id == "gos_redSub") {
 		    colorValue = caculatorValue(".gos_redValue", false, 254, 0);
 			updateSlideColor($("#gos_rSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteLED_R, colorValue);
 		}
 		else if(id == "gos_greenSub"){
 			colorValue = caculatorValue(".gos_greenValue", false, 254, 0);
             updateSlideColor($("#gos_gSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteLED_G, colorValue);
 		}
 		else if(id == "gos_blueSub"){
 			colorValue = caculatorValue(".gos_blueValue", false, 254, 0);
             updateSlideColor($("#gos_bSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteLED_B, colorValue);
 		}
 		else if(id == "gos_motorSpeedSub"){
 			colorValue = caculatorValue(".gos_motorSpeedValue", false, 5, -5);
             updateSlideColor($("#gos_mSSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteMotorSpeed, colorValue);
 		}
 		else if (id == "gos_redAdd") {
 			colorValue = caculatorValue(".gos_redValue", true, 254, 0);
             updateSlideColor($("#gos_rSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteLED_R, colorValue);
 		}
 		else if(id == "gos_greenAdd"){
 			colorValue = caculatorValue(".gos_greenValue", true, 254, 0);
             updateSlideColor($("#gos_gSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteLED_G, colorValue);
 		}
 		else if(id == "gos_blueAdd"){
 			colorValue = caculatorValue(".gos_blueValue", true, 254, 0);
             updateSlideColor($("#gos_bSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteLED_B, colorValue);
 		}
 		else if(id == "gos_motorSpeedAdd"){
 			colorValue = caculatorValue(".gos_motorSpeedValue", true, 5, -5);
             updateSlideColor($("#gos_mSSlide"), colorValue);
+            write(dataPoint.GosDeviceWriteMotorSpeed, colorValue);
 		}
 	}
 
@@ -421,6 +416,22 @@
 
     apiready = function(){
         
+        var ledOnOffBlock = document.getElementById('gos_ledOnOffBlock');
+        FastClick.attach(ledOnOffBlock);
+        ledOnOffBlock.addEventListener('click', function(event) {
+            ios7CBoxDidClick(ledOnOffBlock);
+        }, false);
+
+        addFastClickEvent('gos_redSub');
+        addFastClickEvent('gos_redAdd');
+        addFastClickEvent('gos_greenSub');
+        addFastClickEvent('gos_greenAdd');
+        addFastClickEvent('gos_blueSub');
+        addFastClickEvent('gos_blueAdd');
+        addFastClickEvent('gos_motorSpeedSub');
+        addFastClickEvent('gos_motorSpeedAdd');
+        
+
         colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
         console.log("colorDic = " + colorDic);
         api.showProgress({
@@ -456,6 +467,15 @@
                 console.log("获取到的LED_Color = " + led_Color);
                 updateUI();
         });   
+    }
+
+    function addFastClickEvent(idName)
+    {
+        var temp = document.getElementById(idName)
+        FastClick.attach(temp);
+        temp.addEventListener('click', function(event) {
+            caculatorColor(temp);
+        }, false);
     }
 
          // 设置滑动条的属性和监听事件
@@ -517,10 +537,11 @@
 
     function checkDeviceNetStatus()
     {
-        var netStatus = api.pageParam.pageParam.netStatus;;
+        var netStatus = api.pageParam.pageParam.netStatus;
         isController = false;
         if (netStatus == 2) {
             // alert('设备可控 + netStatus', netStatus);
+            api.hideProgress();
             getDeviceStatus();
             isController = true;
         }
@@ -535,14 +556,14 @@
 
     function run()
     {
+        api.hideProgress();
         var netStatus = api.pageParam.pageParam.netStatus;;
        // 关闭定时器
        window.clearTimeout(timer);
-       api.hideProgress();
        getDeviceStatus();
        if (netStatus != 2) {
-        // alert("run + close + netStatus = " + netStatus);
-            // api.closeWin();
+            alert("run + close + netStatus = " + netStatus);
+            api.closeWin();
        }
        else {
             isController = true;
@@ -596,6 +617,7 @@
     function receive_fnRegisterDeviceStatusNotification(ret, err){
         console.log("注册通知接口, 设备主动上报状态");
         console.log("ret = " + JSON.stringify(ret) + ", err = " + JSON.stringify(err));
+        api.hideProgress();
         if (ret != null && ret != undefined) {
             var netStatus = JSON.stringify(ret.netStatus);
             var error = JSON.stringify(err);
@@ -604,7 +626,6 @@
             if (netStatus == 2 || netStatus == -1)
              {
                 if (isController == false) {
-                    api.hideProgress();
                     window.clearTimeout(timer);
                     isController = true;
                 }
@@ -628,7 +649,6 @@
         api.hideProgress();
         if (ret != null && ret != undefined) {
             if (isController == false) {
-                api.hideProgress();
                 isController = true;
                 window.clearTimeout(timer);
             }
