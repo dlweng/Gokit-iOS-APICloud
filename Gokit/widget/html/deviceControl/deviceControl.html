@@ -311,7 +311,9 @@
 
     // 定时器
     var timer;
-    var isController;
+    var isController = false;
+    var time = 0; //次数
+    var delay; //延时时间 
     var colorDic;
 
     // 按钮被点击
@@ -537,37 +539,30 @@
 
     function checkDeviceNetStatus()
     {
-        var netStatus = api.pageParam.pageParam.netStatus;
-        isController = false;
-        if (netStatus == 2) {
-            // alert('设备可控 + netStatus', netStatus);
-            api.hideProgress();
-            getDeviceStatus();
-            isController = true;
-        }
-        else
-        {
-            var isLAN = JSON.stringify(api.pageParam.pageParam.isLAN);
-            var delay = isLAN == 1 ? 10000 : 30000;
-            timer = window.setInterval("run()", delay);
-        
-        }
+        // 启动检查网络状态的定时器
+        var isLAN = JSON.stringify(api.pageParam.pageParam.isLAN);
+        delay = isLAN == 1 ? 10000 : 30000; 
+        timer = window.setInterval("run()", 1000);
     }
 
     function run()
     {
-        api.hideProgress();
-        var netStatus = api.pageParam.pageParam.netStatus;;
-       // 关闭定时器
-       window.clearTimeout(timer);
-       getDeviceStatus();
-       if (netStatus != 2) {
-            alert("run + close + netStatus = " + netStatus);
+
+        time++;
+        if (time <= (delay / 1000) ){
+            // 每1秒获取一次设备状态
+            console.log("时间还未到预期时间");
+            getDeviceStatus();
+        }
+        else
+        {
+            // 超过延时时间还进入，表明设备还不可控，直接退出控制界面
+            api.hideProgress();
+            console.log("run 关闭定时器");
+            window.clearInterval(timer);
             api.closeWin();
-       }
-       else {
-            isController = true;
-       }
+        }
+        
     }
 
     function write(dp, value)
@@ -623,10 +618,12 @@
             var error = JSON.stringify(err);
             // alert('设备状态发生变化:netStatus' + netStatus);
 
+             console.log("通知 err = " + err + "isController = " + isController);
             if (netStatus == 2 || netStatus == -1)
              {
                 if (isController == false) {
-                    window.clearTimeout(timer);
+                    console.log("通知 关闭定时器");
+                    window.clearInterval(timer);
                     isController = true;
                 }
     
@@ -635,7 +632,12 @@
             else
             {
                 api.closeWin();
-                alert("receive_fnRegisterDeviceStatusNotification + close");
+                var myErr = "receive_fnRegisterDeviceStatusNotification + netStatus = " + netStatus;
+                api.alert({
+                title: '提示',
+                msg: myErr,
+                }, function(ret, err) {
+            });
             }
         }
     }
@@ -644,14 +646,20 @@
     {
 
         console.log("***********************************");
-        console.log("didReceiveData被回调");
+        console.log("didReceiveData被回调 + ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
+        console.log("didReceiveData被回调 err = " + err + "isController = " + isController);
+        // console.log("err.errorCode = " + err.errorCode);
+        // console.log("err.errorCode = " + JSON.stringify(err.errorCode));
+        // var errorCode = JSON.stringify(err.errorCode);
+        if (err == undefined && isController == false) {
+            console.log("在获取设备状态中关闭定时器");
+            api.hideProgress();
+            isController = true;
+            window.clearInterval(timer);
+        } 
 
-        api.hideProgress();
         if (ret != null && ret != undefined) {
-            if (isController == false) {
-                isController = true;
-                window.clearTimeout(timer);
-            }
+            console.log("在获取设备状态中更改UI");
             readData(ret);
         }
     }
@@ -1060,7 +1068,6 @@
                 title: '提示',
                 msg: '设置成功',
                 }, function(ret, err) {
-
             });
         }
         else
