@@ -307,6 +307,7 @@
     var infrared = false;
     var temperature = 0;
     var humidity = 0;
+    var deviceName;
     // var colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
 
     // 定时器
@@ -433,6 +434,8 @@
         addFastClickEvent('gos_motorSpeedSub');
         addFastClickEvent('gos_motorSpeedAdd');
         
+        console.log("api.pageParam.pageParam = " + api.pageParam.pageParam);
+        console.log("api.pageParam.pageParam = " + JSON.stringify(api.pageParam.pageParam));
 
         colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
         console.log("colorDic = " + colorDic);
@@ -469,6 +472,29 @@
                 console.log("获取到的LED_Color = " + led_Color);
                 updateUI();
         });   
+
+        // 获取设备名称
+        getDeviceAlias();
+         api.sendEvent({
+                name: 'updateDeviceName',
+                extra: {
+                devicename: deviceName
+             }
+            });
+    }
+
+    function getDeviceAlias()
+    {
+        var productName = api.pageParam.pageParam.productName;
+        var alias = api.pageParam.pageParam.alias;
+
+        if (alias == "" || alias == undefined) {
+            deviceName = productName;
+        }
+        else
+        {
+            deviceName = alias;
+        }
     }
 
     function addFastClickEvent(idName)
@@ -632,19 +658,20 @@
             else
             {
                 api.closeWin();
-                var myErr = "receive_fnRegisterDeviceStatusNotification + netStatus = " + netStatus;
-                api.alert({
-                title: '提示',
-                msg: myErr,
-                }, function(ret, err) {
-            });
+                "receive_fnRegisterDeviceStatusNotification + netStatus = " + netStatus;
+                // api.alert({
+                // title: '提示',
+                // msg: myErr,
+                // }, function(ret, err) {
+                // });
+
+                console.log("退出控制界面" + "receive_fnRegisterDeviceStatusNotification + netStatus = " + netStatus);
             }
         }
     }
 
     function receive_fnGetDeviceStatus(ret, err)
     {
-
         console.log("***********************************");
         console.log("didReceiveData被回调 + ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
         console.log("didReceiveData被回调 err = " + err + "isController = " + isController);
@@ -666,6 +693,7 @@
 
     function readData(ret)
     {
+        console.log("api.pageParam.pageParam = " + JSON.stringify(api.pageParam.pageParam));
         console.log("********************readData被调用**********************");
         var data = ret.data;
         
@@ -890,16 +918,20 @@
           console.log("change" + $input.value);
           var id = $input.id;
           if (id == "gos_rSlide"){
-                 $(".gos_redValue").html($input.value);
+                led_R = $input.value;
+                $(".gos_redValue").html(led_R);
           }
           else if(id == "gos_gSlide"){
-                 $(".gos_greenValue").html($input.value);
+                led_G = $input.value;
+                $(".gos_greenValue").html(led_G);
           }
           else if (id == "gos_bSlide") {
-                 $(".gos_blueValue").html($input.value);
+                led_B = $input.value;
+                $(".gos_blueValue").html(led_B);
           }
           else if(id == "gos_mSSlide"){
-                 $(".gos_motorSpeedValue").html($input.value);
+                motorSpeed = $input.value;
+                $(".gos_motorSpeedValue").html(motorSpeed);
           }
     }
 
@@ -1022,10 +1054,18 @@
 
     function setDevicAlaisPrompt()
     {
+        var tip;
+        if (deviceName == "" || deviceName == undefined) {
+            tip = "请输入设备名称";
+        }
+        else
+        {
+            tip = deviceName;
+        }
         console.log("设置设备别名");
         api.prompt({
               title: '设置设备别名',
-              text: '请输入名称',
+              text: tip,
               buttons: ['取消', '确定']
               }, function(ret, err) {
               var index = ret.buttonIndex;
@@ -1061,9 +1101,20 @@
 
     function receive_fnSetCustomInfo(ret, err)
     {
-        console.log("设置设备别名回调: ret = " + ret + "err = " + err);
+        
+        console.log("设置设备别名回调: ret = " + JSON.stringify(ret) + "err = " + err);
         api.hideProgress();
-        if (err == undefined) {
+        
+        if (err == undefined || err == "") {
+            // 修改设备名称
+            deviceName = ret.device.alias;
+            console.log("设置设备别名回调: deviceName = " + deviceName);
+            api.sendEvent({
+                name: 'updateDeviceName',
+                extra: {
+                devicename: deviceName
+             }
+            });
             api.alert({
                 title: '提示',
                 msg: '设置成功',
@@ -1076,7 +1127,6 @@
             title: '提示',
              msg: '设置失败',
             }, function(ret, err) {
-
             });
         }
 

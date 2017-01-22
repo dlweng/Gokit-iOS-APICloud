@@ -176,7 +176,7 @@
 
 		// 添加监听事件
 		api.addEventListener({
-    		name: 'JumpToDeviceControl'
+    		name: 'updateDeviceName'
 			}, function(ret, err) {
    			 
    			 console.log("ret = " + ret);
@@ -742,18 +742,10 @@
 
 	function fnShowDeviceName(ret){
 
-		console.log("界面即将跳转ret = " + JSON.stringify(ret));
-		var productName = ret.value.device.productName
-		var alias = ret.value.device.alias;
-		console.log("$('.deviceName').html() = " + $(".deviceName").html());
-		// $(".deviceName").html(alias);
-		// $(".deviceName").text('dajkdasdjhasd');
-		$('.deviceName').html('');
-
-		console.log("$('.deviceName') = " + $(".deviceName"));
-		console.log(" JSON.stringify($('.deviceName')) = " + JSON.stringify($(".deviceName")));
-		console.log("typeof(alias) = " + typeof(alias));
-		console.log("$('.deviceName').html() = " + $(".deviceName").html());
+		var alias = ret.value.devicename;
+		$('.deviceName').html(alias);
+		console.log("alias = " + alias);
+		console.log("接收到通知，显示设备名称 = " + $(".deviceName").html());
 	
 	}
 
