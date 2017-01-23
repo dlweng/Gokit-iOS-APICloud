@@ -112,20 +112,20 @@
 		if( eHeader.querySelectorAll( '.sub-header' ).length <= 0 )$api.fixStatusBar( eHeader );
 			
 		switch( api.pageParam.name ){
-			case 'purifier':
-				api.pageParam = api.pageParam.pageParam;
-			 	fnGetDeviceStatus();
-			 	fnGetNameFromCoords();
-				// fnSwitchPurifier( $api.dom( 'footer.purifier .flex-con' ) )
-				var eProductName = $api.domAll( '.productName' );
-				for( var i = 0; i < eProductName.length; i++){
-					eProductName[i].innerHTML = api.pageParam.productName || '--';
-				}
-				break;
+			// case 'purifier':
+			// 	api.pageParam = api.pageParam.pageParam;
+			//  	fnGetDeviceStatus();
+			//  	// fnGetNameFromCoords();
+			// 	// fnSwitchPurifier( $api.dom( 'footer.purifier .flex-con' ) )
+			// 	var eProductName = $api.domAll( '.productName' );
+			// 	for( var i = 0; i < eProductName.length; i++){
+			// 		eProductName[i].innerHTML = api.pageParam.productName || '--';
+			// 	}
+			// 	break;
 			case 'FNScanner': fnFNScanner()
 				break;
-			case 'switchCity': setTimeout(fnSwitchCity,300);
-				break;
+			// case 'switchCity': setTimeout(fnSwitchCity,300);
+			// 	break;
 			default:
 		
 				y = eHeader.offsetHeight;
@@ -235,92 +235,92 @@
 	// 	}
 	// }
 	
-	var vfnGetNameFromCoords = true;
-	function fnGetNameFromCoords(){
-		if( vfnGetNameFromCoords ){
-			vfnGetNameFromCoords = false;
-			api.execScript({
-			    name: 'root',
-			    script: 'fnGetNameFromCoords('+JSON.stringify({
-					winName: api.winName
-				})+')'
-			});
-		}
-	}
+	// var vfnGetNameFromCoords = true;
+	// function fnGetNameFromCoords(){
+	// 	if( vfnGetNameFromCoords ){
+	// 		vfnGetNameFromCoords = false;
+	// 		api.execScript({
+	// 		    name: 'root',
+	// 		    script: 'fnGetNameFromCoords('+JSON.stringify({
+	// 				winName: api.winName
+	// 			})+')'
+	// 		});
+	// 	}
+	// }
 	
-	function fnSwitchCity(){
-		api.showProgress({
-		    animationType: 'zoom',
-		    title: '正在加载',
-    		modal: true
-		});
-		setTimeout(function(){
-			api.require('UICityList').open({
-				rect : {
-					x : 0,
-					y : eHeader.offsetHeight,
-					h : api.winHeight  -  eHeader.offsetHeight
-				},
-				resource : 'widget://res/UICityList.json',
-				styles : {
-					searchBar : {
-						bgColor : '#39b47b',
-						cancColor : '#E3E3E3'
-					},
-					location : {
-						color : '#7AC5CD',
-					},
-					sectionTitle : {
-						bgColor : '#eee',
-						color: '#a09f9f',
-						height: 18
-					},
-					item : {
-						bgColor : '#fff',
-						activeBgColor : '#fff',
-						color: '#333',
-						size: 12,
-						height: 44
-					},
-					indicator : {
-						bgColor : '#fff',
-						color: '#52abff'
-					}
-				},
-				currentCity : '北京',
-			}, function(ret, err) {
-				if( ret.eventType === 'selected' ){
-					api.showProgress({
-					    animationType: 'zoom',
-					    title: '正在切换城市',
-			    		modal: true
-					});
-					ret.state = ret.cityInfo.city;
-					api.sendEvent({
-					    name: 'eve_aMap',
-					    extra: ret
-					});	
+	// function fnSwitchCity(){
+	// 	api.showProgress({
+	// 	    animationType: 'zoom',
+	// 	    title: '正在加载',
+ //    		modal: true
+	// 	});
+	// 	setTimeout(function(){
+	// 		api.require('UICityList').open({
+	// 			rect : {
+	// 				x : 0,
+	// 				y : eHeader.offsetHeight,
+	// 				h : api.winHeight  -  eHeader.offsetHeight
+	// 			},
+	// 			resource : 'widget://res/UICityList.json',
+	// 			styles : {
+	// 				searchBar : {
+	// 					bgColor : '#39b47b',
+	// 					cancColor : '#E3E3E3'
+	// 				},
+	// 				location : {
+	// 					color : '#7AC5CD',
+	// 				},
+	// 				sectionTitle : {
+	// 					bgColor : '#eee',
+	// 					color: '#a09f9f',
+	// 					height: 18
+	// 				},
+	// 				item : {
+	// 					bgColor : '#fff',
+	// 					activeBgColor : '#fff',
+	// 					color: '#333',
+	// 					size: 12,
+	// 					height: 44
+	// 				},
+	// 				indicator : {
+	// 					bgColor : '#fff',
+	// 					color: '#52abff'
+	// 				}
+	// 			},
+	// 			currentCity : '北京',
+	// 		}, function(ret, err) {
+	// 			if( ret.eventType === 'selected' ){
+	// 				api.showProgress({
+	// 				    animationType: 'zoom',
+	// 				    title: '正在切换城市',
+	// 		    		modal: true
+	// 				});
+	// 				ret.state = ret.cityInfo.city;
+	// 				api.sendEvent({
+	// 				    name: 'eve_aMap',
+	// 				    extra: ret
+	// 				});	
 					
-					api.addEventListener({
-					    name: 'eve_Weather'
-					}, function(ret, err){
-						if( ret.value.msg ){
-							fnPopup({msg: ret.value.msg})
-						}else{
-							fnPopup({
-								msg: '切换成功'
-							},function(){
-								api.closeWin();
-							})
-						}
-						api.hideProgress();
-					});
-				}else if( ret.eventType === 'show' ){
-					api.hideProgress();
-				}
-			});
-		},300);
-	}
+	// 				api.addEventListener({
+	// 				    name: 'eve_Weather'
+	// 				}, function(ret, err){
+	// 					if( ret.value.msg ){
+	// 						fnPopup({msg: ret.value.msg})
+	// 					}else{
+	// 						fnPopup({
+	// 							msg: '切换成功'
+	// 						},function(){
+	// 							api.closeWin();
+	// 						})
+	// 					}
+	// 					api.hideProgress();
+	// 				});
+	// 			}else if( ret.eventType === 'show' ){
+	// 				api.hideProgress();
+	// 			}
+	// 		});
+	// 	},300);
+	// }
 	
 	function fnFNScanner(){
 		var fNScanner=api.require('FNScanner');
@@ -426,71 +426,71 @@
         }
 	}
 
-	function fnGetDeviceStatus(){
-		setTimeout(function(){
-			api.showProgress({
-			    animationType: 'zoom',
-			    title: '等待连接',
-	    		modal: true
-			});
-		},300);
-		api.execScript({
-		    name: 'root',
-		    script: 'fnGetDeviceStatus('+JSON.stringify({
-				winName: api.winName,
-				data: api.pageParam,
-				hasLoop: true
-			})+')'
-		});
-	}
+	// function fnGetDeviceStatus(){
+	// 	setTimeout(function(){
+	// 		api.showProgress({
+	// 		    animationType: 'zoom',
+	// 		    title: '等待连接',
+	//     		modal: true
+	// 		});
+	// 	},300);
+	// 	api.execScript({
+	// 	    name: 'root',
+	// 	    script: 'fnGetDeviceStatus('+JSON.stringify({
+	// 			winName: api.winName,
+	// 			data: api.pageParam,
+	// 			hasLoop: true
+	// 		})+')'
+	// 	});
+	// }
 	
-	function receive_fnGetDeviceStatus( ret, err){
-		if( ret ){
-			if( typeof ret === 'booblean' ){
-				fnPopup({
-					msg: '读取设备超时'
-				}, function(){
-					api.closeWin();
-				});
-				api.hideProgress();
-			}else{
-				if( ret.data ){
-					$api.rmStorage( 'eve_purifier'+api.pageParam.did);
-					fnLocalPM25( ret );
-					ret.data.PM25 = ret.data.PM25 || '000';
-					if( 3 - ret.data.PM25.toString().length === 2 ){
-						ret.data.PM25 = '00' + ret.data.PM25;
-					}else if( 3 - ret.data.PM25.toString().length === 1 ){
-						ret.data.PM25 = '0' + ret.data.PM25;
-					}	
-					switch( ret.data.Switch_Mode ){
-						case 0: ret.data.Switch_Mode = '自动模式';
-							break;
-						case 1: ret.data.Switch_Mode = '睡眠模式';
-							break;
-						case 2: ret.data.Switch_Mode = '自定义模式';
-							break;
-					}
-					api.pageParam.data = ret;
-					$api.setStorage( 'eve_purifier'+api.pageParam.did, ret);
-					fnGetNameFromCoords();
-					api.hideProgress();
-				}else{
-					fnPopup({
-						msg: '读取设备信息失败'
-					}, function(){
-						api.closeWin();
-					});
-					api.hideProgress();
-				}
-			}
-		}else{
-			fnNotes( err, function(){
-				api.closeWin();
-			});
-			api.hideProgress();
-		}
-	}
+	// function receive_fnGetDeviceStatus( ret, err){
+	// 	if( ret ){
+	// 		if( typeof ret === 'booblean' ){
+	// 			fnPopup({
+	// 				msg: '读取设备超时'
+	// 			}, function(){
+	// 				api.closeWin();
+	// 			});
+	// 			api.hideProgress();
+	// 		}else{
+	// 			if( ret.data ){
+	// 				$api.rmStorage( 'eve_purifier'+api.pageParam.did);
+	// 				fnLocalPM25( ret );
+	// 				ret.data.PM25 = ret.data.PM25 || '000';
+	// 				if( 3 - ret.data.PM25.toString().length === 2 ){
+	// 					ret.data.PM25 = '00' + ret.data.PM25;
+	// 				}else if( 3 - ret.data.PM25.toString().length === 1 ){
+	// 					ret.data.PM25 = '0' + ret.data.PM25;
+	// 				}	
+	// 				switch( ret.data.Switch_Mode ){
+	// 					case 0: ret.data.Switch_Mode = '自动模式';
+	// 						break;
+	// 					case 1: ret.data.Switch_Mode = '睡眠模式';
+	// 						break;
+	// 					case 2: ret.data.Switch_Mode = '自定义模式';
+	// 						break;
+	// 				}
+	// 				api.pageParam.data = ret;
+	// 				$api.setStorage( 'eve_purifier'+api.pageParam.did, ret);
+	// 				// fnGetNameFromCoords();
+	// 				api.hideProgress();
+	// 			}else{
+	// 				fnPopup({
+	// 					msg: '读取设备信息失败'
+	// 				}, function(){
+	// 					api.closeWin();
+	// 				});
+	// 				api.hideProgress();
+	// 			}
+	// 		}
+	// 	}else{
+	// 		fnNotes( err, function(){
+	// 			api.closeWin();
+	// 		});
+	// 		api.hideProgress();
+	// 	}
+	// }
 	
 	function fnConnectionDevice(){
 		api.closeToWin({

@@ -27,8 +27,7 @@
 		$api.setStorage('appID',api.systemType === 'ios' ? '0242533102ee468385012912234665f8':'d59de30bf1024a08a757598419090ae6');
 		$api.setStorage('appSecret',api.systemType === 'ios' ? 'bac5d92823fc44de9c259915634ede2c':'a3466b42d71041f290c066c674001e6a');
         
-        
-
+       
 //		初始化机制云模块
 		gizWifiSDK.startWithAppID({appID: $api.getStorage('appID') ,specialProductKeys: ['6f3074fe43894547a4f1314bd7e3ae0b'] }, function(ret, err) {
 
@@ -45,8 +44,6 @@
 		});
 	}
 	
-	
-//	[设备控制相关 -> 写入数据点]( http://site.gizwits.com/zh-cn/developer/product )
 	function fnWrite( obj ){
 		gizWifiDevice.write({
 		    device: obj.device,
@@ -76,68 +73,40 @@
 		});
 	}
 	
-//	获取当前位置
-	function fnGetNameFromCoords(){
-		aMap.open({
-		    rect: {
-		        w: 0,
-		        h: 0
-		    }
-		}, function(ret, err){        
-		    if( ret.status ){
-				aMap.getLocation({
-					autoStop: true
-				},function(ret, err){      
-				    if( ret.status ){
-						aMap.getNameFromCoords({
-						    lon: ret.lon,
-						    lat: ret.lat
-						}, function(ret, err){     
-						    if( ret.status ){
-								setTimeout(function(){
-									api.sendEvent({
-									    name: 'eve_aMap',
-									    extra: ret
-									});	
-								},500);
-						    }
-						});
-				    }
-				});
-		    }
-		});
-	}
+// //	获取当前位置
+// 	function fnGetNameFromCoords(){
+// 		aMap.open({
+// 		    rect: {
+// 		        w: 0,
+// 		        h: 0
+// 		    }
+// 		}, function(ret, err){        
+// 		    if( ret.status ){
+// 				aMap.getLocation({
+// 					autoStop: true
+// 				},function(ret, err){      
+// 				    if( ret.status ){
+// 						aMap.getNameFromCoords({
+// 						    lon: ret.lon,
+// 						    lat: ret.lat
+// 						}, function(ret, err){     
+// 						    if( ret.status ){
+// 								setTimeout(function(){
+// 									api.sendEvent({
+// 									    name: 'eve_aMap',
+// 									    extra: ret
+// 									});	
+// 								},500);
+// 						    }
+// 						});
+// 				    }
+// 				});
+// 		    }
+// 		});
+// 	}
 	
 //	设备控制相关->获取设备状态。
 	function fnGetDeviceStatus( obj ){
-		// alert(JSON.stringify(obj));
-		// var vSpeed = 20000,
-		// 	vCall = true
-		// if( obj.data.isLAN ){
-		// 	vSpeed = 10000;
-		// }
-		// var vTime = setTimeout(function(){
-		// 	vCall = false;
-		// 	api.execScript({
-		// 	    name: obj.winName,
-		// 	    frameName: obj.frameName,
-		// 	    script: 'receive_fnGetDeviceStatus(true)'
-		// 	});
-		// }, vSpeed);
-		// gizWifiDevice.getDeviceStatus({
-		//     device: {
-		//         mac:  obj.data.mac,
-		//         did: obj.data.did
-		//     }
-		// },function(ret, err) {
-		// 	if( vCall ){
-		// 		clearTimeout( vTime );
-		// 		api.execScript({
-		// 		    name: obj.winName,
-		// 		    script: 'receive_fnGetDeviceStatus('+JSON.stringify( ret )+','+JSON.stringify( err )+')'
-		// 		});
-		// 	}
-		// });
 
 		gizWifiDevice.getDeviceStatus({
 			device: {
@@ -348,36 +317,6 @@
 		});
 	}
 
-//	获取手机当前Wifi的SSID,与选择wifi页面区分
-	// function fnGetPhoneSSID1( obj ){
-	// 	alert(JSON.stringify(obj));
-	// 	gizWifiSDK.getPhoneSSID(function(ret, err) {
-	// 		//alert(JSON.stringify(ret));
-	// 		api.execScript({
-	// 		    name: obj.winName,
-	// 		    frameName: obj.frameName,
-	// 		    script: 'receive_fnGetPhoneSSID1('+JSON.stringify( ret )+','+JSON.stringify( err )+')'
-	// 		});
-	// 	});
-	// }
-	
-//	QQ 登录
-	function fnUserLoginWithThirdAccountType( obj ){
-
-		gizWifiSDK.userLoginWithThirdAccountType({
-		    thirdAccountType: '2',
-		    uid: obj.uid,
-		    token: obj.token
-		}, function(ret, err){
-			//alert(JSON.stringify(ret));
-			//alert(JSON.stringify(err));
-			api.execScript({
-			    name: obj.winName,
-			    frameName: obj.frameName,
-			    script: 'receive_fnUserLoginWithThirdAccountType('+JSON.stringify( ret )+','+JSON.stringify( err )+')'
-			});
-		})
-	}
 	
 //	匿名登录
 	function fnUserLoginAnonymous( obj ){
