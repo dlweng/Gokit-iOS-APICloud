@@ -22,7 +22,6 @@
 	var hasSuccess = false;
 	apiready = function(){	
 		fnSetDeviceOnboarding( api.pageParam.data );
-		//alert(api.pageParam.y);
 	}
 	
 	function fnSetDeviceOnboarding( obj ){
@@ -30,9 +29,6 @@
 		localStorage.setItem( 'searchDevice', api.winName );
 		var arcProgress = api.require('arcProgress');	
 		var hint = $api.dom('.hint');
-		/*var hint2 = $api.dom('.hint2');
-		var hint3 = $api.dom('.hint3');
-		var hint4 = $api.dom('.hint4'); */
 		arcProgress.open({
 		    type: 'annular',
 		    centerX: api.frameWidth / 2,
@@ -112,9 +108,6 @@
 				localStorage.removeItem( 'searchDevice' );
 				fnJumpWin({name: 'connectionDevice', path: '/main' });
 			});
-			/*fnNotes( err );
-			localStorage.removeItem( 'searchDevice' );
-			fnJumpWin({name: 'connectionDevice', path: '/main' });*/
 		}
 		else if( err.errCode != 8022 ){
 			fnPopup({

@@ -83,10 +83,6 @@
 		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">返回</div>
 		关于
 	</header>
-	<header class="object" >
-		<div tapmode="opacity" onclick="fnCancelDevice();" class="ic-back-auto"></div>
-		二期主页
-	</header>
 	<header class="deviceControl">
 		<div tapmode="opacity" onclick="fnCancelDevice();" class="ic-back"></div>
 		<div tapmode="opacity" onclick="fnDeviceControlMore();" class="ic-more right"></div>
@@ -119,9 +115,8 @@
 			case 'purifier':
 				api.pageParam = api.pageParam.pageParam;
 			 	fnGetDeviceStatus();
-			 	fnWeather();
 			 	fnGetNameFromCoords();
-				fnSwitchPurifier( $api.dom( 'footer.purifier .flex-con' ) )
+				// fnSwitchPurifier( $api.dom( 'footer.purifier .flex-con' ) )
 				var eProductName = $api.domAll( '.productName' );
 				for( var i = 0; i < eProductName.length; i++){
 					eProductName[i].innerHTML = api.pageParam.productName || '--';
@@ -134,7 +129,6 @@
 			default:
 		
 				y = eHeader.offsetHeight;
-				 // alert(JSON.stringify(api.pageParam.name)+11);
 				$api.setStorage('pageY', y );
 				api.openFrame({
 				    name: 'frm_'+api.pageParam.name,
@@ -184,62 +178,62 @@
 			});
 	}
 	
-	function fnSwitchPurifier( el, hasHidden ){
-		var ePurifier = $api.domAll( 'footer.purifier .flex-con' );
-		var eSubHeader = $api.domAll( 'header.purifier .sub-header' );
-		if( $api.dom( 'footer.purifier .flex-con.active' ) ){
-			localStorage.setItem( 'currentName', $api.dom( 'footer.purifier .flex-con.active' ).getAttribute( 'data-name' ) );
-		}else{
-			localStorage.removeItem( 'currentName' );
-		}
-		for( var i = 0; i < ePurifier.length; i++){
-			if( ePurifier[i] === el ){
-				$api.addCls( ePurifier[i], 'active' );
-				$api.addCls( eSubHeader[i], 'show' );
-				$api.fixStatusBar( eSubHeader[i] );
-				if( ePurifier[i].getAttribute( 'data-name' ) === 'off' ){
-					api.openFrame({
-					    name: 'frm_home-auto',
-					    url: api.wgtRootDir+'/html/object-purifier/home-auto.html',
-					    bgColor: '#39b47b',
-			    		pageParam: api.pageParam,
-					    rect: {
-					        x: 0,
-					        y: eSubHeader[i].offsetHeight,
-					        h: api.winHeight - eSubHeader[i].offsetHeight - ePurifier[i].offsetHeight
-					    }
-					});
-					api.openFrame({
-					    name: 'frm_home-off',
-					    url: api.wgtRootDir+'/html/object-purifier/home-off.html',
-					    bgColor: ePurifier[i].getAttribute( 'bg' ),
-			    		pageParam: api.pageParam
-					});
-				}else{					
-					api.openFrame({
-					    name: 'frm_home-'+ePurifier[i].getAttribute( 'data-name' ),
-					    url: api.wgtRootDir+'/html/object-purifier/home-'+( ePurifier[i].getAttribute( 'data-name' ) === 'auto' || ePurifier[i].getAttribute( 'data-name' ) === 'sleep' ? 'auto' : ePurifier[i].getAttribute( 'data-name' ) )+'.html',
-					    bgColor: ePurifier[i].getAttribute( 'bg' ),
-			    		pageParam: api.pageParam,
-					    rect: {
-					        x: 0,
-					        y: eSubHeader[i].offsetHeight,
-					        h: ePurifier[i].getAttribute( 'data-name' ) === 'like' ? api.winHeight - eSubHeader[i].offsetHeight :api.winHeight - eSubHeader[i].offsetHeight - ePurifier[i].offsetHeight
-					    }
-					});
-				}
-			}else{
-				if( !( el.getAttribute( 'data-name' ) === 'off' || el.getAttribute( 'data-name' ) === 'like' ) ){
-					api.setFrameAttr({
-					    name: 'frm_home-'+ePurifier[i].getAttribute( 'data-name' ),
-					    hidden: true
-					});
-					$api.removeCls( eSubHeader[i], 'show' );
-				}
-				$api.removeCls( ePurifier[i], 'active' );
-			}
-		}
-	}
+	// function fnSwitchPurifier( el, hasHidden ){
+	// 	var ePurifier = $api.domAll( 'footer.purifier .flex-con' );
+	// 	var eSubHeader = $api.domAll( 'header.purifier .sub-header' );
+	// 	if( $api.dom( 'footer.purifier .flex-con.active' ) ){
+	// 		localStorage.setItem( 'currentName', $api.dom( 'footer.purifier .flex-con.active' ).getAttribute( 'data-name' ) );
+	// 	}else{
+	// 		localStorage.removeItem( 'currentName' );
+	// 	}
+	// 	for( var i = 0; i < ePurifier.length; i++){
+	// 		if( ePurifier[i] === el ){
+	// 			$api.addCls( ePurifier[i], 'active' );
+	// 			$api.addCls( eSubHeader[i], 'show' );
+	// 			$api.fixStatusBar( eSubHeader[i] );
+	// 			if( ePurifier[i].getAttribute( 'data-name' ) === 'off' ){
+	// 				api.openFrame({
+	// 				    name: 'frm_home-auto',
+	// 				    url: api.wgtRootDir+'/html/object-purifier/home-auto.html',
+	// 				    bgColor: '#39b47b',
+	// 		    		pageParam: api.pageParam,
+	// 				    rect: {
+	// 				        x: 0,
+	// 				        y: eSubHeader[i].offsetHeight,
+	// 				        h: api.winHeight - eSubHeader[i].offsetHeight - ePurifier[i].offsetHeight
+	// 				    }
+	// 				});
+	// 				api.openFrame({
+	// 				    name: 'frm_home-off',
+	// 				    url: api.wgtRootDir+'/html/object-purifier/home-off.html',
+	// 				    bgColor: ePurifier[i].getAttribute( 'bg' ),
+	// 		    		pageParam: api.pageParam
+	// 				});
+	// 			}else{					
+	// 				api.openFrame({
+	// 				    name: 'frm_home-'+ePurifier[i].getAttribute( 'data-name' ),
+	// 				    url: api.wgtRootDir+'/html/object-purifier/home-'+( ePurifier[i].getAttribute( 'data-name' ) === 'auto' || ePurifier[i].getAttribute( 'data-name' ) === 'sleep' ? 'auto' : ePurifier[i].getAttribute( 'data-name' ) )+'.html',
+	// 				    bgColor: ePurifier[i].getAttribute( 'bg' ),
+	// 		    		pageParam: api.pageParam,
+	// 				    rect: {
+	// 				        x: 0,
+	// 				        y: eSubHeader[i].offsetHeight,
+	// 				        h: ePurifier[i].getAttribute( 'data-name' ) === 'like' ? api.winHeight - eSubHeader[i].offsetHeight :api.winHeight - eSubHeader[i].offsetHeight - ePurifier[i].offsetHeight
+	// 				    }
+	// 				});
+	// 			}
+	// 		}else{
+	// 			if( !( el.getAttribute( 'data-name' ) === 'off' || el.getAttribute( 'data-name' ) === 'like' ) ){
+	// 				api.setFrameAttr({
+	// 				    name: 'frm_home-'+ePurifier[i].getAttribute( 'data-name' ),
+	// 				    hidden: true
+	// 				});
+	// 				$api.removeCls( eSubHeader[i], 'show' );
+	// 			}
+	// 			$api.removeCls( ePurifier[i], 'active' );
+	// 		}
+	// 	}
+	// }
 	
 	var vfnGetNameFromCoords = true;
 	function fnGetNameFromCoords(){
@@ -673,64 +667,31 @@
 		});
 	}
 	
-	function fnWeather(){
-		api.addEventListener({
-		    name: 'eve_aMap'
-		}, function(ret, err){
-			$api.setStorage( 'eve_aMap', ret);
-			api.ajax({
-			    url: 'http://apis.baidu.com/heweather/weather/free?city='+ret.value.state.replace('市',''),
-			    headers: {
-			        apikey: 'b1425bf9b09b9652051078e5d53029c5'
-			    }
-			},function(ret, err){
-		    	ret = ret[ Object.keys( ret )[0] ][0];
-			    if ( ret.status === 'ok' ) {
-			    	fnLocalPM25( ret );
-					api.sendEvent({	
-					    name: 'eve_Weather',
-					    extra: {
-				    		tmp: ret.now.tmp,
-				    		brf: ret.suggestion ? ret.suggestion.comf.brf : '--',
-				    		qlty: ret.aqi ? ret.aqi.city.qlty : '--'
-				    	}
-					});	
-			    }else if(  ret.status === 'unknown city'  ){
-					api.sendEvent({	
-					    name: 'eve_Weather',
-					    extra: {
-					    	msg: '该城市尚未被支持'
-				    	}
-					});	
-			    }
-			});
-		});
-	}
 	
-	function fnLocalPM25( ret ){
-		var localPM25 = localStorage.getItem( 'localPM25' + api.pageParam.did ) ? JSON.parse( localStorage.getItem( 'localPM25' + api.pageParam.did ) ) : [];
-		var vData = {};
-		if( localPM25.length >= 6){
-			localPM25.shift();
-		}
-		for( var i = 0; i < localPM25.length; i++){
-			if( fnFormat( Date.now() ) === localPM25[i].date ){
-				vData = localPM25[i];
-				localPM25.splice( i, 1 );
-				--i;
-			}
-		}
-		localPM25.push( {
-			date: fnFormat( Date.now() ),
-			PM25: ret.data ? ret.data.PM25 : vData.PM25 ? vData.PM25 : 0,
-			pm25: ret.aqi ? ret.aqi.city.pm25 : vData.pm25 ? vData.pm25 : 0
-		})
-		localStorage.setItem( 'localPM25' + api.pageParam.did, JSON.stringify( localPM25 ) ); 
-		function fnFormat( vDate ){
-			vDate = new Date( vDate );
-			return (vDate.getMonth() < 10 ? '0'+(vDate.getMonth()+1) : ++vDate.getMonth())+ '.' + (vDate.getDate() < 10 ? '0' + vDate.getDate() : vDate.getDate());
-		}
-	}
+	// function fnLocalPM25( ret ){
+	// 	var localPM25 = localStorage.getItem( 'localPM25' + api.pageParam.did ) ? JSON.parse( localStorage.getItem( 'localPM25' + api.pageParam.did ) ) : [];
+	// 	var vData = {};
+	// 	if( localPM25.length >= 6){
+	// 		localPM25.shift();
+	// 	}
+	// 	for( var i = 0; i < localPM25.length; i++){
+	// 		if( fnFormat( Date.now() ) === localPM25[i].date ){
+	// 			vData = localPM25[i];
+	// 			localPM25.splice( i, 1 );
+	// 			--i;
+	// 		}
+	// 	}
+	// 	localPM25.push( {
+	// 		date: fnFormat( Date.now() ),
+	// 		PM25: ret.data ? ret.data.PM25 : vData.PM25 ? vData.PM25 : 0,
+	// 		pm25: ret.aqi ? ret.aqi.city.pm25 : vData.pm25 ? vData.pm25 : 0
+	// 	})
+	// 	localStorage.setItem( 'localPM25' + api.pageParam.did, JSON.stringify( localPM25 ) ); 
+	// 	function fnFormat( vDate ){
+	// 		vDate = new Date( vDate );
+	// 		return (vDate.getMonth() < 10 ? '0'+(vDate.getMonth()+1) : ++vDate.getMonth())+ '.' + (vDate.getDate() < 10 ? '0' + vDate.getDate() : vDate.getDate());
+	// 	}
+	// }
 
 	function fnDeviceControlMore(){
 		api.execScript({
@@ -743,16 +704,13 @@
 	function fnShowDeviceName(ret){
 
 		var alias = ret.value.devicename;
+		if (alias.length > 10) {
+			alias = alias.substring(0, 10) + "...";
+		}
 		$('.deviceName').html(alias);
 		console.log("alias = " + alias);
 		console.log("接收到通知，显示设备名称 = " + $(".deviceName").html());
 	
-	}
-
-	function run()
-	{
-		// $(".deviceNamess").html("dada");
-		console.log("设置设备名称");
 	}
 </script>
 </html>

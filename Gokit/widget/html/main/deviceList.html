@@ -180,8 +180,6 @@
 	
 	function receive_fnBindDevice( ret, err ){
 
-		//window.location.reload();
-		//fnInit();
 		api.execScript({
 		    name: 'root',
 		    script: 'fnRegisterNotifications('+JSON.stringify({
@@ -209,8 +207,6 @@
 				});
 		    }
 		});
-		//alert( 'receive_fnBindDevice'+JSON.stringify( ret ) )
-		//alert( 'receive_fnBindDevice'+JSON.stringify( err ) )
 	}
 	
 	function receive_fnGetBoundDevices( ret, err ){
@@ -245,7 +241,6 @@
 
 			receive_fnGetListInfo( ret, err);
 		}else{
-			//alert( '3' );
 			fnNotes( err );
 		}
 	}
@@ -380,8 +375,6 @@
         }, function() {
 
         });
-
-        //alert(1);
 	}
 	
 </script>

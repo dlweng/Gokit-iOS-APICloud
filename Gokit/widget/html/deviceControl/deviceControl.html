@@ -896,6 +896,9 @@
 
             case dataPoint.GosDeviceWriteMotorSpeed:
             motorSpeed = data[static_MotorSpeed];
+            motorSpeed = motorSpeed < -5 ? -5 : motorSpeed;
+            motorSpeed = motorSpeed > 5 ? 5 : motorSpeed;
+            break;
 
             case dataPoint.GosDeviceReadIR:
             infrared = data[static_LED_Infrared];
@@ -1109,12 +1112,12 @@
             // 修改设备名称
             deviceName = ret.device.alias;
             console.log("设置设备别名回调: deviceName = " + deviceName);
-            api.sendEvent({
-                name: 'updateDeviceName',
-                extra: {
-                devicename: deviceName
-             }
-            });
+            // api.sendEvent({
+            //     name: 'updateDeviceName',
+            //     extra: {
+            //     devicename: deviceName
+            //  }
+            // });
             api.alert({
                 title: '提示',
                 msg: '设置成功',

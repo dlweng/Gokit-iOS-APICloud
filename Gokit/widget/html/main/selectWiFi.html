@@ -115,16 +115,6 @@
 			$api.closest( el, '.ic-lock' ).querySelector( 'input' ).setAttribute( 'type', 'text' );
 		}
 	}
-	
-	// function hide(){
-	// 	var selectWiFi = $api.dom('.selectWiFi');
-	// 	var msg = $api.dom('.msg');
-	// 	if(selectWiFi.innerHTML.trim()){
-	// 		msg.style.display = 'none';
-	// 	}else {
-	// 		msg.style.display = 'block';
-	// 	}
-	// }
 
 	function fnhide_footer(){
 		// $api.css( $api.dom( '.hint'), 'display:none');
@@ -162,33 +152,19 @@
 				});				
 			}
 		}else{
-	
-			//alert( $api.getStorage('wifi') +'  '+ $api.getStorage('wifi_password'));
+
 			fnJumpWin({name: 'connectionStatus', path: '/main',selectWiFi: selectWiFi.innerHTML, password: password.value});
 		}
 	}
 	
 	function receive_fnGetPhoneSSID( ret, err ){
 		var msg = $api.dom('.msg');
-		//alert(JSON.stringify(ret.SSID));
 		if( ret ){
 			if( ret.SSID !== '<unknown ssid>' ){
-				//$api.dom( '.selectWiFi' ).innerHTML = ret ? ret.SSID : '请选择设备工作 Wi-Fi';
 				$api.dom( '.selectWiFi' ).innerHTML = ret.SSID ;	
 				msg.style.display = 'none';		
 			} 
 		}else{
-			/*api.confirm({
-			    title: '提示',
-			    msg: '请切换至Wi-Fi环境',
-			    buttons: ['确定']
-			}, function(ret, err){
-			    if( ret ){
-			         
-			    }else{
-			         
-			    }
-			});*/
 			msg.style.display = 'block';
 
 			api.alert({
