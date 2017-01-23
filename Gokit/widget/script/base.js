@@ -136,6 +136,18 @@ function fnJumpWin( obj ){
 }
 
 function fnPopup( obj, callback ){
+
+	// 去掉目前界面上的弹框
+    var oldFrame = localStorage.getItem( 'hasBack' );
+    if (oldFrame != null) {
+    	api.closeFrame({
+		    name: oldFrame
+		});
+		localStorage.removeItem( 'hasBack' );
+    }
+    console.log("fnPopup + hasBack = " + oldFrame + typeof(oldFrame));
+
+    // 添加新的弹框
 	obj.name = obj.name ?  'frm_'+obj.name : 'frm_popup'+Math.floor( Math.random()*1000 );
 	api.openFrame({
 	    name: obj.name,
@@ -143,6 +155,7 @@ function fnPopup( obj, callback ){
 	    bgColor: 'rgba(0,0,0,.2)',
 	    pageParam: obj
     });
+
     localStorage.setItem( 'hasBack', obj.name );
     setTimeout(function(){
     	api.closeFrame({
@@ -175,7 +188,10 @@ function fnVerifyInput( obj ){
 	}
 }
 
+var index = 0;
 function fnNotes( obj, callback ){
+
+	console.log("fnNote回调" + (++index));
 	if( !obj )return;
 	var notes = {
 		'0': 'SDK 接口执行成功',

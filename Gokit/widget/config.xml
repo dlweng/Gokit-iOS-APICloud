@@ -26,7 +26,6 @@
   <permission name="hardware"/>
   <access origin="*"/>
   <feature name="gizWifiSDK"/>
-  <feature name="UICustomPicker"/>
   <feature name="FNScanner"/>
   <feature name="arcProgress"/>
 </widget>

@@ -220,7 +220,6 @@
 	
 	function receive_fnSetSubscribe( ret, err, data ){
 		if( ret ){
-			//发送即将跳转界面通知
 			console.log("receive_fnSetSubscribe ret = " + JSON.stringify(ret));
 			var productName = ret.device.productName;
 			var alias = ret.device.alias;
@@ -241,7 +240,7 @@
 
 			receive_fnGetListInfo( ret, err);
 		}else{
-			fnNotes( err );
+			// fnNotes( err );
 		}
 	}
 	
@@ -350,9 +349,9 @@
 
 	function fnSetSubscribe( el ){
 		if( ! el.querySelector( '.no-arrow' ) ){
-			api.showProgress({
-			    animationType: 'zoom'
-			});
+			// api.showProgress({
+			//     animationType: 'zoom'
+			// });
 			api.execScript({
 			    name: 'root',
 			    script: 'fnSetSubscribe('+el.querySelector( 'data.hide' ).innerHTML+')'
