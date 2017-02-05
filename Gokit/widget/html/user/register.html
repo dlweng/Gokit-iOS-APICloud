@@ -153,7 +153,9 @@
 	}
 	
 	function receive_fnRequestSendVerifyCode( ret, err){
-		if( typeof(err) === 'undefined' ){
+
+		console.log("接收到短信结果ret = " + JSON.stringify(ret)+ ", err = " + JSON.stringify(err));
+		if( err == undefined ){
 			fnCountDown( 60 );
             fnPopup({
                 msg: '发送成功'
