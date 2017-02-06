@@ -35,7 +35,7 @@
 	function receive_fnGetVersion( ret, err){
 
 		var version = ret.version;
-		console.log("ret.version = " + ret.version + ", JSON.stringify(ret.version)" + JSON.stringify(ret.version))
+		console.log("ret.version = " + ret.version + ", JSON.stringify(ret.version)" + JSON.stringify(ret.version));
 	    var versions = version.split("-");
 		$api.dom( '.about p:last-child' ).innerHTML = 'SDK版本：'+ versions[0];
 	}
