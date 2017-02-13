@@ -11,6 +11,7 @@
 #import "UZAppUtils.h"
 #import "UZAppDelegate.h"
 #import "ViewController.h"
+#import "APIWidgetContainer.h"
 
 @interface AppDelegate ()
 
@@ -25,11 +26,24 @@
     
     [[APIManager manager] initSDKWithLaunchOptions:launchOptions];
     
+//    CGRect screenBounds = [UIScreen mainScreen].bounds;
+//    self.window = [[UIWindow alloc] initWithFrame:screenBounds];
+//    UIViewController *rootVC = [[ViewController alloc] init];
+//    self.window.rootViewController = rootVC;
+//    [self.window makeKeyAndVisible];
+    
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     self.window = [[UIWindow alloc] initWithFrame:screenBounds];
-    UIViewController *rootVC = [[ViewController alloc] init];
-    self.window.rootViewController = rootVC;
+//    UIViewController *rootVC = [[ViewController alloc] init];
+    
+    
+    NSString *url = @"widget://index.html";
+    APIWidgetContainer *windowContainer = [APIWidgetContainer widgetContainerWithUrl:url];
+    windowContainer.view.backgroundColor = [UIColor whiteColor];
+    
+    self.window.rootViewController = windowContainer;
     [self.window makeKeyAndVisible];
+    [windowContainer startLoad];
     
     return YES;
 }

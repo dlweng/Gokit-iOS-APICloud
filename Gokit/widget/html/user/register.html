@@ -154,19 +154,20 @@
 	
 	function receive_fnRequestSendVerifyCode( ret, err){
 
-		console.log("接收到短信结果ret = " + JSON.stringify(ret)+ ", err = " + JSON.stringify(err));
-		if( err == undefined ){
-			fnCountDown( 60 );
+		console.log("获取设备验证码 ret = " + JSON.stringify(ret)+ ", err = " + JSON.stringify(err));
+		if( err){
+			fnPopup({
+                msg: '短信发送失败'
+            }, function() {
+            	
+            });	
+			
+		}else{
+            fnCountDown( 60 );
             fnPopup({
                 msg: '发送成功'
             }, function() {
 
-            });	
-		}else{
-            fnPopup({
-                msg: '短信发送失败'
-            }, function() {
-            	
             });			
 		}
 		api.hideProgress();

@@ -633,7 +633,7 @@
     }
 
     function receive_fnWrite(ret, err){
-        
+        console.log("控制设备,ret = " + JSON.stringify(ret), ", err = " + JSON.stringify(err));
     }
     function receive_fnRegisterDeviceStatusNotification(ret, err){
         console.log("注册通知接口, 设备主动上报状态");
@@ -1104,11 +1104,21 @@
 
     function receive_fnSetCustomInfo(ret, err)
     {
-        
-        console.log("设置设备别名回调: ret = " + JSON.stringify(ret) + "err = " + err);
+        var alias = "设置设备别名回调: ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err);
+<!--        alert(alias)-->
+        console.log(alias);
         api.hideProgress();
         
-        if (err == undefined || err == "") {
+        if (err) {
+            
+            api.alert({
+                      title: '提示',
+                      msg: '设置失败',
+                      }, function(ret, err) {
+                      });
+        }
+        else
+        {
             // 修改设备名称
             deviceName = ret.device.alias;
             console.log("设置设备别名回调: deviceName = " + deviceName);
@@ -1119,18 +1129,11 @@
             //  }
             // });
             api.alert({
-                title: '提示',
-                msg: '设置成功',
-                }, function(ret, err) {
-            });
-        }
-        else
-        {
-            api.alert({
-            title: '提示',
-             msg: '设置失败',
-            }, function(ret, err) {
-            });
+                      title: '提示',
+                      msg: '设置成功',
+                      }, function(ret, err) {
+                      });
+
         }
 
     }
