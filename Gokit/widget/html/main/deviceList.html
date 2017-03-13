@@ -180,6 +180,7 @@
 	
 	function receive_fnBindDevice( ret, err ){
 
+		alert("绑定设备回调: ret = " + JSON.stringify(ret) + ", err = " + JSON.stringify(err));
 		api.execScript({
 		    name: 'root',
 		    script: 'fnRegisterNotifications('+JSON.stringify({
@@ -210,11 +211,11 @@
 	}
 	
 	function receive_fnGetBoundDevices( ret, err ){
-		//alert(JSON.stringify(ret));
+		// alert("获取绑定设备列表回调：ret = " + JSON.stringify(ret) + ", err = " + JSON.stringify(err));
 		if( ret ){
 			receive_fnGetListInfo( ret, err);
 		}else{			
-			// fnNotes( err );
+			fnNotes( err );
 		}
 	}
 	
