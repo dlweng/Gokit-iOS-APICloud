@@ -292,6 +292,7 @@ html,body{ height: 100%; }
 [class*=bg-]{ background: no-repeat center; } 
 .bg-add{ background-image:url(../image/bg-add.png); }
 .bg-select{ background-image:url(../image/bg-add.png); }
+.bg-fail{ background-image:url(../image/bg-fail.png); }
 .bg-connection-status{ background-image:url(../image/bg-connection-status.png); }
 
 	.ios7CBox{
@@ -299,7 +300,7 @@ html,body{ height: 100%; }
         padding:0;
         border:none;
         width: 50px;
-        height: 50px;
+        height: 34px;
         position:relative;
 		color:#fff;
 		background:none;

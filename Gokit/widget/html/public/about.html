@@ -22,7 +22,7 @@
 <script type="text/javascript" src="../../script/base.js"></script>
 <script type="text/javascript">
 	apiready = function(){
-		$api.dom( '.about p' ).innerHTML = '程序版本：2.1.0.081215';
+		$api.dom( '.about p' ).innerHTML = '程序版本：2.1.0.041311';
 		api.execScript({
 		    name: 'root',
 		    script: 'fnGetVersion('+JSON.stringify({
@@ -33,11 +33,7 @@
 	}
 	
 	function receive_fnGetVersion( ret, err){
-
-		var version = ret.version;
-		console.log("ret.version = " + ret.version + ", JSON.stringify(ret.version)" + JSON.stringify(ret.version));
-	    var versions = version.split("-");
-		$api.dom( '.about p:last-child' ).innerHTML = 'SDK版本：'+ versions[0];
+		$api.dom( '.about p:last-child' ).innerHTML = 'SDK版本：'+ret.version;
 	}
 </script>
 </html>

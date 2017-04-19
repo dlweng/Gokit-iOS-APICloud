@@ -33,19 +33,8 @@
 <script type="text/javascript" src="../../script/base.js"></script>
 <script type="text/javascript">
 	var setDeviceOnboarding = false;
+
 	apiready = function(){
-//		alert( JSON.stringify( api.pageParam ) )
-		
-		fnPopup({
-			msg:'网络不佳，切换到手动配置'
-		}, function(){
-				
-		});
-		api.execScript({
-		    name: 'win_selectWiFi',
-		    frameName: 'frm_selectWiFi',
-		    script: 'fnCloseresume();'
-		});
 		api.execScript({
 		    name: 'root',
 		    script: 'fnGetPhoneSSID('+JSON.stringify({
@@ -54,6 +43,12 @@
 			})+')'
 		});
 
+		api.addEventListener({name: 'viewappear'}, fnAppear);
+		api.addEventListener({name: 'viewdisappear'}, fnDisappear);
+        fnAppear();
+	}
+
+	function fnAppear() {
 		api.addEventListener({
 		    name:'resume'
 		}, function(ret, err){        
@@ -67,11 +62,13 @@
 			setDeviceOnboarding = true;		
 			//setDeviceOnboarding = true;
 		});
-	
 	}
 	
-
-	
+	function fnDisappear() {
+		api.removeEventListener({
+			name: 'resume'
+		});
+	}
 	
 	function fnJumpSetting(){
 		if( api.systemType === 'ios' ){
@@ -88,6 +85,13 @@
 			    animationType: 'zoom',
 			    title: '获取 WiFi'
 			});
+			// api.execScript({
+			//     name: 'root',
+			//     script: 'fnGetPhoneSSID('+JSON.stringify({
+			// 		winName: api.winName,
+			// 		frameName: api.frameName
+			// 	})+')'
+			// });
 			
 		})
 	}
@@ -96,35 +100,18 @@
 	
 	function receive_fnGetPhoneSSID( ret, err ){
 		//alert(1);
-		if( ret.SSID !== '<unknown ssid>' ){
+		if(ret.SSID !== '<unknown ssid>'){
 				//alert(JSON.stringify("当前连接"+ret.SSID));
 			$api.dom( '.ic-warning' ).innerHTML = '当前连接'+ret.SSID;
 			//alert( $api.getStorage('wifi') +'  '+ $api.getStorage('wifi_password'));
-			if( ret.SSID.indexOf( 'XPG-GAgent' ) !== -1 && setDeviceOnboarding ){
-
+			if (api.connectionType == 'wifi' && ret.SSID.indexOf('XPG-GAgent') !== -1 && setDeviceOnboarding) {
 				//alert( $api.getStorage('wifi') +'  '+ $api.getStorage('wifi_password'));
 					//alert(1);	
-				api.execScript({
-				    name: 'win_searchDevice',
-				    frameName: 'frm_searchDevice',
-				    script: 'fnSetDeviceOnboarding('+JSON.stringify({
-						winName: api.winName,
-						frameName: api.frameName,
-						selectWiFi: $api.getStorage('wifi'),
-						password: $api.getStorage('wifi_password'),
-						softAPSSIDPrefix: ret.SSID,
-						mode: 0
-					})+')'
-				});
 				fnPopup({
 					msg:'选择成功'
 			 	}, function(){
-					api.closeToWin({
-					    name: 'win_searchDevice'
-					});	 	
+			 		fnJumpWin({name: 'searchDeviceSoftAP', path: '/main', data: null, slidBackEnabled: true});
 			 	});
-			}else{
-			
 			}
 			//$api.dom( '.ic-warning' ).innerHTML = '当前连接'+ret.SSID;
 		}else{

@@ -129,25 +129,13 @@ function fnJumpWin( obj ){
 	    name: 'win_'+obj.name,
 	    url: api.wgtRootDir+'/html/public/headers.html',
 	    pageParam: obj,
-	    slidBackEnabled: false,
+	    slidBackEnabled: typeof obj.slidBackEnabled !== 'undefined' ? false : true,
 	    bgColor: obj.bg || '#ededed'
 	    
 	});
 }
 
 function fnPopup( obj, callback ){
-
-	// 去掉目前界面上的弹框
-    var oldFrame = localStorage.getItem( 'hasBack' );
-    if (oldFrame != null) {
-    	api.closeFrame({
-		    name: oldFrame
-		});
-		localStorage.removeItem( 'hasBack' );
-    }
-    console.log("fnPopup + hasBack = " + oldFrame + typeof(oldFrame));
-
-    // 添加新的弹框
 	obj.name = obj.name ?  'frm_'+obj.name : 'frm_popup'+Math.floor( Math.random()*1000 );
 	api.openFrame({
 	    name: obj.name,
@@ -155,7 +143,6 @@ function fnPopup( obj, callback ){
 	    bgColor: 'rgba(0,0,0,.2)',
 	    pageParam: obj
     });
-
     localStorage.setItem( 'hasBack', obj.name );
     setTimeout(function(){
     	api.closeFrame({
@@ -188,10 +175,7 @@ function fnVerifyInput( obj ){
 	}
 }
 
-var index = 0;
 function fnNotes( obj, callback ){
-
-	console.log("fnNote回调" + (++index));
 	if( !obj )return;
 	var notes = {
 		'0': 'SDK 接口执行成功',
@@ -346,3 +330,146 @@ function fnNotes( obj, callback ){
 	fnPopup({msg: notes[obj.errorCode || obj.error_code ] || obj.msg}, callback)
 }
 
+// function fnNotes( obj, callback ){
+// 	if( ! obj.msg )return;
+// 	var notes = {
+// 		'GIZ_SDK_SUCCESS': 'SDK 接口执行成功',
+// 		'GIZ_SDK_PARAM_FORM_INVALID': 'SDK 内部通讯数据格式无效',
+// 		'GIZ_SDK_CLIENT_NOT_AUTHEN': 'SDK 未启动',
+// 		'GIZ_SDK_CLIENT_VERSION_INVALID': '无效的 SDK 版本号',
+// 		'GIZ_SDK_UDP_PORT_BIND_FAILED': 'UDP 端口绑定失败',
+// 		'GIZ_SDK_DAEMON_EXCEPTION': 'SDK 后台服务发生异常',
+// 		'GIZ_SDK_PARAM_INVALID': '接口参数无效',
+// 		'GIZ_SDK_APPID_LENGTH_ERROR': 'AppID 长度错误',
+// 		'GIZ_SDK_LOG_PATH_INVALID': 'SDK 日志路径无效',
+// 		'GIZ_SDK_LOG_LEVEL_INVALID': '日志级别无效',
+// 		'GIZ_SDK_DEVICE_CONFIG_SEND_FAILED': '设备配网信息发送失败',
+// 		'GIZ_SDK_DEVICE_CONFIG_IS_RUNNING': '设备配网正在执行',
+// 		'GIZ_SDK_DEVICE_CONFIG_TIMEOUT': '设备配网超时',
+// 		'GIZ_SDK_DEVICE_DID_INVALID': '设备 DID 无效',
+// 		'GIZ_SDK_DEVICE_MAC_INVALID': '设备 MAC 无效',
+// 		'GIZ_SDK_SUBDEVICE_DID_INVALID': '子设备 DID 无效',
+// 		'GIZ_SDK_DEVICE_PASSCODE_INVALID': '设备验证码无效',
+// 		'GIZ_SDK_DEVICE_NOT_SUBSCRIBED': '设备还未订阅',
+// 		'GIZ_SDK_DEVICE_NO_RESPONSE': '设备无响应',
+// 		'GIZ_SDK_DEVICE_NOT_READY': '设备还未就绪',
+// 		'GIZ_SDK_DEVICE_NOT_BINDED': '设备还未绑定',
+// 		'GIZ_SDK_DEVICE_CONTROL_WITH_INVALID_COMMAND': '设备操作指令中包含无效指令',
+// 		'GIZ_SDK_DEVICE_CONTROL_FAILED': '设备操作失败',
+// 		'GIZ_SDK_DEVICE_GET_STATUS_FAILED': '设备状态获取失败',
+// 		'GIZ_SDK_DEVICE_CONTROL_VALUE_TYPE_ERROR': '设备操作指令参数类型错误',
+// 		'GIZ_SDK_DEVICE_CONTROL_VALUE_OUT_OF_RANGE': '设备操作指令参数值不在有效范围内',
+// 		'GIZ_SDK_DEVICE_CONTROL_NOT_WRITABLE_COMMAND': '设备操作指令中包含不可写指令',
+// 		'GIZ_SDK_BIND_DEVICE_FAILED': '设备绑定失败',
+// 		'GIZ_SDK_UNBIND_DEVICE_FAILED': '设备解绑失败',
+// 		'GIZ_SDK_DNS_FAILED': 'DNS 解析失败',
+// 		'GIZ_SDK_M2M_CONNECTION_SUCCESS': 'M2M 服务器连接成功',
+// 		'GIZ_SDK_SET_SOCKET_NON_BLOCK_FAILED': 'socket 非阻塞设置失败',
+// 		'GIZ_SDK_CONNECTION_TIMEOUT': '连接超时',
+// 		'GIZ_SDK_CONNECTION_REFUSED': '连接被拒绝',
+// 		'GIZ_SDK_CONNECTION_ERROR': '发生了连接错误',
+// 		'GIZ_SDK_CONNECTION_CLOSED': '连接被对端关闭',
+// 		'GIZ_SDK_SSL_HANDSHAKE_FAILED': 'ssl 握手失败',
+// 		'GIZ_SDK_DEVICE_LOGIN_VERIFY_FAILED': '设备登录验证失败',
+// 		'GIZ_SDK_INTERNET_NOT_REACHABLE': '手机外网无法访问',
+// 		'GIZ_SDK_HTTP_ANSWER_FORMAT_ERROR': 'HTTP 应答格式错误',
+// 		'GIZ_SDK_HTTP_ANSWER_PARAM_ERROR': 'HTTP 应答数据错误',
+// 		'GIZ_SDK_HTTP_SERVER_NO_ANSWER': 'HTTP 服务端无应答',
+// 		'GIZ_SDK_HTTP_REQUEST_FAILED': 'HTTP 请求失败',
+// 		'GIZ_SDK_OTHERWISE': '其他错误',
+// 		'GIZ_SDK_MEMORY_MALLOC_FAILED': '内存分配失败',
+// 		'GIZ_SDK_THREAD_CREATE_FAILED': '线程创建失败',
+// 		'GIZ_SDK_USER_ID_INVALID': '登录用户 ID 无效',
+// 		'GIZ_SDK_TOKEN_INVALID': '登录 token 无效',
+// 		'GIZ_SDK_GROUP_ID_INVALID': '设备分组的组 ID 无效',
+// 		'GIZ_SDK_GROUPNAME_INVALID': '设备分组的组名称无效',
+// 		'GIZ_SDK_GROUP_PRODUCTKEY_INVALID': '设备分组的组类型无效',
+// 		'GIZ_SDK_GROUP_FAILED_DELETE_DEVICE': '设备分组删除失败',
+// 		'GIZ_SDK_GROUP_FAILED_ADD_DEVICE': '设备分组添加失败',
+// 		'GIZ_SDK_GROUP_GET_DEVICE_FAILED': '设备分组获取失败',
+// 		'GIZ_SDK_DATAPOINT_NOT_DOWNLOAD': '设备数据点配置文件还未下载',
+// 		'GIZ_SDK_DATAPOINT_SERVICE_UNAVAILABLE': '设备数据点配置服务不可用',
+// 		'GIZ_SDK_DATAPOINT_PARSE_FAILED': '设备数据点解析失败',
+// 		'GIZ_SDK_SDK_NOT_INITIALIZED': 'SDK 还未初始化',
+// 		'GIZ_SDK_APK_CONTEXT_IS_NULL': 'Android context 为空，无法启动 SDK',
+// 		'GIZ_SDK_APK_PERMISSION_NOT_SET': '使用 SDK 所需要的 Android 权限还没有设置',
+// 		'GIZ_SDK_CHMOD_DAEMON_REFUSED': 'SDK 后台服务进程的执行权限修改失败',
+// 		'GIZ_SDK_EXEC_DAEMON_FAILED': 'SDK 后台服务进程启动失败',
+// 		'GIZ_SDK_EXEC_CATCH_EXCEPTION': 'SDK 后台服务进程启动发生异常',
+// 		'GIZ_SDK_APPID_IS_EMPTY': 'AppID 为空，无法使用 SDK',
+// 		'GIZ_SDK_UNSUPPORTED_API': '此 API 已废弃，不再提供支持',
+// 		'GIZ_SDK_REQUEST_TIMEOUT': 'SDK 接口执行超时',
+// 		'GIZ_SDK_DAEMON_VERSION_INVALID': 'SDK 后台服务版本无效',
+// 		'GIZ_SDK_PHONE_NOT_CONNECT_TO_SOFTAP_SSID': '手机没有连接设备热点',
+// 		'GIZ_SDK_DEVICE_CONFIG_SSID_NOT_MATCHED': '手机当前 Wifi 与设备配网 SSID 不匹配，无法完成设备配网',
+// 		'GIZ_SDK_NOT_IN_SOFTAPMODE': '设备没有在 softap 配网模式下',
+// 		'GIZ_SDK_PHONE_WIFI_IS_UNAVAILABLE': '手机当前不是 Wifi 网络',
+// 		'GIZ_SDK_RAW_DATA_TRANSMIT': '当前为原始数据透传方式',
+// 		'GIZ_SDK_PRODUCT_IS_DOWNLOADING': '正在下载设备数据点配置文件',
+// 		'GIZ_SDK_START_SUCCESS': 'SDK 启动成功',
+// 		'GIZ_SITE_PRODUCTKEY_INVALID': '产品类型标识码无效',
+// 		'GIZ_SITE_DATAPOINTS_NOT_DEFINED': '产品数据点未定义',
+// 		'GIZ_SITE_DATAPOINTS_NOT_MALFORME': '产品数据点无效',
+// 		'GIZ_OPENAPI_MAC_ALREADY_REGISTERED': '设备 MAC 已经注册',
+// 		'GIZ_OPENAPI_PRODUCT_KEY_INVALID': '产品类型标识码无效',
+// 		'GIZ_OPENAPI_APPID_INVALID': 'AppID 无效',
+// 		'GIZ_OPENAPI_TOKEN_INVALID': '用户 token 无效',
+// 		'GIZ_OPENAPI_USER_NOT_EXIST': '用户不存在',
+// 		'GIZ_OPENAPI_TOKEN_EXPIRED': '用户 token 已过期',
+// 		'GIZ_OPENAPI_M2M_ID_INVALID': 'M2M ID 无效',
+// 		'GIZ_OPENAPI_SERVER_ERROR': '服务发生错误',
+// 		'GIZ_OPENAPI_CODE_EXPIRED': '验证码已过期',
+// 		'GIZ_OPENAPI_CODE_INVALID': '验证码无效',
+// 		'GIZ_OPENAPI_SANDBOX_SCALE_QUOTA_EXHAUSTED': '沙盒配额已耗尽',
+// 		'GIZ_OPENAPI_PRODUCTION_SCALE_QUOTA_EXHAUSTED': '产品配额已耗尽',
+
+// 		'GIZ_OPENAPI_PRODUCT_HAS_NO_REQUEST_SCALE': 'product has no request scale!',
+// 		'GIZ_OPENAPI_DEVICE_NOT_FOUND': '找不到对应的设备',
+// 		'GIZ_OPENAPI_FORM_INVALID': '请求数据格式无效',
+// 		'GIZ_OPENAPI_DID_PASSCODE_INVALID': '设备的 DID 或验证码无效',
+// 		'GIZ_OPENAPI_DEVICE_NOT_BOUND': '设备未绑定',
+// 		'GIZ_OPENAPI_PHONE_UNAVALIABLE': '手机号已注册',
+// 		'GIZ_OPENAPI_USERNAME_PASSWORD_ERROR': '用户名或密码错误',
+// 		'GIZ_OPENAPI_SEND_COMMAND_FAILED': '指令发送失败',
+// 		'GIZ_OPENAPI_EMAIL_UNAVALIABLE': '邮箱已注册',
+// 		'GIZ_OPENAPI_DEVICE_DISABLED': '设备已注销',
+// 		'GIZ_OPENAPI_FAILED_NOTIFY_M2M': 'M2M 通知失败',
+// 		'GIZ_OPENAPI_ATTR_INVALID': '属性无效',
+// 		'GIZ_OPENAPI_USER_INVALID': '用户名无效',
+// 		'GIZ_OPENAPI_FIRMWARE_NOT_FOUND': '找不到设备固件',
+// 		'GIZ_OPENAPI_JD_PRODUCT_NOT_FOUND': '找不到京东产品信息',
+// 		'GIZ_OPENAPI_DATAPOINT_DATA_NOT_FOUND': '找不到对应的设备数据点数据',
+// 		'GIZ_OPENAPI_SCHEDULER_NOT_FOUND': '找不到计划任务',
+// 		'GIZ_OPENAPI_QQ_OAUTH_KEY_INVALID': 'QQ 登录授权 key 无效',
+// 		'GIZ_OPENAPI_OTA_SERVICE_OK_BUT_IN_IDLE': 'OTA 升级服务闲置或被禁用',
+// 		'GIZ_OPENAPI_BT_FIRMWARE_UNVERIFIED': 'BT 固件未验证',
+// 		'GIZ_OPENAPI_BT_FIRMWARE_NOTHING_TO_UPGRADE': 'BT 固件不需要升级',
+// 		'GIZ_OPENAPI_SAVE_KAIROSDB_ERROR': 'kairosdb 存储错误',
+// 		'GIZ_OPENAPI_EVENT_NOT_DEFINED': '事件未定义',
+// 		'GIZ_OPENAPI_SEND_SMS_FAILED': '手机短信发送失败',
+// 		'GIZ_OPENAPI_APPLICATION_AUTH_INVALID': '应用授权无效',
+// 		'GIZ_OPENAPI_NOT_ALLOWED_CALL_API': '不允许使用已废弃的 API',
+// 		'GIZ_OPENAPI_BAD_QRCODE_CONTENT': 'QRCode 内容已损坏',
+// 		'GIZ_OPENAPI_REQUEST_THROTTLED': '请求队列已满',
+// 		'GIZ_OPENAPI_DEVICE_OFFLINE': '设备已离线',
+// 		'GIZ_OPENAPI_TIMESTAMP_INVALID': '时间戳无效',
+// 		'GIZ_OPENAPI_SIGNATURE_INVALID': '应用签名无效',
+// 		'GIZ_OPENAPI_DEPRECATED_API': 'API 已废弃',
+// 		'GIZ_OPENAPI_RESERVED': '保留的错误字',
+// 		'GIZ_PUSHAPI_BODY_JSON_INVALID': '数据体无效',
+// 		'GIZ_PUSHAPI_DATA_NOT_EXIST': '数据不存在',
+// 		'GIZ_PUSHAPI_NO_CLIENT_CONFIG': '客户端没有配置推送 ID',
+// 		'GIZ_PUSHAPI_NO_SERVER_DATA': '没有服务端数据',
+// 		'GIZ_PUSHAPI_GIZWITS_APPID_EXIST': '机智云AppID已经存在',
+// 		'GIZ_PUSHAPI_PARAM_ERROR': '参数错误',
+// 		'GIZ_PUSHAPI_AUTH_KEY_INVALID': '授权无效',
+// 		'GIZ_PUSHAPI_APPID_OR_TOKEN_ERROR': 'AppID 或用户 token 错误',
+// 		'GIZ_PUSHAPI_TYPE_PARAM_ERROR': '参数类型错误',
+// 		'GIZ_PUSHAPI_ID_PARAM_ERROR': 'ID 参数错误',
+// 		'GIZ_PUSHAPI_APPKEY_SECRETKEY_INVALID': 'APIKey 或者 SecretKey 无效',
+// 		'GIZ_PUSHAPI_CHANNELID_ERROR_INVALID': 'Channel ID 错误',
+// 		'GIZ_PUSHAPI_PUSH_ERROR': '推送错误',
+// 		'cancel login': 'QQ 授权失败'
+// 	};
+// 	fnPopup({msg: notes[obj.msg] || obj.msg}, callback)
+// }

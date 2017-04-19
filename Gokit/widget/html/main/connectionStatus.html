@@ -22,7 +22,7 @@
 		<div class="img-connection">
 			<img src="../../image/airlink.gif" />
 		</div>
-		<div class="bg-connection-status">接通电源，长按【KEY2】直到【RGB LED】亮绿灯</div>
+		<div class="bg-connection-status">接通电源，长按【KEY2】直到【RGB LED】亮绿灯<p>你选择了 <label class="selectType">xx</label> 模组</p></div>
 	</div>
 	<div class="btns">
 		<div class="checkbox"><span tapmode="opacity" onclick="fnCheckbox(this)" class="ic-checkbox">已完成上述操作</span></div>
@@ -33,11 +33,7 @@
 <script type="text/javascript" src="../../script/base.js"></script>
 <script type="text/javascript">
 	apiready = function(){
-	//	alert( JSON.stringify( api.pageParam ) );
-        // if( $api.getStorage('wifi') == "uzcloud" )
-        // {
-        //     alert(1);
-        // }
+        $api.dom('.selectType').innerHTML = api.pageParam.selectText;
 	}
 	
 	function fnNext(){

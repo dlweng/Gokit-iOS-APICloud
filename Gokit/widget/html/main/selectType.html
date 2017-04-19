@@ -7,55 +7,57 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <link rel="stylesheet" href="../../css/api.css">
     <style>
-    	body{ height: auto; }
-    	ul { font-size: 12px; border: 1px solid #ddd; line-height: 44px; border-width: 1px 0; padding: 0 15px; margin-top: 30px; background-color: white; }
-    	ul li.ic-select{ background-position: right center; background-size: 18px auto; }
-    	ul li+ li{ border-top: 1px solid #ddd;}
+.box{margin-left: 5px;margin-top: 5px;list-style-type:none;}
+.box:after{
+	content: ".";
+	display: block;
+	line-height: 0;
+	width: 100%;
+	height: 100%;
+	clear: both;
+	visibility: hidden;
+	overflow: hidden;
+}
+.box li {
+	float:left;
+	line-height: 20px;
+	text-align: center;
+	margin-left: 1%;
+	margin-top: 8%;
+	width: 31%;
+}
+.box li img {
+	width: 85px;
+	height: 64px;
+}
     </style>
 </head>
 <body>
-	<ul>
-		<li tapmode="opacity" onclick="fnRadio( this );" >庆科</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >汉枫</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >瑞昱</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >联盛德</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >乐鑫</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >高通</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >TI</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >宇音天下</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >庆科mico</li>
-		<li tapmode="opacity" onclick="fnRadio( this );" >古北</li>
+	<ul class="box">
+		<li tapmode="opacity" onclick="fnRadio( this );" value="4"><img src="../../image/gagents/ESP.jpg"/><br>乐鑫</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="0"><img src="../../image/gagents/MXCHIP.jpg"/><br>庆科</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="1"><img src="../../image/gagents/HF.jpg"/><br>汉枫</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="2"><img src="../../image/gagents/RTK.jpg"/><br>瑞昱</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="3"><img src="../../image/gagents/WM.jpg"/><br>联盛德</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="5"><img src="../../image/gagents/QCA.jpg"/><br>高通</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="6"><img src="../../image/gagents/TI.jpg"/><br>TI</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="7"><img src="../../image/gagents/default.png"/><br>宇音天下</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="8"><img src="../../image/gagents/default.png"/><br>庆科mico</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="9"><img src="../../image/gagents/default.png"/><br>古北</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="10"><img src="../../image/gagents/default.png"/><br>AtmelEE</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" value="11"><img src="../../image/gagents/default.png"/><br>Other</li>
 	</ul>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript" src="../../script/base.js"></script>
 <script type="text/javascript">
 	apiready = function(){
-//		alert( JSON.stringify( api.pageParam ) )
-		
-		$api.addCls( $api.dom( 'ul li:nth-child('+( api.pageParam.type + 1 )+')' ), 'ic-select' );
 	}
-	
+
 	function fnRadio( el ){
-		var eLi = $api.domAll( 'ul li' );
-		for( var i = 0, len = eLi.length; i < len; i++){
-			if(eLi[i] === el){
-				$api.addCls( eLi[i], 'ic-select' );
-				api.execScript({
-				    name: 'win_selectWiFi',
-				    frameName: 'frm_selectWiFi',
-				    script: 'fnDynamic('+JSON.stringify({
-						index: i.toString(),
-						name: eLi[i].innerHTML
-					})+')'
-				});
-			}else{
-				$api.removeCls( eLi[i], 'ic-select' );
-			}
-		}
-		setTimeout(function(){
-			api.closeWin();
-		},300);
+		selectType = parseInt(el.value);
+		selectText = el.innerText.replace(/[\r\n]/g, "");
+		fnJumpWin({name: 'connectionStatus', path: '/main', selectType: selectType, selectText: selectText});
 	}
 </script>
 </html>

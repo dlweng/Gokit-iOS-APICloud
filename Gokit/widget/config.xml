@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<widget id="A6939736600214" version="0.0.1">
-  <name>Gokit</name>
-  <description></description>
+<widget id="A6989896449519" version="0.0.1"> 
+  <name>Gokit</name>  
+  <description>Open source code for gizWifiSDK</description>  
   <author email="307262195@qq.com" href="http://www.apicloud.com">问豆奶</author>
-  <content src="index.html"/>
-  <preference name="pageBounce" value="false"/>
-  <preference name="appBackground" value="rgba(0,0,0,0.0)"/>
-  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
-  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
-  <preference name="hScrollBarEnabled" value="true"/>
-  <preference name="vScrollBarEnabled" value="true"/>
-  <preference name="autoLaunch" value="true"/>
-  <preference name="fullScreen" value="false"/>
-  <preference name="autoUpdate" value="true"/>
-  <preference name="smartUpdate" value="false"/>
-  <preference name="debug" value="true"/>
-  <preference name="statusBarAppearance" value="true"/>
-  <permission name="readPhoneState"/>
-  <permission name="camera"/>
-  <permission name="record"/>
-  <permission name="fileSystem"/>
-  <permission name="internet"/>
-  <permission name="bootCompleted"/>
-  <permission name="hardware"/>
-  <access origin="*"/>
-  <feature name="gizWifiSDK"/>
-  <feature name="FNScanner"/>
-  <feature name="arcProgress"/>
+  <content src="index.html"/>  
+  <preference name="pageBounce" value="false"/>  
+  <preference name="appBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>  
+  <preference name="hScrollBarEnabled" value="true"/>  
+  <preference name="vScrollBarEnabled" value="true"/>  
+  <preference name="autoLaunch" value="false"/>  
+  <preference name="fullScreen" value="false"/>  
+  <preference name="softInputMode" value="auto"/>  
+  <preference name="autoUpdate" value="true"/>  
+  <preference name="fileShare" value="true"/>  
+  <preference name="smartUpdate" value="false"/>  
+  <preference name="debug" value="true"/>  
+  <preference name="statusBarAppearance" value="true"/>  
+  <permission name="readPhoneState"/>  
+  <permission name="camera"/>  
+  <permission name="record"/>  
+  <permission name="location"/>  
+  <permission name="fileSystem"/>  
+  <permission name="internet"/>  
+  <permission name="bootCompleted"/>  
+  <permission name="hardware"/>   
+  <access origin="*"/>  
+  <feature name="qq"> 
+    <param name="urlScheme" value="tencent1106019382"/>  
+    <param name="apiKey" value="1106019382"/> 
+  </feature>  
+  <feature name="arcProgress"/>  
+  <feature name="FNScanner"/>  
+  <feature name="NVTabBar"/>  
+  <feature name="push"/> 
 </widget>

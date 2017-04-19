@@ -28,11 +28,13 @@
 		hasSuccess = false;
 		localStorage.setItem( 'searchDevice', api.winName );
 		var arcProgress = api.require('arcProgress');	
+		var progress = $api.dom( '.arcProgress' );
 		var hint = $api.dom('.hint');
+
 		arcProgress.open({
 		    type: 'annular',
 		    centerX: api.frameWidth / 2,
-		    centerY: (api.winHeight - $api.getStorage('pageY')) / 4,
+		    centerY: progress.offsetTop+progress.clientHeight/2,
 		    radius: api.frameWidth / 4,
 		    loopWidth: 6,
 		    bgColor: '#fcfcfc',
@@ -41,56 +43,59 @@
 		},function(ret,err){
 	    	setValue( { id: ret.id, value: 0 } )
 		});
-		function setValue( obj ){
-		    if( obj.value >= 100 ){ 
+
+		var startTs = Math.floor(Date.now()/1000);
+		function setValue(obj){
+			var elapsed = Math.floor(Date.now()/1000) - startTs;
+		    if (elapsed >= 60) { 
 		    	//msg: '配置超时'
-		    }else{
-			    setTimeout(function(){
-					if( ! hasSuccess ){
-			       	 	arcProgress.setValue({
-				            id: obj.id,
-				            value: ++obj.value
-				        });
-				        setValue( obj );
-				        //设置不同搜索时段时候出现的文字
-				        if ( obj.value > 0&&obj.value < 13.3 ){
-				        	hint.innerHTML = '正在搜索设备...';
-				        }
-				        else if ( obj.value >= 13.3&& obj.value <16.6 ) {
-				        	hint.innerHTML = '已搜索到设备';				    
-				        }
-				        else{
-				        	hint.innerHTML = '正在尝试与设备连接';
-				        }
-				        $api.dom( '.arcProgress' ).innerHTML = obj.value+'%';
+		    } else {
+				setTimeout(function() {
+					if (!hasSuccess) {
+						obj.value = parseInt(Math.sin(elapsed/120*3.14159)*100.5);
+						arcProgress.setValue({
+							id: obj.id,
+							value: obj.value
+						});
+						setValue(obj);
+						//设置不同搜索时段时候出现的文字
+						if (obj.value > 0 && obj.value < 13.3) {
+							hint.innerHTML = '正在搜索设备...';
+						} else if (obj.value >= 13.3 && obj.value < 16.6) {
+							hint.innerHTML = '已搜索到设备';				    
+						} else {
+							hint.innerHTML = '正在尝试与设备连接';
+						}
+						progress.innerHTML = obj.value+'%';
 					}
-			    },600);
-		    }
+				}, 250);
+			}
 		}
-		
+
+		var selectWiFi = $api.getStorage('wifi');
+		var password = $api.getStorage('wifi'+selectWiFi+'password');
+
 		localStorage.removeItem( 'hasConfigure' );
 		api.execScript({
-		    name: 'root',
-		    script: 'fnSetDeviceOnboarding('+JSON.stringify({
+	    	name: 'root',
+		   	script: 'fnSetDeviceOnboarding('+JSON.stringify({
 				winName: api.winName,
 				frameName: api.frameName,
-				ssid: obj.selectWiFi,
-				key: obj.password,
-				softAPSSIDPrefix: obj.softAPSSIDPrefix || 'XPG-GAgent',
-				mode: obj.mode
+				ssid: selectWiFi,
+				key: password,
+				mode: obj.mode,
+  				gagentTypes: [parseInt(obj.selectType)]
 			})+')'
 		});
 	}
+
+	function fnJump() {
+		localStorage.removeItem( 'searchDevice' );
+		fnJumpWin({name: 'connectionDevice', path: '/main' });
+	}
 	
-	function receive_fnSetDeviceOnboarding( ret, err){
-		//alert(JSON.stringify(ret));
-		//alert(JSON.stringify(err));
+	function receive_fnSetDeviceOnboarding(ret, err){
 		if( ret ){
-			api.execScript({
-			    name: 'win_deviceList',
-			    frameName: 'frm_deviceList',
-			    script: 'fnInit()'
-			});
 			hasSuccess = true;
 			fnPopup({
 				msg: '配置成功'
@@ -100,22 +105,32 @@
 				    name: 'win_deviceList'
 				});	 	
 		 	});
-		}
-		else if( err.errCode==8021 ){
-			fnPopup({
-				msg: '配置信息发送失败'
-			}, function(){
-				localStorage.removeItem( 'searchDevice' );
-				fnJumpWin({name: 'connectionDevice', path: '/main' });
-			});
-		}
-		else if( err.errCode != 8022 ){
-			fnPopup({
-				msg: '配置超时'
-			}, function(){
-				localStorage.removeItem( 'searchDevice' );
-				fnJumpWin({name: 'connectionDevice', path: '/main' });
-			});
+		} else {
+ 			if (err.errorCode == 8021) {
+				fnPopup({
+					msg: '配置信息发送失败'
+				}, function(){
+					fnJump();
+				});
+			} else if (err.errorCode == 8308 || err.errorCode == 8023) {
+				fnPopup({
+					msg: '配置超时'
+				}, function(){
+					fnJump();
+				});
+			} else if (err.errorCode == 8022) {
+				fnPopup({
+					msg: '执行配置的操作过于频繁，请稍后再试'
+				}, function(){
+					fnJump();
+				});
+			} else {
+				fnPopup({
+					msg: '执行配置的操作遇到其他错误，errorCode = ' + err.errorCode
+				}, function(){
+					fnJump();
+				});
+			}
 		}
 	}
 </script>

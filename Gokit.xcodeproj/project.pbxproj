@@ -7,6 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		333F36DC1E78DDD30066E820 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 333F36DB1E78DDD30066E820 /* Info.plist */; };
+		333F36ED1E78DDFF0066E820 /* APICloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36DD1E78DDFF0066E820 /* APICloud.a */; };
+		333F36FF1E78DE130066E820 /* arcProgress.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36EE1E78DE130066E820 /* arcProgress.a */; };
+		333F37001E78DE130066E820 /* FNScanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36EF1E78DE130066E820 /* FNScanner.a */; };
+		333F37011E78DE130066E820 /* GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F01E78DE130066E820 /* GizWifiSDK.a */; };
+		333F37021E78DE130066E820 /* libAPICloud-GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F11E78DE130066E820 /* libAPICloud-GizWifiSDK.a */; };
+		333F37031E78DE130066E820 /* libBarCode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F21E78DE130066E820 /* libBarCode.a */; };
+		333F37041E78DE130066E820 /* libBLEasyConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F31E78DE130066E820 /* libBLEasyConfig.a */; };
+		333F37051E78DE130066E820 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F41E78DE130066E820 /* libcrypto.a */; };
+		333F37061E78DE130066E820 /* libEasyLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F51E78DE130066E820 /* libEasyLink.a */; };
+		333F37071E78DE130066E820 /* libEsptouch_v0.3.5.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F61E78DE130066E820 /* libEsptouch_v0.3.5.2.a */; };
+		333F37081E78DE130066E820 /* libLibSimpleConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F71E78DE130066E820 /* libLibSimpleConfig.a */; };
+		333F37091E78DE140066E820 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F81E78DE130066E820 /* libminizip.a */; };
+		333F370A1E78DE140066E820 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36F91E78DE130066E820 /* libopencore-amrnb.a */; };
+		333F370B1E78DE140066E820 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36FA1E78DE130066E820 /* libopencore-amrwb.a */; };
+		333F370C1E78DE140066E820 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36FB1E78DE130066E820 /* libssl.a */; };
+		333F370D1E78DE140066E820 /* libWMOneShotConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36FC1E78DE130066E820 /* libWMOneShotConfig.a */; };
+		333F370E1E78DE140066E820 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36FD1E78DE130066E820 /* libzbar.a */; };
+		333F370F1E78DE140066E820 /* mam.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333F36FE1E78DE130066E820 /* mam.a */; };
+		333F37131E78DE220066E820 /* res_FNScanner in Resources */ = {isa = PBXBuildFile; fileRef = 333F37101E78DE220066E820 /* res_FNScanner */; };
+		333F37141E78DE220066E820 /* res_mam in Resources */ = {isa = PBXBuildFile; fileRef = 333F37111E78DE220066E820 /* res_mam */; };
+		333F37151E78DE220066E820 /* uz in Resources */ = {isa = PBXBuildFile; fileRef = 333F37121E78DE220066E820 /* uz */; };
 		33C98B031E2B5EC700F76E34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C98B021E2B5EC700F76E34 /* main.m */; };
 		33C98B061E2B5EC700F76E34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C98B051E2B5EC700F76E34 /* AppDelegate.m */; };
 		33C98B0E1E2B5EC700F76E34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33C98B0D1E2B5EC700F76E34 /* Assets.xcassets */; };
@@ -17,31 +39,45 @@
 		33C98BE81E2B603300F76E34 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C98BE71E2B603300F76E34 /* libiconv.tbd */; };
 		33C98BEA1E2B60B600F76E34 /* widget in Resources */ = {isa = PBXBuildFile; fileRef = 33C98BE91E2B60B600F76E34 /* widget */; };
 		33CC129A1E2B66A200F1BC7B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CC12991E2B66A200F1BC7B /* ViewController.m */; };
-		33E36B7E1E6D06A40028F0B5 /* APICloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B6E1E6D06A40028F0B5 /* APICloud.a */; };
-		33E36B901E6D06BA0028F0B5 /* arcProgress.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B7F1E6D06BA0028F0B5 /* arcProgress.a */; };
-		33E36B911E6D06BA0028F0B5 /* FNScanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B801E6D06BA0028F0B5 /* FNScanner.a */; };
-		33E36B921E6D06BA0028F0B5 /* GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B811E6D06BA0028F0B5 /* GizWifiSDK.a */; };
-		33E36B931E6D06BA0028F0B5 /* libAPICloud-GizWifiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B821E6D06BA0028F0B5 /* libAPICloud-GizWifiSDK.a */; };
-		33E36B941E6D06BA0028F0B5 /* libBarCode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B831E6D06BA0028F0B5 /* libBarCode.a */; };
-		33E36B951E6D06BA0028F0B5 /* libBLEasyConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B841E6D06BA0028F0B5 /* libBLEasyConfig.a */; };
-		33E36B961E6D06BA0028F0B5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B851E6D06BA0028F0B5 /* libcrypto.a */; };
-		33E36B971E6D06BB0028F0B5 /* libEasyLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B861E6D06BA0028F0B5 /* libEasyLink.a */; };
-		33E36B981E6D06BB0028F0B5 /* libEsptouch_v0.3.5.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B871E6D06BA0028F0B5 /* libEsptouch_v0.3.5.2.a */; };
-		33E36B991E6D06BB0028F0B5 /* libLibSimpleConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B881E6D06BA0028F0B5 /* libLibSimpleConfig.a */; };
-		33E36B9A1E6D06BB0028F0B5 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B891E6D06BA0028F0B5 /* libminizip.a */; };
-		33E36B9B1E6D06BB0028F0B5 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B8A1E6D06BA0028F0B5 /* libopencore-amrnb.a */; };
-		33E36B9C1E6D06BB0028F0B5 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B8B1E6D06BA0028F0B5 /* libopencore-amrwb.a */; };
-		33E36B9D1E6D06BB0028F0B5 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B8C1E6D06BA0028F0B5 /* libssl.a */; };
-		33E36B9E1E6D06BB0028F0B5 /* libWMOneShotConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B8D1E6D06BA0028F0B5 /* libWMOneShotConfig.a */; };
-		33E36B9F1E6D06BB0028F0B5 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B8E1E6D06BA0028F0B5 /* libzbar.a */; };
-		33E36BA01E6D06BB0028F0B5 /* mam.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E36B8F1E6D06BA0028F0B5 /* mam.a */; };
-		33E36BA41E6D06C20028F0B5 /* res_FNScanner in Resources */ = {isa = PBXBuildFile; fileRef = 33E36BA11E6D06C20028F0B5 /* res_FNScanner */; };
-		33E36BA51E6D06C20028F0B5 /* res_mam in Resources */ = {isa = PBXBuildFile; fileRef = 33E36BA21E6D06C20028F0B5 /* res_mam */; };
-		33E36BA61E6D06C20028F0B5 /* uz in Resources */ = {isa = PBXBuildFile; fileRef = 33E36BA31E6D06C20028F0B5 /* uz */; };
-		33E36BA81E6D06D40028F0B5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33E36BA71E6D06D40028F0B5 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		333F36DB1E78DDD30066E820 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		333F36DD1E78DDFF0066E820 /* APICloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = APICloud.a; sourceTree = "<group>"; };
+		333F36DE1E78DDFF0066E820 /* APIEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIEvent.h; sourceTree = "<group>"; };
+		333F36DF1E78DDFF0066E820 /* APIExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIExport.h; sourceTree = "<group>"; };
+		333F36E11E78DDFF0066E820 /* NSDictionaryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionaryUtils.h; sourceTree = "<group>"; };
+		333F36E21E78DDFF0066E820 /* UZAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZAppDelegate.h; sourceTree = "<group>"; };
+		333F36E31E78DDFF0066E820 /* UZAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZAppUtils.h; sourceTree = "<group>"; };
+		333F36E41E78DDFF0066E820 /* UZModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZModule.h; sourceTree = "<group>"; };
+		333F36E51E78DDFF0066E820 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		333F36E61E78DDFF0066E820 /* APIModuleMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIModuleMethod.h; sourceTree = "<group>"; };
+		333F36E71E78DDFF0066E820 /* APIScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIScriptMessage.h; sourceTree = "<group>"; };
+		333F36E81E78DDFF0066E820 /* APIUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIUpdateManager.h; sourceTree = "<group>"; };
+		333F36E91E78DDFF0066E820 /* APIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIWebView.h; sourceTree = "<group>"; };
+		333F36EA1E78DDFF0066E820 /* APIWidgetContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIWidgetContainer.h; sourceTree = "<group>"; };
+		333F36EB1E78DDFF0066E820 /* APIWindowContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIWindowContainer.h; sourceTree = "<group>"; };
+		333F36EC1E78DDFF0066E820 /* UZWebViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZWebViewProtocol.h; sourceTree = "<group>"; };
+		333F36EE1E78DE130066E820 /* arcProgress.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = arcProgress.a; sourceTree = "<group>"; };
+		333F36EF1E78DE130066E820 /* FNScanner.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = FNScanner.a; sourceTree = "<group>"; };
+		333F36F01E78DE130066E820 /* GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GizWifiSDK.a; sourceTree = "<group>"; };
+		333F36F11E78DE130066E820 /* libAPICloud-GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libAPICloud-GizWifiSDK.a"; sourceTree = "<group>"; };
+		333F36F21E78DE130066E820 /* libBarCode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBarCode.a; sourceTree = "<group>"; };
+		333F36F31E78DE130066E820 /* libBLEasyConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBLEasyConfig.a; sourceTree = "<group>"; };
+		333F36F41E78DE130066E820 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		333F36F51E78DE130066E820 /* libEasyLink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEasyLink.a; sourceTree = "<group>"; };
+		333F36F61E78DE130066E820 /* libEsptouch_v0.3.5.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEsptouch_v0.3.5.2.a; sourceTree = "<group>"; };
+		333F36F71E78DE130066E820 /* libLibSimpleConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLibSimpleConfig.a; sourceTree = "<group>"; };
+		333F36F81E78DE130066E820 /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libminizip.a; sourceTree = "<group>"; };
+		333F36F91E78DE130066E820 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		333F36FA1E78DE130066E820 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		333F36FB1E78DE130066E820 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		333F36FC1E78DE130066E820 /* libWMOneShotConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWMOneShotConfig.a; sourceTree = "<group>"; };
+		333F36FD1E78DE130066E820 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		333F36FE1E78DE130066E820 /* mam.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = mam.a; sourceTree = "<group>"; };
+		333F37101E78DE220066E820 /* res_FNScanner */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res_FNScanner; sourceTree = "<group>"; };
+		333F37111E78DE220066E820 /* res_mam */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res_mam; sourceTree = "<group>"; };
+		333F37121E78DE220066E820 /* uz */ = {isa = PBXFileReference; lastKnownFileType = folder; path = uz; sourceTree = "<group>"; };
 		33C98AFE1E2B5EC700F76E34 /* Gokit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gokit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33C98B021E2B5EC700F76E34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		33C98B041E2B5EC700F76E34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,42 +92,6 @@
 		33C98BE91E2B60B600F76E34 /* widget */ = {isa = PBXFileReference; lastKnownFileType = folder; path = widget; sourceTree = "<group>"; };
 		33CC12981E2B66A200F1BC7B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		33CC12991E2B66A200F1BC7B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		33E36B6E1E6D06A40028F0B5 /* APICloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = APICloud.a; sourceTree = "<group>"; };
-		33E36B6F1E6D06A40028F0B5 /* APIEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIEvent.h; sourceTree = "<group>"; };
-		33E36B701E6D06A40028F0B5 /* APIExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIExport.h; sourceTree = "<group>"; };
-		33E36B721E6D06A40028F0B5 /* NSDictionaryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionaryUtils.h; sourceTree = "<group>"; };
-		33E36B731E6D06A40028F0B5 /* UZAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZAppDelegate.h; sourceTree = "<group>"; };
-		33E36B741E6D06A40028F0B5 /* UZAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZAppUtils.h; sourceTree = "<group>"; };
-		33E36B751E6D06A40028F0B5 /* UZModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZModule.h; sourceTree = "<group>"; };
-		33E36B761E6D06A40028F0B5 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
-		33E36B771E6D06A40028F0B5 /* APIModuleMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIModuleMethod.h; sourceTree = "<group>"; };
-		33E36B781E6D06A40028F0B5 /* APIScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIScriptMessage.h; sourceTree = "<group>"; };
-		33E36B791E6D06A40028F0B5 /* APIUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIUpdateManager.h; sourceTree = "<group>"; };
-		33E36B7A1E6D06A40028F0B5 /* APIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIWebView.h; sourceTree = "<group>"; };
-		33E36B7B1E6D06A40028F0B5 /* APIWidgetContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIWidgetContainer.h; sourceTree = "<group>"; };
-		33E36B7C1E6D06A40028F0B5 /* APIWindowContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIWindowContainer.h; sourceTree = "<group>"; };
-		33E36B7D1E6D06A40028F0B5 /* UZWebViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZWebViewProtocol.h; sourceTree = "<group>"; };
-		33E36B7F1E6D06BA0028F0B5 /* arcProgress.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = arcProgress.a; sourceTree = "<group>"; };
-		33E36B801E6D06BA0028F0B5 /* FNScanner.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = FNScanner.a; sourceTree = "<group>"; };
-		33E36B811E6D06BA0028F0B5 /* GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GizWifiSDK.a; sourceTree = "<group>"; };
-		33E36B821E6D06BA0028F0B5 /* libAPICloud-GizWifiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libAPICloud-GizWifiSDK.a"; sourceTree = "<group>"; };
-		33E36B831E6D06BA0028F0B5 /* libBarCode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBarCode.a; sourceTree = "<group>"; };
-		33E36B841E6D06BA0028F0B5 /* libBLEasyConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBLEasyConfig.a; sourceTree = "<group>"; };
-		33E36B851E6D06BA0028F0B5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
-		33E36B861E6D06BA0028F0B5 /* libEasyLink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEasyLink.a; sourceTree = "<group>"; };
-		33E36B871E6D06BA0028F0B5 /* libEsptouch_v0.3.5.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEsptouch_v0.3.5.2.a; sourceTree = "<group>"; };
-		33E36B881E6D06BA0028F0B5 /* libLibSimpleConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLibSimpleConfig.a; sourceTree = "<group>"; };
-		33E36B891E6D06BA0028F0B5 /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libminizip.a; sourceTree = "<group>"; };
-		33E36B8A1E6D06BA0028F0B5 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
-		33E36B8B1E6D06BA0028F0B5 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
-		33E36B8C1E6D06BA0028F0B5 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		33E36B8D1E6D06BA0028F0B5 /* libWMOneShotConfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWMOneShotConfig.a; sourceTree = "<group>"; };
-		33E36B8E1E6D06BA0028F0B5 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
-		33E36B8F1E6D06BA0028F0B5 /* mam.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = mam.a; sourceTree = "<group>"; };
-		33E36BA11E6D06C20028F0B5 /* res_FNScanner */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res_FNScanner; sourceTree = "<group>"; };
-		33E36BA21E6D06C20028F0B5 /* res_mam */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res_mam; sourceTree = "<group>"; };
-		33E36BA31E6D06C20028F0B5 /* uz */ = {isa = PBXFileReference; lastKnownFileType = folder; path = uz; sourceTree = "<group>"; };
-		33E36BA71E6D06D40028F0B5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,28 +99,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33E36B9D1E6D06BB0028F0B5 /* libssl.a in Frameworks */,
-				33E36B9E1E6D06BB0028F0B5 /* libWMOneShotConfig.a in Frameworks */,
-				33E36B911E6D06BA0028F0B5 /* FNScanner.a in Frameworks */,
-				33E36B991E6D06BB0028F0B5 /* libLibSimpleConfig.a in Frameworks */,
-				33E36B7E1E6D06A40028F0B5 /* APICloud.a in Frameworks */,
+				333F370C1E78DE140066E820 /* libssl.a in Frameworks */,
+				333F370D1E78DE140066E820 /* libWMOneShotConfig.a in Frameworks */,
+				333F37001E78DE130066E820 /* FNScanner.a in Frameworks */,
+				333F37081E78DE130066E820 /* libLibSimpleConfig.a in Frameworks */,
+				333F36ED1E78DDFF0066E820 /* APICloud.a in Frameworks */,
 				33C98BE81E2B603300F76E34 /* libiconv.tbd in Frameworks */,
-				33E36B941E6D06BA0028F0B5 /* libBarCode.a in Frameworks */,
-				33E36B9A1E6D06BB0028F0B5 /* libminizip.a in Frameworks */,
-				33E36B931E6D06BA0028F0B5 /* libAPICloud-GizWifiSDK.a in Frameworks */,
-				33E36B9C1E6D06BB0028F0B5 /* libopencore-amrwb.a in Frameworks */,
+				333F37031E78DE130066E820 /* libBarCode.a in Frameworks */,
+				333F37091E78DE140066E820 /* libminizip.a in Frameworks */,
+				333F37021E78DE130066E820 /* libAPICloud-GizWifiSDK.a in Frameworks */,
+				333F370B1E78DE140066E820 /* libopencore-amrwb.a in Frameworks */,
 				33C98BA11E2B5F7500F76E34 /* libstdc++.tbd in Frameworks */,
-				33E36BA01E6D06BB0028F0B5 /* mam.a in Frameworks */,
-				33E36B921E6D06BA0028F0B5 /* GizWifiSDK.a in Frameworks */,
-				33E36B901E6D06BA0028F0B5 /* arcProgress.a in Frameworks */,
+				333F370F1E78DE140066E820 /* mam.a in Frameworks */,
+				333F37011E78DE130066E820 /* GizWifiSDK.a in Frameworks */,
+				333F36FF1E78DE130066E820 /* arcProgress.a in Frameworks */,
 				33C98B9F1E2B5F6B00F76E34 /* libicucore.tbd in Frameworks */,
-				33E36B971E6D06BB0028F0B5 /* libEasyLink.a in Frameworks */,
-				33E36B951E6D06BA0028F0B5 /* libBLEasyConfig.a in Frameworks */,
-				33E36B9B1E6D06BB0028F0B5 /* libopencore-amrnb.a in Frameworks */,
-				33E36B981E6D06BB0028F0B5 /* libEsptouch_v0.3.5.2.a in Frameworks */,
-				33E36B961E6D06BA0028F0B5 /* libcrypto.a in Frameworks */,
+				333F37061E78DE130066E820 /* libEasyLink.a in Frameworks */,
+				333F37041E78DE130066E820 /* libBLEasyConfig.a in Frameworks */,
+				333F370A1E78DE140066E820 /* libopencore-amrnb.a in Frameworks */,
+				333F37071E78DE130066E820 /* libEsptouch_v0.3.5.2.a in Frameworks */,
+				333F37051E78DE130066E820 /* libcrypto.a in Frameworks */,
 				33C98B9D1E2B5F6000F76E34 /* libz.tbd in Frameworks */,
-				33E36B9F1E6D06BB0028F0B5 /* libzbar.a in Frameworks */,
+				333F370E1E78DE140066E820 /* libzbar.a in Frameworks */,
 				33C98B9B1E2B5F5100F76E34 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,6 +128,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		333F36D81E78DDCE0066E820 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				333F36DD1E78DDFF0066E820 /* APICloud.a */,
+				333F36DE1E78DDFF0066E820 /* APIEvent.h */,
+				333F36DF1E78DDFF0066E820 /* APIExport.h */,
+				333F36E01E78DDFF0066E820 /* APIKit */,
+				333F36E51E78DDFF0066E820 /* APIManager.h */,
+				333F36E61E78DDFF0066E820 /* APIModuleMethod.h */,
+				333F36E71E78DDFF0066E820 /* APIScriptMessage.h */,
+				333F36E81E78DDFF0066E820 /* APIUpdateManager.h */,
+				333F36E91E78DDFF0066E820 /* APIWebView.h */,
+				333F36EA1E78DDFF0066E820 /* APIWidgetContainer.h */,
+				333F36EB1E78DDFF0066E820 /* APIWindowContainer.h */,
+				333F36EC1E78DDFF0066E820 /* UZWebViewProtocol.h */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		333F36DA1E78DDCE0066E820 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				333F36EE1E78DE130066E820 /* arcProgress.a */,
+				333F36EF1E78DE130066E820 /* FNScanner.a */,
+				333F36F01E78DE130066E820 /* GizWifiSDK.a */,
+				333F36F11E78DE130066E820 /* libAPICloud-GizWifiSDK.a */,
+				333F36F21E78DE130066E820 /* libBarCode.a */,
+				333F36F31E78DE130066E820 /* libBLEasyConfig.a */,
+				333F36F41E78DE130066E820 /* libcrypto.a */,
+				333F36F51E78DE130066E820 /* libEasyLink.a */,
+				333F36F61E78DE130066E820 /* libEsptouch_v0.3.5.2.a */,
+				333F36F71E78DE130066E820 /* libLibSimpleConfig.a */,
+				333F36F81E78DE130066E820 /* libminizip.a */,
+				333F36F91E78DE130066E820 /* libopencore-amrnb.a */,
+				333F36FA1E78DE130066E820 /* libopencore-amrwb.a */,
+				333F36FB1E78DE130066E820 /* libssl.a */,
+				333F36FC1E78DE130066E820 /* libWMOneShotConfig.a */,
+				333F36FD1E78DE130066E820 /* libzbar.a */,
+				333F36FE1E78DE130066E820 /* mam.a */,
+				333F37101E78DE220066E820 /* res_FNScanner */,
+				333F37111E78DE220066E820 /* res_mam */,
+				333F37121E78DE220066E820 /* uz */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		333F36E01E78DDFF0066E820 /* APIKit */ = {
+			isa = PBXGroup;
+			children = (
+				333F36E11E78DDFF0066E820 /* NSDictionaryUtils.h */,
+				333F36E21E78DDFF0066E820 /* UZAppDelegate.h */,
+				333F36E31E78DDFF0066E820 /* UZAppUtils.h */,
+				333F36E41E78DDFF0066E820 /* UZModule.h */,
+			);
+			path = APIKit;
+			sourceTree = "<group>";
+		};
 		33C98AF51E2B5EC600F76E34 = {
 			isa = PBXGroup;
 			children = (
@@ -184,68 +241,11 @@
 		33E36B6B1E6D069C0028F0B5 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				33E36BA71E6D06D40028F0B5 /* Info.plist */,
-				33E36B6D1E6D06A40028F0B5 /* Engine */,
-				33E36B6C1E6D069C0028F0B5 /* Modules */,
+				333F36DB1E78DDD30066E820 /* Info.plist */,
+				333F36D81E78DDCE0066E820 /* Engine */,
+				333F36DA1E78DDCE0066E820 /* Modules */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		33E36B6C1E6D069C0028F0B5 /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				33E36B7F1E6D06BA0028F0B5 /* arcProgress.a */,
-				33E36B801E6D06BA0028F0B5 /* FNScanner.a */,
-				33E36B811E6D06BA0028F0B5 /* GizWifiSDK.a */,
-				33E36B821E6D06BA0028F0B5 /* libAPICloud-GizWifiSDK.a */,
-				33E36B831E6D06BA0028F0B5 /* libBarCode.a */,
-				33E36B841E6D06BA0028F0B5 /* libBLEasyConfig.a */,
-				33E36B851E6D06BA0028F0B5 /* libcrypto.a */,
-				33E36B861E6D06BA0028F0B5 /* libEasyLink.a */,
-				33E36B871E6D06BA0028F0B5 /* libEsptouch_v0.3.5.2.a */,
-				33E36B881E6D06BA0028F0B5 /* libLibSimpleConfig.a */,
-				33E36B891E6D06BA0028F0B5 /* libminizip.a */,
-				33E36B8A1E6D06BA0028F0B5 /* libopencore-amrnb.a */,
-				33E36B8B1E6D06BA0028F0B5 /* libopencore-amrwb.a */,
-				33E36B8C1E6D06BA0028F0B5 /* libssl.a */,
-				33E36B8D1E6D06BA0028F0B5 /* libWMOneShotConfig.a */,
-				33E36B8E1E6D06BA0028F0B5 /* libzbar.a */,
-				33E36B8F1E6D06BA0028F0B5 /* mam.a */,
-				33E36BA11E6D06C20028F0B5 /* res_FNScanner */,
-				33E36BA21E6D06C20028F0B5 /* res_mam */,
-				33E36BA31E6D06C20028F0B5 /* uz */,
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		33E36B6D1E6D06A40028F0B5 /* Engine */ = {
-			isa = PBXGroup;
-			children = (
-				33E36B6E1E6D06A40028F0B5 /* APICloud.a */,
-				33E36B6F1E6D06A40028F0B5 /* APIEvent.h */,
-				33E36B701E6D06A40028F0B5 /* APIExport.h */,
-				33E36B711E6D06A40028F0B5 /* APIKit */,
-				33E36B761E6D06A40028F0B5 /* APIManager.h */,
-				33E36B771E6D06A40028F0B5 /* APIModuleMethod.h */,
-				33E36B781E6D06A40028F0B5 /* APIScriptMessage.h */,
-				33E36B791E6D06A40028F0B5 /* APIUpdateManager.h */,
-				33E36B7A1E6D06A40028F0B5 /* APIWebView.h */,
-				33E36B7B1E6D06A40028F0B5 /* APIWidgetContainer.h */,
-				33E36B7C1E6D06A40028F0B5 /* APIWindowContainer.h */,
-				33E36B7D1E6D06A40028F0B5 /* UZWebViewProtocol.h */,
-			);
-			path = Engine;
-			sourceTree = "<group>";
-		};
-		33E36B711E6D06A40028F0B5 /* APIKit */ = {
-			isa = PBXGroup;
-			children = (
-				33E36B721E6D06A40028F0B5 /* NSDictionaryUtils.h */,
-				33E36B731E6D06A40028F0B5 /* UZAppDelegate.h */,
-				33E36B741E6D06A40028F0B5 /* UZAppUtils.h */,
-				33E36B751E6D06A40028F0B5 /* UZModule.h */,
-			);
-			path = APIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,12 +312,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33E36BA61E6D06C20028F0B5 /* uz in Resources */,
+				333F37131E78DE220066E820 /* res_FNScanner in Resources */,
 				33C98BEA1E2B60B600F76E34 /* widget in Resources */,
-				33E36BA81E6D06D40028F0B5 /* Info.plist in Resources */,
 				33C98B0E1E2B5EC700F76E34 /* Assets.xcassets in Resources */,
-				33E36BA41E6D06C20028F0B5 /* res_FNScanner in Resources */,
-				33E36BA51E6D06C20028F0B5 /* res_mam in Resources */,
+				333F37141E78DE220066E820 /* res_mam in Resources */,
+				333F36DC1E78DDD30066E820 /* Info.plist in Resources */,
+				333F37151E78DE220066E820 /* uz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
