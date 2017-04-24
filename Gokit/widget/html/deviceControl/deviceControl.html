@@ -194,7 +194,7 @@
 <script type="text/javascript" src="../../script/fastclick.js"></script>
 <script type="text/javascript">
 
-    var device, gizWifiDevice, deviceName;
+    var device, gizWifiDevice;
     // 数据点标识枚举
     var dataPoint = {
         // 可写枚举
@@ -232,11 +232,11 @@
     var infrared = false;
     var temperature = 0;
     var humidity = 0;
-    var deviceName;
+    var deviceName, alias;
 
     // 定时器
     var timer;
-    var isController = false;
+    var isController = false;  //标识是否刚从设备列表进入控制界面，若是，且设备变为可控后，值需修改为true
     var time = 0; //次数
     var delay; //延时时间 
     var colorDic;
@@ -247,6 +247,7 @@
 
         device = api.pageParam.pageParam;
         gizWifiDevice = api.require('gizWifiDevice')
+        // 注册页面显示与消失监听方法
         api.addEventListener({name: 'viewappear'}, fnAppear);
         api.addEventListener({name: 'viewdisappear'}, fnDisappear);
         
@@ -255,11 +256,12 @@
             title: '正在更新',
             modal: true
         });
-        checkDeviceNetStatus(); //检测设备可控状态
+
         setupTitle();  //设置标题栏
         registerDeviceStatusNotification(); //注册设备状态变化监听
         setupAllButton(); //设置按钮点击事件
         setupSlide(); // 初始化滚动条
+        checkDeviceNetStatus(); //检测设备可控状态
 
         colorDic = {"LED_Color": led_Color, "mac": api.pageParam.pageParam.mac, "did": api.pageParam.pageParam.did};
         api.addEventListener({
@@ -273,22 +275,12 @@
 	}
 
     function fnAppear(){
-        console.log('*****************fnAppear*****************');  
+        console.log('*****************fnAppear*****************'); 
+        getDeviceStatus(); 
     }
 
     function fnDisappear() {
-        
-    }
-
-    function setupTitle(){
-        deviceName = device.productName;
-        if (device.alias) {
-            deviceName = device.alias;
-        }
-        api.execScript({
-            name: 'win_deviceControl',
-            script: 'fnSetNavigationTitle({"name": ".controlTitle", "value": "' + deviceName + '"})'
-        });
+        console.log('*****************fnDisappear*****************'); 
     }
 
     // ************************检测设备可控状态相关方法************************
@@ -317,40 +309,41 @@
             window.clearInterval(timer);
             api.closeWin();
             api.hideProgress();
+            fnUnsubscribe();
         }
     }
 
     // ************************设备控制、设置相关方法************************
     // 下发控制指令
     function write(dp, value){
-        var dataValue;
+        var data;
         switch(dp)
         {
             case dataPoint.GosDeviceWriteLED_onOff:
-                dataValue = {"LED_OnOff": value};
+                data = {"LED_OnOff": value};
                 break;
             case dataPoint.GosDeviceWriteLED_Color:
-                dataValue = {"LED_Color": value};
+                data = {"LED_Color": value};
                 break;
             case dataPoint.GosDeviceWriteLED_R:
-                dataValue = {"LED_R": value};
+                data = {"LED_R": value};
                 break;
             case dataPoint.GosDeviceWriteLED_G:
-                dataValue = {"LED_G": value};
+                data = {"LED_G": value};
                 break;
             case dataPoint.GosDeviceWriteLED_B:
-                dataValue = {"LED_B": value};
+                data = {"LED_B": value};
                 break;
             case dataPoint.GosDeviceWriteMotorSpeed:
-                dataValue = {"Motor_Speed": value};
+                data = {"Motor_Speed": value};
                 break;
         }
 
-        console.log("下发控制指令： dataValue = " + JSON.stringify(dataValue) + "device = " + JSON.stringify(device) + ", device.device = " + JSON.stringify(device.device));
+        console.log("下发控制指令： data = " + JSON.stringify(data) + "device = " + JSON.stringify(device) + ", device.device = " + JSON.stringify(device.device));
         gizWifiDevice.write({
             device: device,
-            sn: 5,
-            data: dataValue
+            sn: 0,
+            data: data
         }, function(ret, err){
             console.log('下发控制指令回调 ret = ' + JSON.stringify(ret) + ', err = ' + JSON.stringify(err));
         });
@@ -392,6 +385,7 @@
             {
                 api.closeWin();
                 api.hideProgress();
+                fnUnsubscribe();
                 console.log("退出控制界面" + "receive_fnRegisterDeviceStatusNotification + netStatus = " + netStatus);
             }
         }
@@ -411,6 +405,19 @@
 
     function receive_fnGetDeviceStatus(ret, err){
         console.log("获取设备状态回调 + ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
+
+        if (!err && isController == false) {
+            console.log("在获取设备状态中关闭定时器");
+            api.hideProgress();
+            isController = true;
+            window.clearInterval(timer);
+        } 
+
+        if (ret)
+        {
+            console.log("在获取设备状态中更改UI");
+            readData(ret);
+        }
     }
 
     function getHardwareInfo()
@@ -471,9 +478,6 @@
      // 设置设备信息回调
     function receive_fnSetCustomInfo(ret, err)
     {
-        var alias = "设置设备别名回调: ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err);
-// <!--        alert(alias)-->
-        console.log(alias);
         api.hideProgress();
         
         if (err) {
@@ -486,9 +490,8 @@
         }
         else
         {
+            deviceName = alias;
             // 修改设备名称
-            deviceName = ret.device.alias;
-            console.log("设置设备别名回调: deviceName = " + deviceName);
             api.alert({
                       title: '提示',
                       msg: '设置成功',
@@ -499,6 +502,7 @@
 
     // 解除设备订阅
     function fnUnsubscribe() {
+        console.log('解除订阅');
         var gizWifiDevice = api.require("gizWifiDevice");
         gizWifiDevice.setSubscribe({device: device, subscribed: false}, function(ret, err) {});
     }
@@ -509,9 +513,13 @@
         console.log("api.pageParam.pageParam = " + JSON.stringify(api.pageParam.pageParam));
         console.log("********************readData被调用**********************");
         var data = ret.data;
-        
-        if (data && data.LED_OnOff) 
+        // console.log("data = " + data);
+        console.log("data = " + JSON.stringify(data));
+        // console.log("data.count = " + data.count);
+        // console.log("data.length = " + data.length);
+        if (data && !$api.isEmptyObject(data)) 
         {
+            console.log('读数据');
                     // 读数据
             readDataPoint(dataPoint.GosDeviceWriteLED_onOff, data);
             readDataPoint(dataPoint.GosDeviceWriteLED_Color, data);
@@ -658,9 +666,10 @@
         console.log("led_OnOff = " + led_OnOff);
         console.log("infrared = " + infrared);
         //开关灯
-        var led_OnOffB = document.getElementById("gos_ledOnOffBlock");
+        var led_OnOffB =$api.byId("gos_ledOnOffBlock");
         console.log("led_OnOffB = " + led_OnOffB);
         updateSwitchShow(led_OnOffB, "#gos_ledOnOff", led_OnOff);
+
 
         $(".gos_redValue").html(led_R);
         updateSlideColor($("#gos_rSlide"), led_R);
@@ -675,7 +684,7 @@
         updateSlideColor($("#gos_mSSlide"), motorSpeed);
 
         // 红外探测
-        var infraredB = document.getElementById("gos_infraredBlock");
+        var infraredB = $api.byId("gos_infraredBlock");
         console.log("infraredB = " + infraredB);
         updateSwitchShow(infraredB, "#gos_infrared", infrared);
 
@@ -700,18 +709,35 @@
         }
     }
 
+    // 设置界面标题
+    function setupTitle(){
+        deviceName = device.productName;
+        if (device.alias) {
+            deviceName = device.alias;
+        }
+
+        var alias = deviceName;
+        if (alias.length > 10) {
+            alias = alias.substring(0, 10) + "...";
+        }
+        api.execScript({
+            name: 'win_deviceControl',
+            script: 'fnSetNavigationTitle({"name": ".controlTitle", "value": "' + alias + '"})'
+        });
+    }
+
     // 根据传入的value值更新相应id的开关状态
     function updateSwitchShow(el, id, value)
     {
         if (value) {
-            if ($api.hasCls(el.querySelector( id ), 'checked') == false) {
-                $api.addCls(el.querySelector( id ), 'checked');
+            if ($api.hasCls(el.querySelector( id ), "checked") == false) {
+                $api.addCls(el.querySelector( id ), "checked");
             }
         }
         else
         {
-            if ($api.hasCls(el.querySelector( id ), 'checked')) {
-                $api.removeCls(el.querySelector( id ), 'checked');
+            if ($api.hasCls(el.querySelector( id ), "checked")) {
+                $api.removeCls(el.querySelector( id ), "checked");
             }
         }
     }
@@ -719,23 +745,23 @@
     // 设置按钮点击事件
     function setupAllButton()
     {
-        var ledOnOffBlock = document.getElementById('gos_ledOnOffBlock');
+        var ledOnOffBlock = $api.byId("gos_ledOnOffBlock");
         FastClick.attach(ledOnOffBlock);
-        ledOnOffBlock.addEventListener('click', function(event) {
+        ledOnOffBlock.addEventListener("click", function(event) {
             ios7CBoxDidClick(ledOnOffBlock);
         }, false);
 
-        addFastClickEvent('gos_redSub');
-        addFastClickEvent('gos_redAdd');
-        addFastClickEvent('gos_greenSub');
-        addFastClickEvent('gos_greenAdd');
-        addFastClickEvent('gos_blueSub');
-        addFastClickEvent('gos_blueAdd');
-        addFastClickEvent('gos_motorSpeedSub');
-        addFastClickEvent('gos_motorSpeedAdd');
+        addFastClickEvent("gos_redSub");
+        addFastClickEvent("gos_redAdd");
+        addFastClickEvent("gos_greenSub");
+        addFastClickEvent("gos_greenAdd");
+        addFastClickEvent("gos_blueSub");
+        addFastClickEvent("gos_blueAdd");
+        addFastClickEvent("gos_motorSpeedSub");
+        addFastClickEvent("gos_motorSpeedAdd");
     }
 
-    // 设置滑动条的属性和监听事件
+    // 设置滚动条的属性和监听事件
     $.fn.RangeSlider = function(cfg){
         this.sliderCfg = {
              min: cfg && !isNaN(parseFloat(cfg.min)) ? Number(cfg.min) : null, 
@@ -750,13 +776,13 @@
         var step = this.sliderCfg.step;
         var callback = this.sliderCfg.callback;
 
-        $input.attr('min', min)
-            .attr('max', max)
-            .attr('step', step);
+        $input.attr("min", min)
+            .attr("max", max)
+            .attr("step", step);
 
         $input.bind("input", function(e){
 
-        $input.attr('value', this.value);
+        $input.attr("value", this.value);
 
         var newValue;
         var id = this.id;
@@ -767,7 +793,7 @@
         {
             newValue = (5 + parseFloat(this.value)) * 10; 
         }
-        $input.css( 'background-size', newValue + '% 100%' ); 
+        $input.css( "background-size", newValue + "% 100%" ); 
         console.log("渲染颜色");
         if ($.isFunction(callback)) {
             console.log("调用callback");
@@ -779,10 +805,10 @@
     // 初始化滚动条
     function setupSlide()
     {
-        $('#gos_rSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
-        $('#gos_gSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
-        $('#gos_bSlide').RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
-        $('#gos_mSSlide').RangeSlider({ min: -5,   max: 5,  step: 1,  callback: change});
+        $("#gos_rSlide").RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
+        $("#gos_gSlide").RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
+        $("#gos_bSlide").RangeSlider({ min: 0,   max: 254,  step: 1,  callback: change});
+        $("#gos_mSSlide").RangeSlider({ min: -5,   max: 5,  step: 1,  callback: change});
     }
 
      // 根据当前点击的控件，获取相应的显示控件应显示的值，并下发控制指令。
@@ -837,7 +863,7 @@
     {
         slide.attr("value", colorValue);
         var widthValue = ((colorValue / 254)*100);
-        $(slide).css( 'background-size', widthValue + '% 100%' );
+        $(slide).css( "background-size", widthValue + "% 100%" );
     }
 
     // 获取id标识的控件当前应显示的值
@@ -865,10 +891,10 @@
          id = "#" + id.replace("Block", "");
         
          // 渲染颜色
-         if( $api.hasCls(el.querySelector( id ), 'checked') ){
-             $api.removeCls(el.querySelector( id ), 'checked');
+         if( $api.hasCls(el.querySelector( id ), "checked") ){
+             $api.removeCls(el.querySelector( id ), "checked");
          }else{
-             $api.addCls(el.querySelector( id ), 'checked');
+             $api.addCls(el.querySelector( id ), "checked");
          }
 
          var blockId = el.id;
@@ -885,7 +911,7 @@
     {
         var temp = document.getElementById(idName)
         FastClick.attach(temp);
-        temp.addEventListener('click', function(event) {
+        temp.addEventListener("click", function(event) {
             caculatorColor(temp);
         }, false);
     }
@@ -989,12 +1015,12 @@
     function setDevicAlaisPrompt()
     {
         var tip;
-        if (deviceName == "" || deviceName == undefined) {
-            tip = "请输入设备名称";
+        if (deviceName) {
+            tip = deviceName;
         }
         else
         {
-            tip = deviceName;
+            tip = "请输入设备名称";
         }
         console.log("设置设备别名");
         api.prompt({
@@ -1005,6 +1031,7 @@
               var index = ret.buttonIndex;
               var text = ret.text;
               if (index == 2) {
+                   alias = text;
                    setDeviceAlais(text);
                    //显示加载圈
                     api.showProgress({

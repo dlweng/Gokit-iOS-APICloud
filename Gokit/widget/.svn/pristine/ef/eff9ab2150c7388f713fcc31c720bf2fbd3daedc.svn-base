@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" href="../../css/api.css">
+    <style>
+    	body{ height: auto; }
+    	ul { font-size: 12px; border: 1px solid #ddd; line-height: 44px; border-width: 1px 0; padding: 0 15px; margin-top: 30px; background-color: white; }
+    	ul li.ic-select{ background-position: right center; background-size: 18px auto; }
+    	ul li+ li{ border-top: 1px solid #ddd;}
+    </style>
+</head>
+<body>
+	<ul>
+		<li tapmode="opacity" onclick="fnRadio( this );" >开机</li>
+		<li tapmode="opacity" onclick="fnRadio( this );" >关机</li>
+	</ul>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		api.pageParam = api.pageParam.pageParam;
+		$api.addCls(  $api.dom( 'ul li:nth-child('+( api.pageParam.index + 1 )+')' ), 'ic-select' );
+		
+//		$api.addCls( $api.dom( 'ul li:nth-child('+( api.pageParam.type + 1 )+')' ), 'ic-select' );
+	}
+	
+	function fnRadio( el ){
+		var eLi = $api.domAll( 'ul li' );
+		for( var i = 0, len = eLi.length; i < len; i++){
+			if(eLi[i] === el){
+				$api.addCls( eLi[i], 'ic-select');
+				$api.setStorage( 'Power_Switch'+api.pageParam.did, {index: i,name: eLi[i].innerHTML} );
+				api.execScript({
+				    name: 'win_appointment-add',
+				    frameName: 'frm_appointment-add',
+				    script: 'fnPower_Switch('+JSON.stringify($api.getStorage( 'Power_Switch'+api.pageParam.did ))+')'
+				});
+			}else{
+				$api.removeCls( eLi[i], 'ic-select' );
+			}
+		}
+		setTimeout(function(){
+			api.closeWin();
+		},300);
+	}
+</script>
+</html>

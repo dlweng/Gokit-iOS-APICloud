@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" href="../../css/api.css">
+    <style>
+    	header:not(:empty){ display: none; position: relative; background-color: #f3d41d; border-bottom: 1px solid #c9c9c9; line-height: 43px; text-align: center; color: #212121; font-size: 16px; }
+    	header [class*=ic-back]{ padding-left: 21px; padding-right: 28px; line-height: 49px;}
+    	header .no-arrow{ padding-left: 21px; padding-right: 28px; float: left;}
+    	header .adddevicelist{ position: absolute; left: 50%; margin-left: -20px; }
+ 		header [class*=ic-]:not(.ic-refresh),
+    	header .left{ position: absolute; bottom: 0; background-position: 5px 60%; background-size: 18px auto; min-width: 44px; height: 44px; }
+    	header .left{left: 0;   }
+    	header .right{ right: 0; background-position: center 50% !important; }
+    	header.deviceList .ic-refresh{ width: 18px; height: 18px; background-size: 100% auto; margin: 12px 6px; transition:all .3s; -webkit-transition:all .3s; }
+    	header.deviceList .left.opacity .ic-refresh{ transform:rotate(360deg); -webkit-transform:rotate(360deg); }
+    	header.purifier>div{ position: relative; display: none; background-color: #39b47b; min-height: 43px; }
+    	header.purifier{ border: 0; color: white; }
+    	header.purifier .sleep{ background-color: #14b7c6;}
+    	header .object .deviceControl{ background-color: #39b47b; color: white; border: 0; }
+
+    	
+    	footer{ display: none; background-color: white; }
+    	footer.purifier .flex-con{  padding-top: 57px; color: #585858; padding-bottom: 7px; font-size: 9px; text-align: center; background-size: 39px auto; background-position: center 12px; font-size: 11px; }
+    	footer.purifier .flex-con.active{ background-position: center -67px; }
+    	footer.purifier .flex-con.ic-footer-off:after{ content: '关机'; }
+    	footer.purifier .flex-con.ic-footer-off.active:after{ content: '开机'; }
+    	footer.purifier .flex-con.ic-footer-off.active{ color: white; }
+    	footer.purifier .flex-con.ic-footer-sleep.active{ color: #15aebe; }
+    	footer.purifier .flex-con.ic-footer-auto.active{ color: #37ad76; }
+    </style>
+</head>
+<body class="flex-wrap flex-vertical">
+	<header class="login" >机智云账号登陆</header>
+	<header class="register" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">返回</div>
+		注册新用户
+	</header>
+	<header class="forgetPassword" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">返回</div>
+		忘记密码
+	</header>
+	<header class="selectType" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">添加设备</div>
+		模组类型选择
+	</header>
+	<header class="connectionStatus" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">返回</div>
+		确认设备处于连接状态
+	</header>
+	<header class="searchDevice" >
+		<div tapmode="opacity" onclick="fnSearchDevice();" class="ic-back">取消</div>
+		搜索并连接设备
+	</header>
+	<header class="connectionDevice" >
+		<div tapmode="opacity" onclick="fnConnectionDevice();" class="ic-back">返回</div>
+		手动连接设备
+	</header>
+	<header class="connectionDeviceNext" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">返回</div>
+		配置设备
+	</header>
+	<header class="deviceList" >
+		<div tapmode="opacity" onclick="fnGetListInfo();" class="left">
+			<div class="ic-refresh"></div>
+		</div>
+		<div tapmode="opacity" onclick="fnActionSheet();" class="ic-more right"></div>
+		我的设备
+	</header>
+	<header class="deviceSeting" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">我的设备</div>
+		设置
+	</header>
+	<header class="selectWiFi" >
+		<div tapmode="opacity" onclick="fnAddDevice();" class="no-arrow">取消</div>
+		<div class="adddevicelist">添加设备</div>
+	</header>
+	<header class="FNScanner" ></header>
+	<header class="about" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back">返回</div>
+		关于
+	</header>
+	<header class="deviceControl">
+		<div tapmode="opacity" onclick="fnCancelDevice();" class="ic-back"></div>
+		<div tapmode="opacity" onclick="fnDeviceControlMore();" class="ic-more right"></div>
+		<span class = "deviceName">
+		微信宠物屋
+		</span>
+	</header>
+	<header class="selectedLEDColor" >
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back"></div>
+		设定LED组合颜色
+	</header>
+	<div class="flex-con main"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script src="../../script/jquery.js"></script>
+<script type="text/javascript">
+	
+	var eHeader = null,
+		eFooter = null;
+	apiready = function(){
+			eHeader = $api.dom( 'header.' + api.pageParam.name ),
+			eFooter = $api.dom( 'footer.' + api.pageParam.name );
+			//alert(JSON.stringify(api.pageParam));
+		$api.addCls( eHeader, 'show' );
+		if( eFooter )$api.addCls( eFooter, 'show' );
+		if( eHeader.querySelectorAll( '.sub-header' ).length <= 0 )$api.fixStatusBar( eHeader );
+			
+		switch( api.pageParam.name ){
+			// case 'purifier':
+			// 	api.pageParam = api.pageParam.pageParam;
+			//  	fnGetDeviceStatus();
+			//  	// fnGetNameFromCoords();
+			// 	// fnSwitchPurifier( $api.dom( 'footer.purifier .flex-con' ) )
+			// 	var eProductName = $api.domAll( '.productName' );
+			// 	for( var i = 0; i < eProductName.length; i++){
+			// 		eProductName[i].innerHTML = api.pageParam.productName || '--';
+			// 	}
+			// 	break;
+			case 'FNScanner': fnFNScanner()
+				break;
+			// case 'switchCity': setTimeout(fnSwitchCity,300);
+			// 	break;
+			default:
+		
+				y = eHeader.offsetHeight;
+				$api.setStorage('pageY', y );
+				api.openFrame({
+				    name: 'frm_'+api.pageParam.name,
+				    url: api.wgtRootDir+'/html'+api.pageParam.path+'/'+api.pageParam.name+'.html',
+				    rect: {
+				        x: 0,
+				        y: eHeader.offsetHeight,
+				        h: api.winHeight - eHeader.offsetHeight
+				    },
+				    bgColor: api.pageParam.bg || 'rgba(0,0,0,0)',
+				    pageParam: api.pageParam
+				});
+		}
+		api.addEventListener({
+		    name: 'keyback'
+		}, function(ret, err){        
+		    if( ret ){
+		    	switch( api.winName ){
+		    		case 'win_login':
+			    		api.closeWidget({
+						    id: api.appId
+						});
+						break;
+		    		case 'win_deviceList':
+			    		api.closeWidget({
+						    id: api.appId
+						});
+						break;
+		    		case 'win_searchDevice' : fnSearchDevice();
+		    			break;
+		    		case 'win_connectionDevice' : fnConnectionDevice();
+		    			break;
+	    			default:
+	    				fnHasBack();
+		    	};
+		    }
+		});
+
+
+		// 添加监听事件
+		api.addEventListener({
+    		name: 'updateDeviceName'
+			}, function(ret, err) {
+   			 
+   			 console.log("ret = " + ret);
+   			 fnShowDeviceName(ret);
+			});
+	}
+	
+	// function fnSwitchPurifier( el, hasHidden ){
+	// 	var ePurifier = $api.domAll( 'footer.purifier .flex-con' );
+	// 	var eSubHeader = $api.domAll( 'header.purifier .sub-header' );
+	// 	if( $api.dom( 'footer.purifier .flex-con.active' ) ){
+	// 		localStorage.setItem( 'currentName', $api.dom( 'footer.purifier .flex-con.active' ).getAttribute( 'data-name' ) );
+	// 	}else{
+	// 		localStorage.removeItem( 'currentName' );
+	// 	}
+	// 	for( var i = 0; i < ePurifier.length; i++){
+	// 		if( ePurifier[i] === el ){
+	// 			$api.addCls( ePurifier[i], 'active' );
+	// 			$api.addCls( eSubHeader[i], 'show' );
+	// 			$api.fixStatusBar( eSubHeader[i] );
+	// 			if( ePurifier[i].getAttribute( 'data-name' ) === 'off' ){
+	// 				api.openFrame({
+	// 				    name: 'frm_home-auto',
+	// 				    url: api.wgtRootDir+'/html/object-purifier/home-auto.html',
+	// 				    bgColor: '#39b47b',
+	// 		    		pageParam: api.pageParam,
+	// 				    rect: {
+	// 				        x: 0,
+	// 				        y: eSubHeader[i].offsetHeight,
+	// 				        h: api.winHeight - eSubHeader[i].offsetHeight - ePurifier[i].offsetHeight
+	// 				    }
+	// 				});
+	// 				api.openFrame({
+	// 				    name: 'frm_home-off',
+	// 				    url: api.wgtRootDir+'/html/object-purifier/home-off.html',
+	// 				    bgColor: ePurifier[i].getAttribute( 'bg' ),
+	// 		    		pageParam: api.pageParam
+	// 				});
+	// 			}else{					
+	// 				api.openFrame({
+	// 				    name: 'frm_home-'+ePurifier[i].getAttribute( 'data-name' ),
+	// 				    url: api.wgtRootDir+'/html/object-purifier/home-'+( ePurifier[i].getAttribute( 'data-name' ) === 'auto' || ePurifier[i].getAttribute( 'data-name' ) === 'sleep' ? 'auto' : ePurifier[i].getAttribute( 'data-name' ) )+'.html',
+	// 				    bgColor: ePurifier[i].getAttribute( 'bg' ),
+	// 		    		pageParam: api.pageParam,
+	// 				    rect: {
+	// 				        x: 0,
+	// 				        y: eSubHeader[i].offsetHeight,
+	// 				        h: ePurifier[i].getAttribute( 'data-name' ) === 'like' ? api.winHeight - eSubHeader[i].offsetHeight :api.winHeight - eSubHeader[i].offsetHeight - ePurifier[i].offsetHeight
+	// 				    }
+	// 				});
+	// 			}
+	// 		}else{
+	// 			if( !( el.getAttribute( 'data-name' ) === 'off' || el.getAttribute( 'data-name' ) === 'like' ) ){
+	// 				api.setFrameAttr({
+	// 				    name: 'frm_home-'+ePurifier[i].getAttribute( 'data-name' ),
+	// 				    hidden: true
+	// 				});
+	// 				$api.removeCls( eSubHeader[i], 'show' );
+	// 			}
+	// 			$api.removeCls( ePurifier[i], 'active' );
+	// 		}
+	// 	}
+	// }
+	
+	// var vfnGetNameFromCoords = true;
+	// function fnGetNameFromCoords(){
+	// 	if( vfnGetNameFromCoords ){
+	// 		vfnGetNameFromCoords = false;
+	// 		api.execScript({
+	// 		    name: 'root',
+	// 		    script: 'fnGetNameFromCoords('+JSON.stringify({
+	// 				winName: api.winName
+	// 			})+')'
+	// 		});
+	// 	}
+	// }
+	
+	// function fnSwitchCity(){
+	// 	api.showProgress({
+	// 	    animationType: 'zoom',
+	// 	    title: '正在加载',
+ //    		modal: true
+	// 	});
+	// 	setTimeout(function(){
+	// 		api.require('UICityList').open({
+	// 			rect : {
+	// 				x : 0,
+	// 				y : eHeader.offsetHeight,
+	// 				h : api.winHeight  -  eHeader.offsetHeight
+	// 			},
+	// 			resource : 'widget://res/UICityList.json',
+	// 			styles : {
+	// 				searchBar : {
+	// 					bgColor : '#39b47b',
+	// 					cancColor : '#E3E3E3'
+	// 				},
+	// 				location : {
+	// 					color : '#7AC5CD',
+	// 				},
+	// 				sectionTitle : {
+	// 					bgColor : '#eee',
+	// 					color: '#a09f9f',
+	// 					height: 18
+	// 				},
+	// 				item : {
+	// 					bgColor : '#fff',
+	// 					activeBgColor : '#fff',
+	// 					color: '#333',
+	// 					size: 12,
+	// 					height: 44
+	// 				},
+	// 				indicator : {
+	// 					bgColor : '#fff',
+	// 					color: '#52abff'
+	// 				}
+	// 			},
+	// 			currentCity : '北京',
+	// 		}, function(ret, err) {
+	// 			if( ret.eventType === 'selected' ){
+	// 				api.showProgress({
+	// 				    animationType: 'zoom',
+	// 				    title: '正在切换城市',
+	// 		    		modal: true
+	// 				});
+	// 				ret.state = ret.cityInfo.city;
+	// 				api.sendEvent({
+	// 				    name: 'eve_aMap',
+	// 				    extra: ret
+	// 				});	
+					
+	// 				api.addEventListener({
+	// 				    name: 'eve_Weather'
+	// 				}, function(ret, err){
+	// 					if( ret.value.msg ){
+	// 						fnPopup({msg: ret.value.msg})
+	// 					}else{
+	// 						fnPopup({
+	// 							msg: '切换成功'
+	// 						},function(){
+	// 							api.closeWin();
+	// 						})
+	// 					}
+	// 					api.hideProgress();
+	// 				});
+	// 			}else if( ret.eventType === 'show' ){
+	// 				api.hideProgress();
+	// 			}
+	// 		});
+	// 	},300);
+	// }
+	
+	function fnFNScanner(){
+		var fNScanner=api.require('FNScanner');
+		fNScanner.openView({
+//			    autorotation: true
+		}, function(ret, err){    
+			//alert(JSON.stringify(ret));    
+		    if( ret ){
+		    	//alert(JSON.stringify(ret));   
+		        if( ret.eventType === 'show' ){
+		        	setTimeout(function(){
+						api.openFrame({
+						    name: 'frm_FNScanner',
+						    url: api.wgtRootDir+'/html/public/FNScanner.html'
+						})
+		        	},300);
+		        }
+		        else if( ret.eventType === 'success' ){
+		        	//alert(JSON.stringify(ret.content));
+		        	if( ret.content.indexOf("product_key") > 0 ){
+			        	var vTemp = {};
+			        	var b = ret.content.split( '?' )[1].split( '&' );
+			        	for( var x in b ){
+							vTemp[ b[x].split( '=' )[0] ] = b[x].split( '=' )[1]
+						}
+						if( vTemp.product_key && vTemp.did && vTemp.passcode ){
+							api.execScript({
+							    name: 'root',
+							    script: 'fnBindDevice('+JSON.stringify({
+									winName: api.winName,
+									frameName: api.frameName,
+									data: vTemp
+								})+')'
+							});
+							api.sendEvent({
+							    name: 'message',
+
+							});
+							api.closeWin();
+						}else{
+							api.execScript({
+							    name: 'root',
+							    script: 'fnBindDeviceByQRCode('+JSON.stringify({
+							    	winName: api.winName,
+							    	frameName: api.frameName,
+							    	data: ret.content
+							    })+')'
+							});
+						}
+					}else{
+						//alert(1);			
+	        			api.execScript({
+							name : 'win_deviceList',
+							frameName : 'frm_deviceList',
+	                	    script: 'fnScannerfailed();'
+	                	}); 
+	                	api.closeWin();	                			                	
+					}
+		        }else if(ret.eventType=='fail'){
+		        	//alert(2);
+        			api.execScript({
+						name : 'win_deviceList',
+						frameName : 'frm_deviceList',
+                	    script: 'fnScannerfailed();'
+                	}); 
+                	api.closeWin();		        	
+		        }	
+		    }else{
+		        alert( JSON.stringify( err ) );
+		    }
+		});
+	}
+	
+	function fnHasBack(){
+		var hasBack = $api.getStorage( 'hasBack' );
+        if( hasBack ){
+        	if ( api.systemType === 'ios' ) {
+        		api.confirm({
+			   		title: '提示',
+			   	 	msg: hasBack.msg,
+					buttons: ['不了', '确定']
+				}, function(ret, err){
+					if( ret.buttonIndex === 2 ){
+						$api.rmStorage( 'hasBack' );
+						api.closeWin();
+					}
+				});
+        	}
+        	else{
+        		api.confirm({
+			   		title: '提示',
+			   	 	msg: hasBack.msg,
+					buttons: ['确定', '不了']
+				}, function(ret, err){
+					if( ret.buttonIndex === 1 ){
+						$api.rmStorage( 'hasBack' );
+						api.closeWin();
+					}
+				});       		
+        	}
+        }else{
+			api.closeWin();
+        }
+	}
+
+	// function fnGetDeviceStatus(){
+	// 	setTimeout(function(){
+	// 		api.showProgress({
+	// 		    animationType: 'zoom',
+	// 		    title: '等待连接',
+	//     		modal: true
+	// 		});
+	// 	},300);
+	// 	api.execScript({
+	// 	    name: 'root',
+	// 	    script: 'fnGetDeviceStatus('+JSON.stringify({
+	// 			winName: api.winName,
+	// 			data: api.pageParam,
+	// 			hasLoop: true
+	// 		})+')'
+	// 	});
+	// }
+	
+	// function receive_fnGetDeviceStatus( ret, err){
+	// 	if( ret ){
+	// 		if( typeof ret === 'booblean' ){
+	// 			fnPopup({
+	// 				msg: '读取设备超时'
+	// 			}, function(){
+	// 				api.closeWin();
+	// 			});
+	// 			api.hideProgress();
+	// 		}else{
+	// 			if( ret.data ){
+	// 				$api.rmStorage( 'eve_purifier'+api.pageParam.did);
+	// 				fnLocalPM25( ret );
+	// 				ret.data.PM25 = ret.data.PM25 || '000';
+	// 				if( 3 - ret.data.PM25.toString().length === 2 ){
+	// 					ret.data.PM25 = '00' + ret.data.PM25;
+	// 				}else if( 3 - ret.data.PM25.toString().length === 1 ){
+	// 					ret.data.PM25 = '0' + ret.data.PM25;
+	// 				}	
+	// 				switch( ret.data.Switch_Mode ){
+	// 					case 0: ret.data.Switch_Mode = '自动模式';
+	// 						break;
+	// 					case 1: ret.data.Switch_Mode = '睡眠模式';
+	// 						break;
+	// 					case 2: ret.data.Switch_Mode = '自定义模式';
+	// 						break;
+	// 				}
+	// 				api.pageParam.data = ret;
+	// 				$api.setStorage( 'eve_purifier'+api.pageParam.did, ret);
+	// 				// fnGetNameFromCoords();
+	// 				api.hideProgress();
+	// 			}else{
+	// 				fnPopup({
+	// 					msg: '读取设备信息失败'
+	// 				}, function(){
+	// 					api.closeWin();
+	// 				});
+	// 				api.hideProgress();
+	// 			}
+	// 		}
+	// 	}else{
+	// 		fnNotes( err, function(){
+	// 			api.closeWin();
+	// 		});
+	// 		api.hideProgress();
+	// 	}
+	// }
+	
+	function fnConnectionDevice(){
+		api.closeToWin({
+		    name: 'win_deviceList'
+		});
+
+	}	 
+					
+	function fnSearchDevice(){
+    	if( localStorage.getItem( 'searchDevice' ) ){
+    		if ( api.systemType === 'ios' ) {
+				api.confirm({
+			    	title: '提示',
+			    	msg: '确定要放弃配置吗？',
+			   	 	buttons: ['不了', '确定']
+				}, function(ret, err){
+					if( ret.buttonIndex === 2 ){
+						localStorage.setItem( 'hasConfigure', api.winName );
+						localStorage.removeItem( 'searchDevice' );
+    					api.closeToWin({
+    				    name: 'win_deviceList'
+    					});
+					}
+				});
+			}
+			else{
+				api.confirm({
+			    	title: '提示',
+			    	msg: '确定要放弃配置吗？',
+			   	 	buttons: ['确定', '不了']
+				}, function(ret, err){
+					if( ret.buttonIndex === 1 ){
+						localStorage.setItem( 'hasConfigure', api.winName );
+						localStorage.removeItem( 'searchDevice' );
+    					api.closeToWin({
+    				    name: 'win_deviceList'
+    					});
+					}
+				});
+			}
+    	}else{
+        	api.closeWin();
+        }
+    }
+	
+
+	function fnActionSheet(){
+		api.getPrefs({
+		    key:'user'
+		}, function(ret, err){
+			if( ret.value ){
+				var urserName = JSON.parse( ret.value ).userName;
+				if( urserName ){
+					var buttons = ['扫码绑定设备','添加设备','设置', '注销' ];
+				}else{
+					var buttons = ['扫码绑定设备','添加设备','设置', '登录' ];
+				}
+				
+				api.actionSheet({
+				    cancelTitle: '取消',
+				    buttons: buttons
+				}, function(ret, err){
+					if( ret.buttonIndex === 1 ){
+						fnJumpWin({name: 'FNScanner'})
+					}else if( ret.buttonIndex === 2 ){
+						fnJumpWin({name: 'selectWiFi', path: '/main'});
+					}else if( ret.buttonIndex === 3 ){
+						fnJumpWin({name: 'deviceSeting', path: '/user'});
+					}else if( ret.buttonIndex === 4 ){
+						if( buttons.indexOf( '登录' ) === -1 ){
+							if ( api.systemType === 'ios') {			
+								api.confirm({
+							    	title: '提示',
+							    	msg: '确定要退出账号吗？',
+							    	buttons: ['不了', '确定']
+								}, function(ret, err){
+									if( ret.buttonIndex === 2 ){
+										api.execScript({
+									    	name: 'win_login',
+									    	frameName: 'frm_login',
+									    	script: 'fnEmpty({userName: "", password: ""})'
+										});
+										api.removePrefs({
+									    	key: 'user'
+										});
+										api.closeWin();
+									}
+								});
+							}
+							else{
+								api.confirm({
+							    	title: '提示',
+							    	msg: '确定要退出账号吗？',
+							    	buttons: ['确定', '不了']
+								}, function(ret, err){
+									if( ret.buttonIndex === 1 ){
+										api.execScript({
+									    	name: 'win_login',
+									    	frameName: 'frm_login',
+									    	script: 'fnEmpty({userName: "", password: ""})'
+										});
+										api.removePrefs({
+									    	key: 'user'
+										});
+										api.closeWin();
+									}
+								});
+							}
+						}else{
+							api.closeWin();
+						}
+							
+					}
+				});
+			}
+		});
+	}
+	
+	function fnCancelDevice(){
+		//alert(JSON.stringify($api.getStorage('device_message')));
+		api.execScript({
+		    name: 'root',
+		    script: 'fnCancel_Setsubscribe('+JSON.stringify(
+		    	$api.getStorage('device_message')
+		    )+');'
+		});
+
+		api.sendEvent({
+		    name: 'reload1'
+		    
+		});
+
+
+			
+		api.closeWin();
+
+	}
+	function fnAddDevice(){
+		if ( api.systemType === 'ios' ) {
+			api.confirm({
+		    	title: '提示',
+		    	msg: '是否退出配置？',
+		   	 	buttons: ['不了', '确定']
+			}, function(ret, err){
+				if( ret.buttonIndex === 2 ){
+					api.closeWin();
+				}
+			});
+		}
+		else{
+			api.confirm({
+		    	title: '提示',
+		    	msg: '是否退出配置？',
+		   	 	buttons: ['确定', '不了']
+			}, function(ret, err){
+				if( ret.buttonIndex === 1 ){
+					api.closeWin();
+				}
+			});
+		}		
+	}
+	function fnGetListInfo(){
+		api.execScript({
+		    name: 'win_deviceList',
+		    frameName: 'frm_deviceList',
+		    script: 'fnInit()'
+		});
+	}
+	
+	function fnExcuteFrame( vFnName ){
+		api.execScript({
+		    frameName: 'frm_'+api.winName.replace( 'win_', ''),
+		    script: vFnName+'()'
+		});
+	}
+	
+	
+	// function fnLocalPM25( ret ){
+	// 	var localPM25 = localStorage.getItem( 'localPM25' + api.pageParam.did ) ? JSON.parse( localStorage.getItem( 'localPM25' + api.pageParam.did ) ) : [];
+	// 	var vData = {};
+	// 	if( localPM25.length >= 6){
+	// 		localPM25.shift();
+	// 	}
+	// 	for( var i = 0; i < localPM25.length; i++){
+	// 		if( fnFormat( Date.now() ) === localPM25[i].date ){
+	// 			vData = localPM25[i];
+	// 			localPM25.splice( i, 1 );
+	// 			--i;
+	// 		}
+	// 	}
+	// 	localPM25.push( {
+	// 		date: fnFormat( Date.now() ),
+	// 		PM25: ret.data ? ret.data.PM25 : vData.PM25 ? vData.PM25 : 0,
+	// 		pm25: ret.aqi ? ret.aqi.city.pm25 : vData.pm25 ? vData.pm25 : 0
+	// 	})
+	// 	localStorage.setItem( 'localPM25' + api.pageParam.did, JSON.stringify( localPM25 ) ); 
+	// 	function fnFormat( vDate ){
+	// 		vDate = new Date( vDate );
+	// 		return (vDate.getMonth() < 10 ? '0'+(vDate.getMonth()+1) : ++vDate.getMonth())+ '.' + (vDate.getDate() < 10 ? '0' + vDate.getDate() : vDate.getDate());
+	// 	}
+	// }
+
+	function fnDeviceControlMore(){
+		api.execScript({
+							name : 'win_deviceControl',
+							frameName : 'frm_deviceControl',
+	                	    script: 'moreBtnDidClick();'
+	                	}); 
+	}
+
+	function fnShowDeviceName(ret){
+
+		var alias = ret.value.devicename;
+		if (alias.length > 10) {
+			alias = alias.substring(0, 10) + "...";
+		}
+		$('.deviceName').html(alias);
+		console.log("alias = " + alias);
+		console.log("接收到通知，显示设备名称 = " + $(".deviceName").html());
+	
+	}
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" href="../../css/api.css">
+    <style>
+    	header:not(:empty){ height: 44px; position: relative;  }
+    	header .ic-back{ padding-left: 21px; padding-right: 28px; }
+    	header [class*=ic-]:not(.ic-refresh),
+    	header .left{ position: absolute; bottom: 0; background-position: 5px 50%; background-size: 18px auto; min-width: 44px; height: 44px; }
+    	header .left{left: 0;   }
+    	header .right{ right: 0; background-position: center 50% !important; }
+    	
+    	footer.purifier .flex-con{  padding-top: 57px; color: #585858; padding-bottom: 7px; text-align: center; background-size: 39px auto; background-position: center 12px; font-size: 11px; }
+    	footer.purifier .flex-con.active{ background-position: center -66px; }
+    	footer.purifier .flex-con.ic-footer-off:after{ content: '关机'; }
+    	footer.purifier .flex-con.ic-footer-off.active:after{ content: '开机'; }
+    	footer.purifier .flex-con.ic-footer-off.active{ color: white; }
+	</style>
+</head>
+<body class="flex-wrap flex-vertical">
+	<header>
+		<div tapmode="opacity" onclick="api.closeWin();" class="ic-back-auto"></div>
+		<!--<div tapmode="opacity" onclick="fnJumpWin({name: 'more',path: '/object-purifier', pageParam: api.pageParam});" class="ic-more-auto right"></div>-->
+	</header>
+	<div class="flex-con"></div>
+	<footer class="purifier" >
+		<div class="flex-wrap">
+			<div data-name="off" tapmode="opacity" onclick="fnSwitchPurifier( this );" class="flex-con ic-footer-off active"></div>
+			<div data-name="auto" tapmode="opacity" class="flex-con ic-footer-auto">自动</div>
+			<div data-name="sleep" tapmode="opacity" class="flex-con ic-footer-sleep">睡眠</div>
+			<div data-name="like" tapmode="opacity" class="flex-con ic-footer-like">喜好</div>
+		</div>
+	</footer>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		$api.fixStatusBar( $api.dom( 'header' ) );
+	}
+	
+	function fnSwitchPurifier(){
+		api.execScript({
+		    name: api.winName,
+		    script: 'fnSwitchPurifier( $api.dom( "footer.purifier .flex-con:nth-child( 2 )" ) )'
+		});
+	}
+</script>
+</html>
